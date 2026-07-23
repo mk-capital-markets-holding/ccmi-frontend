@@ -2,25 +2,28 @@ import React from "react";
 import SEO from "@/components/common/SEO";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import { FUTURE_MODULES } from "@/data/modules";
+import { useI18n } from "@/i18n/context";
+import { L } from "@/i18n/pick";
 
 const ROADMAP = [
-  { q: "Q2 2026", label: "Documentation & Academy · beta", details: "Interactive learning paths and certification tracks for developers, operators and regulators." },
-  { q: "Q4 2026", label: "Community & Support Center", details: "Global ticketing, SLA management, community forums, expert marketplace." },
-  { q: "Q1 2027", label: "Marketplace & API Docs", details: "Third-party module marketplace with rev-share model and public REST/GraphQL sandbox." },
-  { q: "Q3 2027", label: "Client & Investor Portals", details: "Multi-tier segmented portals with fine-grained data-room permissions." },
+  { q: "Q2 2026", label: { en: "Documentation & Academy · beta", fr: "Documentation & Academy · beta" }, details: { en: "Interactive learning paths and certification tracks for developers, operators and regulators.", fr: "Parcours d'apprentissage interactifs et pistes de certification pour développeurs, opérateurs et régulateurs." } },
+  { q: "Q4 2026", label: { en: "Community & Support Center", fr: "Communauté & Centre de Support" }, details: { en: "Global ticketing, SLA management, community forums, expert marketplace.", fr: "Ticketing global, gestion de SLA, forums communautaires, marketplace d'experts." } },
+  { q: "Q1 2027", label: { en: "Marketplace & API Docs", fr: "Marketplace & Docs API" }, details: { en: "Third-party module marketplace with rev-share model and public REST/GraphQL sandbox.", fr: "Marketplace de modules tiers avec modèle de partage de revenus et sandbox public REST/GraphQL." } },
+  { q: "Q3 2027", label: { en: "Client & Investor Portals", fr: "Portails Client & Investisseur" }, details: { en: "Multi-tier segmented portals with fine-grained data-room permissions.", fr: "Portails segmentés multi-niveaux avec permissions granulaires de data-room." } },
 ];
 
 export default function Roadmap() {
+  const { t, lang } = useI18n();
   return (
     <>
-      <SEO title="Platform roadmap — Future modules" description="MK CMT roadmap for Phase 2 modules: Documentation & Academy, Community & Support Center, Marketplace & API Docs, Client & Investor Portals." path="/solutions/roadmap" />
+      <SEO title={t("bc.roadmap")} description={t("roadmap.title")} path="/solutions/roadmap" />
 
       <section className="bg-mk-ink text-white pt-20 pb-20 mk-grain">
         <div className="container-mk">
-          <Breadcrumbs items={[{ label: "Solutions", to: "/solutions" }, { label: "Roadmap" }]} />
+          <Breadcrumbs items={[{ label: t("bc.solutions"), to: "/solutions" }, { label: t("bc.roadmap") }]} />
           <div className="mt-8">
-            <div className="overline mb-4">Phase 2 · 2026 – 2027</div>
-            <h1 className="font-serif text-5xl md:text-6xl leading-tight max-w-4xl">Extending the CCMI ecosystem beyond the core.</h1>
+            <div className="overline mb-4">{t("roadmap.overline")}</div>
+            <h1 className="font-serif text-5xl md:text-6xl leading-tight max-w-4xl">{t("roadmap.title")}</h1>
           </div>
         </div>
       </section>
@@ -33,9 +36,9 @@ export default function Roadmap() {
                 <m.icon className="w-8 h-8 text-mk-bronze" strokeWidth={1.5} />
                 <span className="font-mono text-xs text-mk-text2/60">F{i + 1}</span>
               </div>
-              <h3 className="font-serif text-3xl">{m.name}</h3>
-              <div className="text-sm text-mk-bronze2 uppercase tracking-widest mt-1">{m.tagline}</div>
-              <p className="mt-4 text-mk-text2">{m.description}</p>
+              <h3 className="font-serif text-3xl">{L(m.name, lang)}</h3>
+              <div className="text-sm text-mk-bronze2 uppercase tracking-widest mt-1">{L(m.tagline, lang)}</div>
+              <p className="mt-4 text-mk-text2">{L(m.description, lang)}</p>
             </div>
           ))}
         </div>
@@ -43,14 +46,14 @@ export default function Roadmap() {
 
       <section className="bg-mk-paper2 py-24">
         <div className="container-mk">
-          <div className="overline mb-3">Delivery schedule</div>
-          <h2 className="font-serif text-4xl mb-10">Quarter-by-quarter.</h2>
+          <div className="overline mb-3">{t("roadmap.delivery.overline")}</div>
+          <h2 className="font-serif text-4xl mb-10">{t("roadmap.delivery.title")}</h2>
           <ol className="divide-y divide-mk-line/15 border-y border-mk-line/15">
             {ROADMAP.map((r) => (
               <li key={r.q} className="py-6 grid grid-cols-12 gap-4">
                 <div className="col-span-3 md:col-span-2 font-mono text-mk-bronze2 text-sm">{r.q}</div>
-                <div className="col-span-9 md:col-span-4"><div className="font-serif text-lg">{r.label}</div></div>
-                <div className="col-span-12 md:col-span-6 text-mk-text2 text-sm">{r.details}</div>
+                <div className="col-span-9 md:col-span-4"><div className="font-serif text-lg">{L(r.label, lang)}</div></div>
+                <div className="col-span-12 md:col-span-6 text-mk-text2 text-sm">{L(r.details, lang)}</div>
               </li>
             ))}
           </ol>

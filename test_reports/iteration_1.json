@@ -31,6 +31,6 @@
   "seed_data_creation": "Test rows created via API (TEST_ prefixed) in: contact_submissions (8 rows), newsletter_subs (2 rows), investor_sessions (2 rows), investor_requests (1 row), nda_requests (1 row). No cleanup performed — safe to leave for future regression runs.",
   "retest_needed": false,
   "main_agent_can_self_test": true,
-  "context_for_next_testing_agent": "Backend fully green. Pytest file at /app/backend/tests/test_backend.py is the regression suite — run with: pytest /app/backend/tests/test_backend.py -v --junitxml=/app/test_reports/pytest/pytest_results.xml. When frontend testing is requested, verify integration with these endpoints from https://ccmi-capital-tech.preview.emergentagent.com. Demo access codes MKCMT2026 / INVESTOR-DEMO / DUBAI.",
+  "context_for_next_testing_agent": "Backend fully green. Pytest file at /app/backend/tests/test_backend.py is the regression suite — run with: pytest /app/backend/tests/test_backend.py -v --junitxml=/app/test_reports/pytest/pytest_results.xml. When frontend testing is requested, verify integration with these endpoints from https://mk-capital-markets.preview.emergentagent.com. Demo access codes MKCMT2026 / INVESTOR-DEMO / DUBAI.",
   "rca_of_the_issue": "N/A — no failures observed."
 }

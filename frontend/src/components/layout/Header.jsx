@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Search, ChevronDown, Globe } from "lucide-react";
 import { useI18n, localizedPath } from "@/i18n/context";
-import { MODULES, FUTURE_MODULES } from "@/data/modules";
+import { L } from "@/i18n/pick";
+import { MODULES } from "@/data/modules";
 import { INDUSTRIES } from "@/data/industries";
 
 const MAIN_LINKS = [
@@ -33,7 +34,6 @@ export default function Header({ onSearchOpen }) {
   const toggleLang = () => {
     const next = lang === "en" ? "fr" : "en";
     setLang(next);
-    // Recompute path
     let path = loc.pathname;
     path = path.replace(/^\/fr(\/|$)/, "/");
     const target = next === "fr" ? (path === "/" ? "/fr" : `/fr${path}`) : path;
@@ -75,15 +75,15 @@ export default function Header({ onSearchOpen }) {
                         <div className="flex items-start gap-3">
                           {m.icon && <m.icon className="w-5 h-5 text-mk-bronze mt-0.5" strokeWidth={1.5} />}
                           <div>
-                            <div className="text-sm text-white group-hover:text-mk-bronze transition-colors">{m.name}</div>
-                            <div className="text-xs text-white/50 mt-0.5">{m.tagline || m.lede}</div>
+                            <div className="text-sm text-white group-hover:text-mk-bronze transition-colors">{L(m.name, lang)}</div>
+                            <div className="text-xs text-white/50 mt-0.5">{L(m.tagline || m.lede, lang)}</div>
                           </div>
                         </div>
                       </Link>
                     ))}
                     {l.mega === "solutions" && (
                       <Link to={p("/solutions/roadmap")} className="col-span-2 mt-2 pt-4 border-t border-white/10 flex items-center justify-between text-mk-bronze text-sm hover:text-white transition-colors">
-                        <span>Future modules — roadmap</span><span>→</span>
+                        <span>{t("footer.future")} — {t("bc.roadmap")}</span><span>→</span>
                       </Link>
                     )}
                   </div>

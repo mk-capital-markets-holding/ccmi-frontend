@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Linkedin, Youtube, Twitter, ArrowRight } from "lucide-react";
 import { useI18n, localizedPath } from "@/i18n/context";
+import { L } from "@/i18n/pick";
 import { COMPANY } from "@/data/companyInfo";
 import axios from "axios";
 
@@ -45,7 +46,7 @@ export default function Footer() {
               <div className="flex border border-white/20">
                 <input
                   type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder={lang === "fr" ? "votre email professionnel" : "your work email"}
+                  placeholder={t("footer.newsletter_placeholder")}
                   className="flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
                   data-testid="input-newsletter-email"
                 />
@@ -53,7 +54,7 @@ export default function Footer() {
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-              {status === "done" && <div className="text-xs text-mk-bronze mt-3">{lang === "fr" ? "Merci — un email de confirmation vient d'être envoyé." : "Thank you — a confirmation email has just been sent."}</div>}
+              {status === "done" && <div className="text-xs text-mk-bronze mt-3">{t("footer.newsletter_success")}</div>}
             </form>
           </div>
 
@@ -65,7 +66,7 @@ export default function Footer() {
               <li><Link to={p("/technology")} className="hover:text-mk-bronze">{t("nav.technology")}</Link></li>
               <li><Link to={p("/investors")} className="hover:text-mk-bronze">{t("nav.investors")}</Link></li>
               <li><Link to={p("/contact")} className="hover:text-mk-bronze">{t("nav.contact")}</Link></li>
-              <li><Link to={p("/contact?tab=careers")} className="hover:text-mk-bronze">{lang === "fr" ? "Carrières" : "Careers"}</Link></li>
+              <li><Link to={p("/contact?tab=careers")} className="hover:text-mk-bronze">{t("nav.careers")}</Link></li>
             </ul>
           </div>
 
@@ -76,7 +77,7 @@ export default function Footer() {
               <li><Link to={p("/industries")} className="hover:text-mk-bronze">{t("nav.industries")}</Link></li>
               <li><Link to={p("/insights")} className="hover:text-mk-bronze">{t("nav.insights")}</Link></li>
               <li><Link to={p("/solutions/roadmap")} className="hover:text-mk-bronze">{t("footer.future")}</Link></li>
-              <li><Link to={p("/search")} className="hover:text-mk-bronze">{lang === "fr" ? "Recherche" : "Search"}</Link></li>
+              <li><Link to={p("/search")} className="hover:text-mk-bronze">{t("nav.search")}</Link></li>
             </ul>
           </div>
 
@@ -89,7 +90,7 @@ export default function Footer() {
             </ul>
             <div className="overline mt-8 mb-4">DIFC · Dubai</div>
             <div className="text-sm text-white/70 leading-relaxed">
-              {COMPANY.hq.address}<br />
+              {L(COMPANY.hq.address, lang)}<br />
               <a href={`tel:${COMPANY.hq.phone.replace(/\s/g, "")}`} className="hover:text-mk-bronze">{COMPANY.hq.phone}</a><br />
               <a href={`mailto:${COMPANY.hq.email}`} className="hover:text-mk-bronze">{COMPANY.hq.email}</a>
             </div>
