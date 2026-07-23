@@ -263,7 +263,7 @@ export default function Contact() {
             <p className="mt-4 text-mk-text2">{t("contact.dubai.body")}</p>
           </div>
           <div className="aspect-video bg-mk-ink border border-mk-line/10">
-            <iframe title="MK CMT DIFC HQ" src={COMPANY.hq.mapEmbed} className="w-full h-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            <iframe title="MK CMT DIFC HQ" src={COMPANY.hq.mapEmbed(lang)} className="w-full h-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
         </div>
       </section>

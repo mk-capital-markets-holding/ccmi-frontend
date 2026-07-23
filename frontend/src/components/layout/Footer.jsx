@@ -36,7 +36,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="font-serif text-lg">{COMPANY.short}</div>
-                <div className="overline text-[9px] text-white/50">Technologies · DIFC Dubai</div>
+                <div className="overline text-[9px] text-white/50">{t("brand.footer_tagline")}</div>
               </div>
             </div>
             <p className="text-white/70 max-w-md text-sm leading-relaxed">{t("footer.tagline")}</p>
@@ -88,7 +88,7 @@ export default function Footer() {
               <li><Link to={p("/legal/terms")} className="hover:text-mk-bronze">{t("footer.terms")}</Link></li>
               <li><Link to={p("/legal/cookies")} className="hover:text-mk-bronze">{t("footer.cookies")}</Link></li>
             </ul>
-            <div className="overline mt-8 mb-4">DIFC · Dubai</div>
+            <div className="overline mt-8 mb-4">{t("footer.difc_dubai")}</div>
             <div className="text-sm text-white/70 leading-relaxed">
               {L(COMPANY.hq.address, lang)}<br />
               <a href={`tel:${COMPANY.hq.phone.replace(/\s/g, "")}`} className="hover:text-mk-bronze">{COMPANY.hq.phone}</a><br />

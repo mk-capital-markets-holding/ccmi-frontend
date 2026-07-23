@@ -68,9 +68,13 @@ export default function Article() {
               {article.body.map((par, i) => <p key={i}>{par}</p>)}
             </div>
             <div className="mt-16 pt-8 border-t border-mk-line/15 flex flex-wrap gap-2">
-              {(article.tags || []).map(tag => (
-                <span key={tag} className="text-xs uppercase tracking-widest border border-mk-line/25 px-3 py-1 text-mk-text2">{tag}</span>
-              ))}
+              {(article.tags || []).map(tag => {
+                const key = `tag.${String(tag).toLowerCase()}`;
+                const label = t(key);
+                return (
+                  <span key={tag} className="text-xs uppercase tracking-widest border border-mk-line/25 px-3 py-1 text-mk-text2">{label === key ? tag : label}</span>
+                );
+              })}
             </div>
           </div>
         </section>

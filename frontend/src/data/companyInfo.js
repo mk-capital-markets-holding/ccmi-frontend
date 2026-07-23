@@ -8,7 +8,7 @@ export const COMPANY = {
     ir: "investors@mkcmt.io",
     press: "press@mkcmt.io",
     careers: "careers@mkcmt.io",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.826!2d55.279!3d25.213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f430243b57d0d%3A0x0!2sDIFC!5e0!3m2!1sen!2sae!4v1700000000000",
+    mapEmbed: (lang = "en") => `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.826!2d55.279!3d25.213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f430243b57d0d%3A0x0!2sDIFC!5e0!3m2!1s${lang}!2sae!4v1700000000000`,
   },
   socials: {
     linkedin: "https://www.linkedin.com/company/mkcmt",

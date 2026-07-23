@@ -1,102 +1,65 @@
-# PRD — MK Capital Markets Technologies Ltd (Corporate Website)
+# MK Capital Markets Technologies Ltd — PRD
 
-## Problem Statement
-Build a premium, institutional corporate website for **MK Capital Markets Technologies Ltd** (Dubai, UAE) — publisher of the **CCMI** platform, targeting African emerging capital markets. Must:
-- Serve as commercial/marketing reference for investors, regulators, banks, family offices
-- Present CCMI platform and its 6 modules + 4 future modules
-- Generate qualified leads through 6 form types
-- Support Series B fundraising (gated data room)
-- Attract fintech talent (careers form)
-- Reinforce Dubai as fintech corridor for Africa
-- Bilingual EN default + `/fr/` prefix for French, architected for Arabic RTL in Phase 2
+## Original Problem Statement
+Build a premium, institutional corporate website for **MK Capital Markets Technologies Ltd** (CCMI platform) — a fintech serving African emerging markets & the Gulf. High-end, credible, distinctly not "AI-slop". Full bilingual (EN default, FR at `/fr/*`) from Phase 1.
 
-**Non-negotiable design constraint**: Must NEVER look like an AI-generated SaaS template. Editorial identity like a branding agency for an investment bank / stock exchange (LSE, Nasdaq, Clearstream, Euroclear, Financial Times aesthetic).
+## Design System
+- Palette: Deep Midnight Blue (`#0A1628`) + Bronze (`#C9A961`) + Off-white
+- Typography: serif headings (Playfair-style) + clean sans-serif body
+- Grain overlay, tri-color mono/serif/sans mix, disciplined institutional feel
 
-## Stack
-- Frontend: React (CRA) + React Router + react-helmet-async + Tailwind + shadcn/ui + lucide-react + framer-motion + react-query + axios
-- Backend: FastAPI + Motor + MongoDB
-- i18n: custom React Context (`/app/frontend/src/i18n/context.jsx`)
-- Fonts: Newsreader (serif) + IBM Plex Sans (body) + IBM Plex Mono
-- Palette: `#0A1628` (deep midnight blue) + `#C9A961` (discreet gold/bronze) + `#F8F7F4` (warm off-white)
+## Tech Stack
+- **Frontend**: CRA (React 19) + React Router + React Helmet Async + Tailwind + shadcn/ui
+- **Backend**: FastAPI + Motor + MongoDB
+- **i18n**: JSON dictionaries under `/app/frontend/src/i18n/locales/{en,fr}.json`, `t()` helper for static strings, `L()` helper for bilingual data objects, `/fr/*` URL prefix + `mk-lang` localStorage
 
-## Architecture — Routes delivered
+## Pages (all fully bilingual)
+Home · About · Founder · Solutions Hub · Module × 6 · Roadmap · Industries Hub · Industry × 7 · Investors (gated data-room) · Technology · Insights · Article detail · Contact (6 forms) · Legal × 3 · Search · 404
 
-| Path | Purpose |
-|---|---|
-| `/` | Homepage: hero + value prop + modules + industries + testimonials + insights + CTA |
-| `/about` | Mission, vision, timeline (2019-2026), founder card, Africa presence grid (9 markets), values, Dubai HQ + Google Maps, licenses, certifications |
-| `/founder` | Founder bio, career, awards, upcoming events, media |
-| `/solutions` | Hub of 6 CCMI modules + link to roadmap |
-| `/solutions/roadmap` | Future modules (Phase 2) + quarterly schedule |
-| `/solutions/:slug` | Module template (6 slugs: investor-registry, corporate-governance, campaign-workspace, financial-engineering, investor-portal, ipo-hub) |
-| `/industries` | Hub of 7 industry pages |
-| `/industries/:slug` | Industry template (7 slugs: exchanges, regulators, banks, brokers, asset-managers, issuers, investors) |
-| `/investors` | Public hero + KPIs + 4 thesis sections; gated data room unlocked via demo code |
-| `/technology` | 5 architecture pillars + reference architecture 5-layer diagram |
-| `/insights` | Blog listing with category filter + live search |
-| `/insights/:slug` | Article detail with reading progress bar + share links |
-| `/contact` | 6 form tabs (general, demo, investor, careers with CV upload, partnership, support) |
-| `/legal/privacy` \| `/legal/terms` \| `/legal/cookies` | GDPR-aligned legal pages |
-| `/search` | Global search page grouped by content type |
-| `/fr/*` | All routes mirrored under FR prefix |
+## Backend Endpoints
+- `GET /api/stats`
+- `GET /api/articles?lang=&category=&q=` and `GET /api/articles/{slug}?lang=`
+- `GET /api/search?q=&lang=`
+- `POST /api/contact` (6 form types)
+- `POST /api/investors/access` (codes: MKCMT2026 / INVESTOR-DEMO / DUBAI)
+- `POST /api/newsletter`
 
-## Backend endpoints (`/api` prefix)
-- `POST /api/contact` — 6 form types stored to Mongo
-- `POST /api/newsletter/subscribe` — email upsert
-- `GET /api/articles?category=&q=&limit=` — 6 seeded articles
-- `GET /api/articles/{slug}` — full article
-- `GET /api/search?q=` — grouped results (solutions/industries/pages/articles)
-- `POST /api/investors/access` — simulated auth; demo codes `MKCMT2026`, `INVESTOR-DEMO`, `DUBAI` grant a session token
-- `POST /api/investors/verify` — verify a stored token
-- `POST /api/investors/nda` — record NDA
-- `GET /api/site/stats` — homepage KPI counters
+## Data Models
+- `ContactSubmission { form_type, payload, lang, created_at }`
+- `Article { slug, title{en,fr}, excerpt{en,fr}, body{en,fr}, tags[], category, cover, author, published_at, lang served }`
 
-## What has been implemented (2026-02)
-- ✅ Complete architecture per FRD (all 30+ pages, all interconnected)
-- ✅ Responsive (mobile / tablet / desktop / ultra-wide)
-- ✅ Six form types with validation, mocked notifications, CV upload
-- ✅ Investor gated area with simulated NDA + demo access codes
-- ✅ i18n shell (EN default, `/fr/` prefix, hreflang tags in `<Layout />`)
-- ✅ SEO meta per page (title, description, canonical, OG, Twitter Cards)
-- ✅ Legal pages (Privacy, Terms, Cookies) — GDPR/DIFC DP Law aligned
-- ✅ Cookie banner with Accept/Reject choices, persists to localStorage
-- ✅ Global search modal + dedicated `/search` page
-- ✅ Reading progress bar on article pages
-- ✅ Ticker on hero; testimonials; timeline; Google Maps embed
-- ✅ 6 CCMI modules + 4 future modules data-driven
-- ✅ 7 industry pages data-driven
-- ✅ 6 seeded blog articles with categories, tags, cover images
-- ✅ Design tokens: Newsreader serif + IBM Plex Sans, midnight+bronze palette, no purple/violet gradients, no generic SaaS aesthetics
-- ✅ 100% backend test pass (24/24), 100% frontend test pass (24 flows)
+## What's Implemented (as of Feb 2026)
+- ✅ Full design system + Tailwind config with custom `mk-ink`/`mk-bronze`/`mk-paper` colors
+- ✅ Backend: all endpoints (24/24 pytest passed, iteration_1)
+- ✅ i18n architecture: JSON dictionaries (439 keys × 2 languages), `t()` + `L()` helpers, `/fr/*` routes
+- ✅ **All 24 pages fully bilingual** — verified end-to-end by testing agent (iteration_3): 24/24 pages FR-clean, language toggle switches URL prefix AND translates content live without full reload
+- ✅ Investor gated data-room (simulated auth) + 6 forms + Search + Insights filter + Article detail with localized tags
+- ✅ Google Maps embed language now switches with UI language
+- ✅ Brand tagline localized ("Dubai" → "Dubaï" in FR)
 
-## Prioritized backlog
+## Prioritized Backlog
 
-### P0 — Ready to unlock with real integrations (no code change needed, just keys)
-1. HubSpot CRM sync for contact submissions
-2. Mailchimp for newsletter double opt-in
-3. Google Analytics 4 + Meta Pixel + LinkedIn Insight tag
-4. Google reCAPTCHA v3 site key
-5. Calendly embed on Investors + Founder pages
+### P1 — Content & polish
+- Add more mocked articles per category for richer Insights page
+- Case studies / detailed customer stories page under `/industries/{sector}`
+- Company timeline animation (parallax/scroll-driven reveals)
 
-### P1 — Phase 2 items architected but deferred
-1. Arabic (RTL) locale — i18n architecture ready; add `ar` dictionary + RTL CSS pass
-2. Full CMS admin UI with content versioning (currently seed data in `/data/*.js` + `ARTICLES` in server.py)
-3. Blog comments (moderated)
-4. Full authenticated investor space (Phase 2 per FRD)
-5. Support ticketing backend (currently form only)
-6. XML sitemap + robots.txt auto-generation
-7. Schema.org structured data for Organization/Product/Article
-8. Full French translation of page bodies (i18n shell is in place)
+### P2 — Phase 2 features
+- Arabic (RTL) architecture preparation
+- Live GA4 / HubSpot / Calendly / LinkedIn / reCAPTCHA integrations (Phase 1 = mocked)
+- CMS wiring for insights/articles (currently mocked in backend)
 
-### P2 — Optimisation
-1. Image optimization pipeline (WebP/AVIF served via next-gen format detection)
-2. Lighthouse audit + Core Web Vitals tuning
-3. E2E accessibility audit for WCAG 2.2 AA compliance
-4. Investor session TTL / expiry
+### P3 — Nice-to-have
+- URL-vs-localStorage precedence tightening: when user is on non-`/fr` URL, ignore stale FR localStorage state
+- Rich SEO / OG image generation per article
+- Investor data-room: real document downloads (mock PDF blobs)
 
-## Investor demo access (for QA)
-Codes granting immediate access to gated data room:
-- `MKCMT2026`
-- `INVESTOR-DEMO`
-- `DUBAI`
-Use with any valid email at `/investors` "Request access" form.
+## Test Credentials
+See `/app/memory/test_credentials.md` — Investor access codes: **MKCMT2026** / **INVESTOR-DEMO** / **DUBAI**.
+
+## Testing Reports
+- `/app/test_reports/iteration_1.json` — backend, 24/24 pass
+- `/app/test_reports/iteration_3.json` — frontend i18n regression, 24/24 pages FR-clean
+
+## Mocked Integrations (Phase 1)
+HubSpot, Calendly, GA4, reCAPTCHA, LinkedIn Insight, Meta Pixel — per user directive.

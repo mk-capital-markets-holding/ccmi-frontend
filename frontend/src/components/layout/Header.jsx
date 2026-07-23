@@ -52,7 +52,7 @@ export default function Header({ onSearchOpen }) {
           </div>
           <div className="hidden sm:block leading-tight">
             <div className="font-serif text-base md:text-lg">MK Capital Markets</div>
-            <div className="overline text-[9px] text-white/60 -mt-0.5">Technologies · Dubai</div>
+            <div className="overline text-[9px] text-white/60 -mt-0.5">{t("brand.tagline")}</div>
           </div>
         </Link>
 
