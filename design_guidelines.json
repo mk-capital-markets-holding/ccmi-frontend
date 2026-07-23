@@ -1,0 +1,178 @@
+{
+  "theme": "hybrid_fullstack",
+  "editorial_identity": "Institutional, premium, confident tone similar to LSE, Nasdaq, Clearstream, Euroclear, Financial Times.",
+  "colors": {
+    "primary": {
+      "hex": "#0A1628",
+      "name": "Deep Midnight Blue",
+      "usage": "Main backgrounds for dark sections, primary text in light sections, solid headers, footer background."
+    },
+    "accent": {
+      "hex": "#C9A961",
+      "name": "Discreet Bronze/Gold",
+      "usage": "Primary CTAs, delicate borders, active states, key icons, underline accents. Use sparingly to maintain premium feel."
+    },
+    "background": {
+      "light": "#F8F7F4",
+      "dark": "#060D18",
+      "usage": "Off-white/warm gray for main page backgrounds to reduce eye strain and feel editorial."
+    },
+    "surface": {
+      "light": "#FFFFFF",
+      "dark": "#111D30",
+      "usage": "Cards, dropdowns, bento boxes. Must maintain high contrast with text."
+    },
+    "text": {
+      "primary_light": "#1A1A24",
+      "secondary_light": "#4A5568",
+      "primary_dark": "#FFFFFF",
+      "secondary_dark": "#94A3B8"
+    },
+    "borders": {
+      "light": "#E2E8F0",
+      "dark": "#1E293B"
+    },
+    "rules": [
+      "No purple or violet gradients allowed.",
+      "Never use pure black (#000000) or pure gray. Always tint grays with the primary blue hue.",
+      "High contrast text visibility is mandatory."
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Newsreader, serif",
+      "body": "'IBM Plex Sans', sans-serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-6xl tracking-tight leading-none font-medium",
+      "h2": "text-3xl md:text-4xl tracking-tight leading-tight",
+      "h3": "text-2xl md:text-3xl tracking-tight",
+      "h4": "text-xl md:text-2xl font-semibold",
+      "body_large": "text-lg leading-relaxed",
+      "body_base": "text-base leading-relaxed",
+      "body_small": "text-sm leading-normal",
+      "overline": "text-xs uppercase tracking-[0.2em] font-semibold"
+    },
+    "rules": [
+      "Headings must use Newsreader (or equivalent premium serif like Fraunces). NOT Inter/Roboto.",
+      "Body must use IBM Plex Sans (or equivalent clean sans). NOT Inter/Roboto.",
+      "Never center-align large blocks of text.",
+      "Overlines should use the accent color (#C9A961) for section kickers."
+    ]
+  },
+  "spacing_scale": {
+    "philosophy": "Generous Spacing. Use 2-3x more spacing than typical designs for an editorial, premium breathing room.",
+    "containers": "px-6 md:px-12 lg:px-24",
+    "sections": "py-20 md:py-32",
+    "gaps": "gap-8 md:gap-16",
+    "bento_padding": "p-8 md:p-12"
+  },
+  "grids_layouts": {
+    "bento_grid": "Use asymmetric bento grids (e.g., col-span-8 and col-span-4) for the Modules and About values sections.",
+    "editorial_columns": "Use 2-column or 3-column strict layouts for industries and text-heavy sections, similar to Financial Times.",
+    "alignment": "Left-align text by default. Only center for specific hero statements."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#C9A961] text-[#0A1628] font-semibold px-6 py-3 rounded-none hover:bg-[#b5954a] transition-colors",
+      "secondary": "border border-[#0A1628] text-[#0A1628] px-6 py-3 rounded-none hover:bg-[#0A1628] hover:text-white transition-colors dark:border-[#C9A961] dark:text-[#C9A961] dark:hover:bg-[#C9A961] dark:hover:text-[#0A1628]"
+    },
+    "cards": {
+      "style": "Sharp edges (rounded-none or max rounded-sm), subtle 1px border. No soft, cheap shadows. Use solid crisp backgrounds."
+    },
+    "header": {
+      "style": "Sticky, condenses on scroll. Solid background (bg-[#0A1628] or bg-[#F8F7F4] based on theme). Mega-menu for Solutions/Industries."
+    },
+    "forms": {
+      "style": "Minimalist, bottom-border only (flair inputs) or very crisp rectangular inputs. Use shadcn/ui but styled flat."
+    },
+    "cookie_banner": {
+      "style": "IAB TCF 2.2 compliant style. Fixed bottom, full width, sharp edges, dark theme."
+    }
+  },
+  "visual_enhancers": {
+    "borders": "Use fine 1px borders to separate content, evoking print newspapers and stock exchange tables.",
+    "textures": "Subtle noise/grain overlay on dark sections to give a matte, institutional feel.",
+    "icons": "Use lucide-react. Stroke width 1.5. No emojis."
+  },
+  "motion": {
+    "scroll": "Lenis smooth scrolling is mandatory for momentum and premium feel.",
+    "micro_interactions": "Subtle fade-ins (opacity 0 to 1, translateY 10px to 0). No bouncy or playful animations.",
+    "hero": "WebGL or CSS subtle ambient animation or muted autoplay demo video. Do NOT distract from the authority."
+  },
+  "accessibility": {
+    "contrast": "Strict adherence to WCAG AA/APCA. Text on dark backgrounds must be legible.",
+    "focus": "focus:ring-2 focus:ring-[#C9A961] focus:outline-none"
+  },
+  "media_imagery": {
+    "direction": "Photography must evoke Dubai (skyline, financial architecture), Africa (growing markets, professional diversity), technology (dashboards, data-viz). Never generic stock photos.",
+    "treatments": "Images should have a subtle contrast boost or a faint multiply blend to match the editorial palette."
+  },
+  "image_urls": [
+    {
+      "category": "Hero / Dubai Context",
+      "url": "https://images.pexels.com/photos/1381722/pexels-photo-1381722.jpeg",
+      "description": "Dubai night skyline, useful for the global hub context."
+    },
+    {
+      "category": "Hero / Dubai Context",
+      "url": "https://images.pexels.com/photos/14365249/pexels-photo-14365249.jpeg",
+      "description": "Dubai skyline at sunset, representing the financial hub."
+    },
+    {
+      "category": "African Emerging Markets",
+      "url": "https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg",
+      "description": "Professional African business people meeting."
+    },
+    {
+      "category": "African Emerging Markets",
+      "url": "https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg",
+      "description": "Diverse team in an office in Africa."
+    },
+    {
+      "category": "Technology / CCMI Platform",
+      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+      "description": "Data visualization screen representing financial engineering modules."
+    },
+    {
+      "category": "Abstract / Institutional Accent",
+      "url": "https://images.pexels.com/photos/9965285/pexels-photo-9965285.jpeg",
+      "description": "Abstract metallic bronze geometry to be used as background textures."
+    },
+    {
+      "category": "Institutional Credibility",
+      "url": "https://images.pexels.com/photos/22065462/pexels-photo-22065462.jpeg",
+      "description": "Classic institutional building facade."
+    }
+  ],
+  "section_guidelines": {
+    "Homepage": "Animated hero (dark theme, #0A1628), Value prop section with metrics, Modules bento grid, Industries carousel, Logo wall of regulators/partners.",
+    "About": "History timeline, dual interactive maps (Dubai + Africa), Founder profile block, sharp Values bento tiles, prominent Trust Signals (Licenses).",
+    "Solutions": "Standardized template: Hero -> Arch Diagram -> Feature Grid -> Screenshots. Use tabs for deep dives.",
+    "Industries": "5 verticals. Layout: Challenges (left column) / Solutions (right column). Case studies at bottom.",
+    "Investors": "Public intro. Gated area simulating auth for Pitch Deck download, NDA, Calendly integration.",
+    "Technology": "5 pillars using a technical mono-spaced aesthetic mixed with serif headings. Architecture diagrams.",
+    "Blog": "Insights hub with editorial layout. Search autocomplete, tags, reading progress bar, newsletter CTA.",
+    "Contact": "Multi-step or tabbed form for 6 intents. Map of Dubai HQ.",
+    "Legal": "Dense, highly legible, print-like layout."
+  },
+  "instructions_to_main_agent": [
+    "Use standard React + Tailwind CSS with shadcn/ui components.",
+    "Implement Framer Motion for scroll reveals and staggered lists.",
+    "Implement Lucide React for icons.",
+    "Set up dual routing or state-based i18n for EN/FR toggle.",
+    "Do NOT use 'Inter', 'Roboto', or 'Space Grotesk' fonts. Import 'Newsreader' and 'IBM Plex Sans' from Google Fonts.",
+    "Build custom components for Architecture diagrams using HTML/CSS grid or simple SVGs, avoiding generic layouts."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Avoid generic centered layouts, simplistic gradients, and uniform styling.",
+    "No purple/blue gradients or generic 'SaaS' vibes. Stick to the locked palette: #0A1628 and #C9A961.",
+    "Create depth through layered design elements with z-index hierarchy, but keep surfaces solid/flat (not heavily blurred).",
+    "You MUST NOT apply universal transition (e.g., transition: all). Add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container. Text reading flow must be natural.",
+    "Use sharp, rectangular modern button styles (rounded-none or rounded-sm). No pill shapes.",
+    "All interactive and key informational elements MUST include a `data-testid` attribute.",
+    "NEVER use placeholder URLs for images. Use the provided image_urls."
+  ]
+}
