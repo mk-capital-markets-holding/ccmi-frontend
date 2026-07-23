@@ -1,56 +1,70 @@
-import { useEffect } from "react";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { I18nProvider } from "@/i18n/context";
+import Layout from "@/components/layout/Layout";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const Home = lazy(() => import("@/pages/Home"));
+const About = lazy(() => import("@/pages/About"));
+const Founder = lazy(() => import("@/pages/Founder"));
+const SolutionsHub = lazy(() => import("@/pages/SolutionsHub"));
+const ModulePage = lazy(() => import("@/pages/ModulePage"));
+const Roadmap = lazy(() => import("@/pages/Roadmap"));
+const IndustriesHub = lazy(() => import("@/pages/IndustriesHub"));
+const IndustryPage = lazy(() => import("@/pages/IndustryPage"));
+const Investors = lazy(() => import("@/pages/Investors"));
+const Technology = lazy(() => import("@/pages/Technology"));
+const Insights = lazy(() => import("@/pages/Insights"));
+const Article = lazy(() => import("@/pages/Article"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const Legal = lazy(() => import("@/pages/Legal"));
+const SearchPage = lazy(() => import("@/pages/Search"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+function RouteTree() {
   return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="founder" element={<Founder />} />
+        <Route path="solutions" element={<SolutionsHub />} />
+        <Route path="solutions/roadmap" element={<Roadmap />} />
+        <Route path="solutions/:slug" element={<ModulePage />} />
+        <Route path="industries" element={<IndustriesHub />} />
+        <Route path="industries/:slug" element={<IndustryPage />} />
+        <Route path="investors" element={<Investors />} />
+        <Route path="technology" element={<Technology />} />
+        <Route path="insights" element={<Insights />} />
+        <Route path="insights/:slug" element={<Article />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="legal/:doc" element={<Legal />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
-};
+}
 
-function App() {
+function Loader() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="overline text-mk-bronze">Loading…</div>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <I18nProvider>
+      <BrowserRouter>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/fr/*" element={<RouteTree />} />
+            <Route path="/*" element={<RouteTree />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </I18nProvider>
+  );
+}
