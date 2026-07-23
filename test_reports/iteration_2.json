@@ -1,0 +1,36 @@
+{
+  "summary": "Frontend UI/UX regression across MK Capital Markets Technologies corporate site — 24 flows tested via Playwright. All pages render, all 6 module pages + all 7 industry pages resolve, header mega-menus work, EN⇄FR language toggle updates URL to /fr/* and translates nav+hero, search modal opens/queries/closes correctly, investor gated data-room unlocks with MKCMT2026 (6 documents shown), cookie banner accepts and persists to localStorage, newsletter submit shows success, contact page shows 6 tabs incl. Careers CV upload, insights list + article detail (with progress bar + share links) render, all 3 legal pages render, 404 route works. Design tokens verified: Newsreader serif h1, IBM Plex Sans body, zero purple/violet detected.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "i18n coverage is limited to nav labels + Home hero + a few CTA strings. Content on /fr/about, /fr/insights, /fr/solutions, /fr/contact, /fr/technology etc. remains English. If bilingual content is a hard PRD requirement, expand the i18n dictionary or route to per-language content collections. If only shell translation is intended, add a note/lang-attribute to signal it.",
+    "SearchModal opens with data-testid on trigger (btn-search-open) but the modal container itself has no discoverable data-testid; result nodes also lack data-testid. Adds friction for future regression tests — consider `search-modal`, `search-result-{type}-{index}`.",
+    "Investors form's active/passive state relies on a POST call that returns a token synchronously for demo codes; there is no visible loading state on the submit button — a quick network hiccup could allow double-submits. Suggest disabling the CTA while pending.",
+    "Contact tab active state uses data-state (Radix) rather than aria-selected on custom `[data-testid^=\"tab-\"]` wrappers — fine, but noted for testability.",
+    "Insights category filter buttons use `data-testid=\"cat-{category}\"` (works) — inconsistent with review-request naming `filter-*`. Consider adding a `filter-` alias or documenting the actual convention.",
+    "Newsletter submit does not clear the email input after success — cosmetic UX polish.",
+    "The Investors page keeps the whole form visible (with pre-filled values) even after unlocking; consider hiding the form or scrolling to the newly revealed data-room section for clearer feedback."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (per iteration_1)",
+    "frontend": "100% of tested flows"
+  },
+  "test_credentials": "Investor demo code MKCMT2026 verified via UI — data room unlocked with 6 documents, localStorage key 'mk-investor' persists token, End-session clears it.",
+  "seed_data_creation": "One newsletter submission TEST_newsletter_ui@example.com and one investor session for TEST Investor (test.investor@example.com) created during UI testing.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Frontend is production-quality. Key testids verified: btn-hero-demo, btn-hero-contact, btn-search-open, btn-lang-toggle, btn-cookie-accept, tab-{general|demo|investor|careers|partnership|support}, input-inv-{fullname|email|org}, select-inv-{type|ticket}, input-inv-code, btn-inv-submit, investor-doc-*, module-card-{slug}, industry-card-{slug}, insight-card-{slug}, insights-categories with cat-{category} children, input-insights-search, footer-newsletter-form + input-newsletter-email + btn-newsletter-submit. All /fr/ routes render (shell translation only, page bodies remain EN which appears intentional per PRD). Design compliance verified: Newsreader serif on h1, IBM Plex Sans on body, no purple/violet gradients, deep midnight blue (#0A1628) + bronze (#C9A961) accent + warm off-white paper.",
+  "rca_of_the_issue": "N/A — no defects observed."
+}
