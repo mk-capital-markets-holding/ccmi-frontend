@@ -11,9 +11,9 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function Article() {
   const { slug } = useParams();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const p = (path) => localizedPath(path, lang);
-  const { data: article } = useQuery({ queryKey: ["article", slug], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/articles/${slug}`)).data });
+  const { data: article } = useQuery({ queryKey: ["article", slug, lang], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/articles/${slug}?lang=${lang}`)).data });
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Article() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (!article) return <div className="container-mk py-32 text-mk-text2">Loading…</div>;
+  if (!article) return <div className="container-mk py-32 text-mk-text2">{t("article.loading")}</div>;
 
   const url = typeof window !== "undefined" ? window.location.href : "";
   const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
@@ -39,17 +39,17 @@ export default function Article() {
       <article>
         <section className="bg-mk-paper pt-16 pb-10">
           <div className="container-mk max-w-4xl">
-            <Breadcrumbs items={[{ label: "Insights", to: "/insights" }, { label: article.category }]} />
+            <Breadcrumbs items={[{ label: t("bc.insights"), to: "/insights" }, { label: article.category }]} />
             <div className="mt-8">
-              <div className="overline mb-3 text-mk-bronze2">{article.category} · {article.read_minutes} min read · {article.published_at}</div>
+              <div className="overline mb-3 text-mk-bronze2">{article.category} · {article.read_minutes} {t("ins.min_read")} · {article.published_at}</div>
               <h1 className="font-serif text-4xl md:text-6xl leading-[1.05]">{article.title}</h1>
               <p className="mt-6 text-xl text-mk-text2 leading-relaxed max-w-3xl">{article.excerpt}</p>
               <div className="mt-8 flex items-center justify-between border-y border-mk-line/15 py-4">
-                <div className="text-sm">By <span className="font-medium">{article.author}</span></div>
+                <div className="text-sm">{t("article.by")} <span className="font-medium">{article.author}</span></div>
                 <div className="flex items-center gap-3 text-mk-text2">
-                  <a href={shareLinkedIn} target="_blank" rel="noopener noreferrer" aria-label="Share LinkedIn" className="hover:text-mk-bronze"><Linkedin className="w-4 h-4" strokeWidth={1.5} /></a>
-                  <a href={shareX} target="_blank" rel="noopener noreferrer" aria-label="Share X" className="hover:text-mk-bronze"><Twitter className="w-4 h-4" strokeWidth={1.5} /></a>
-                  <button onClick={() => navigator.clipboard?.writeText(url)} aria-label="Copy link" className="hover:text-mk-bronze"><LinkIcon className="w-4 h-4" strokeWidth={1.5} /></button>
+                  <a href={shareLinkedIn} target="_blank" rel="noopener noreferrer" aria-label={t("article.share.linkedin")} className="hover:text-mk-bronze"><Linkedin className="w-4 h-4" strokeWidth={1.5} /></a>
+                  <a href={shareX} target="_blank" rel="noopener noreferrer" aria-label={t("article.share.x")} className="hover:text-mk-bronze"><Twitter className="w-4 h-4" strokeWidth={1.5} /></a>
+                  <button onClick={() => navigator.clipboard?.writeText(url)} aria-label={t("article.share.copy")} className="hover:text-mk-bronze"><LinkIcon className="w-4 h-4" strokeWidth={1.5} /></button>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function Article() {
         <section className="bg-mk-paper py-16">
           <div className="container-mk max-w-3xl">
             <div className="space-y-6 text-lg leading-relaxed text-mk-text">
-              {article.body.map((p, i) => <p key={i}>{p}</p>)}
+              {article.body.map((par, i) => <p key={i}>{par}</p>)}
             </div>
             <div className="mt-16 pt-8 border-t border-mk-line/15 flex flex-wrap gap-2">
               {(article.tags || []).map(tag => (
@@ -77,8 +77,8 @@ export default function Article() {
 
         <section className="bg-mk-paper2 py-16">
           <div className="container-mk max-w-3xl text-center">
-            <div className="overline mb-3">Continue reading</div>
-            <Link to={p("/insights")} className="font-serif text-3xl md:text-4xl hover:text-mk-bronze2 transition-colors">All insights →</Link>
+            <div className="overline mb-3">{t("ins.continue")}</div>
+            <Link to={p("/insights")} className="font-serif text-3xl md:text-4xl hover:text-mk-bronze2 transition-colors" data-testid="article-all-insights">{t("article.all_insights")}</Link>
           </div>
         </section>
       </article>
