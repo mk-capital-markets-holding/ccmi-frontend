@@ -10,7 +10,7 @@ export default function Founder() {
   const { t, lang } = useI18n();
   return (
     <>
-      <SEO title={`${t("nav.founder")} — ${FOUNDER.name}`} description={lang === "fr" ? "Malik Kamara — CFA, FRM. 22 ans dans les marchés de capitaux. Fondateur & CEO de MK Capital Markets Technologies." : "Malik Kamara — CFA, FRM. 22 years across capital markets. Founder & CEO of MK Capital Markets Technologies."} path="/founder" />
+      <SEO title={`${t("nav.founder")} — ${FOUNDER.name}`} description={lang === "fr" ? "Florent Makanda, Fondateur & CEO de MK Capital Markets Holdings." : "Florent Makanda, Founder & CEO of MK Capital Markets Holdings."} path="/founder" />
 
       <section className="bg-mk-ink text-white pt-20 pb-24 mk-grain">
         <div className="container-mk">

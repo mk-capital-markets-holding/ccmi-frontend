@@ -27,7 +27,7 @@ export default function About() {
     <>
       <SEO
         title={t("bc.about")}
-        description={lang === "fr" ? "Fondée au DIFC en 2019, MK Capital Markets Technologies conçoit CCMI, le système d'exploitation des acteurs des marchés de capitaux en Afrique et dans le Golfe." : "Founded in DIFC in 2019, MK Capital Markets Technologies engineers CCMI, the operating system for capital-markets participants in Africa and the Gulf."}
+        description={lang === "fr" ? "Fondée au DIFC en 2026, MK Capital Markets Technologies conçoit CCMI, le système d'exploitation des acteurs des marchés de capitaux en Afrique et dans le Golfe." : "Founded in DIFC in 2019, MK Capital Markets Technologies engineers CCMI, the operating system for capital-markets participants in Africa and the Gulf."}
         path="/about"
       />
 
