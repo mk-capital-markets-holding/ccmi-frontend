@@ -236,8 +236,14 @@ export default function Contact() {
             </div>
             <div className="lg:col-span-4 border-l border-mk-bronze/40 pl-6 text-sm text-white/70 space-y-4">
               <div className="flex gap-3"><MapPin className="w-4 h-4 text-mk-bronze mt-1" strokeWidth={1.5} /><span>{L(COMPANY.hq.address, lang)}</span></div>
-              <div>{t("contact.phone")}: <a href={`tel:${COMPANY.hq.phone.replace(/\s/g, "")}`} className="hover:text-mk-bronze">{COMPANY.hq.phone}</a></div>
-              <div>{t("contact.email")}: <a href={`mailto:${COMPANY.hq.email}`} className="hover:text-mk-bronze">{COMPANY.hq.email}</a></div>
+              <div>
+  <span>{t("contact.phone")} </span>
+  <a href={`tel:${COMPANY.hq.phone.replace(/\s/g, "")}`} className="hover:text-mk-bronze">{COMPANY.hq.phone}</a>
+</div>
+<div>
+  <span>{t("contact.email")} </span>
+  <a href={`mailto:${COMPANY.hq.email}`} className="hover:text-mk-bronze">{COMPANY.hq.email}</a>
+</div>
             </div>
           </div>
         </div>

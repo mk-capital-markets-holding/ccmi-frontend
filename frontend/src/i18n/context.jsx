@@ -1,44 +1,62 @@
-import React, { createContext, useContext, useMemo, useEffect, useState, useCallback } from "react";
-import { translations } from "./translations";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import fr from "./locales/fr.json";
+import en from "./locales/en.json";
+
+const translations = { fr, en };
 
 const I18nContext = createContext(null);
 
-export const LANGS = ["en", "fr"];
-
 export function I18nProvider({ children }) {
-  const [lang, setLang] = useState(() => {
-    if (typeof window === "undefined") return "en";
-    // Detect from URL prefix /fr
-    const path = window.location.pathname;
-    if (path.startsWith("/fr/") || path === "/fr") return "fr";
-    const stored = window.localStorage.getItem("mk-lang");
-    if (stored && LANGS.includes(stored)) return stored;
-    return "en";
+  // Détection initiale via window.location (ne plante pas si hors du Router)
+  const [lang, setLangState] = useState(() => {
+    if (typeof window !== "undefined") {
+      const pathLang = window.location.pathname.split("/")[1];
+      if (pathLang === "en" || pathLang === "fr") return pathLang;
+      return localStorage.getItem("mk-lang") || "fr";
+    }
+    return "fr";
   });
 
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    window.localStorage.setItem("mk-lang", lang);
-  }, [lang]);
+  const setLang = (newLang) => {
+    setLangState(newLang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("mk-lang", newLang);
+      document.documentElement.lang = newLang;
+    }
+  };
 
-  const t = useCallback((key) => {
-    const dict = translations[lang] || translations.en;
-    return dict[key] || translations.en[key] || key;
-  }, [lang]);
+  const t = useCallback(
+    (key) => {
+      if (translations[lang] && translations[lang][key] !== undefined) {
+        return translations[lang][key];
+      }
+      if (translations.fr && translations.fr[key] !== undefined) {
+        return translations.fr[key];
+      }
+      return key;
+    },
+    [lang]
+  );
 
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+  return (
+    <I18nContext.Provider value={{ lang, setLang, t }}>
+      {children}
+    </I18nContext.Provider>
+  );
 }
 
-export const useI18n = () => {
+export function useI18n() {
   const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error("useI18n must be used within I18nProvider");
+  if (!ctx) throw new Error("useI18n doit être utilisé dans I18nProvider");
   return ctx;
-};
+}
 
-/** Compute a URL keeping the current language prefix. */
-export const localizedPath = (path, lang) => {
-  const clean = path.startsWith("/") ? path : `/${path}`;
-  if (lang === "fr") return `/fr${clean === "/" ? "" : clean}`;
-  return clean;
-};
+export function localizedPath(path, lang) {
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (cleanPath.startsWith("/fr/") || cleanPath.startsWith("/en/")) {
+    const parts = cleanPath.split("/");
+    parts[1] = lang;
+    return parts.join("/");
+  }
+  return `/${lang}${cleanPath === "/" ? "" : cleanPath}`;
+}

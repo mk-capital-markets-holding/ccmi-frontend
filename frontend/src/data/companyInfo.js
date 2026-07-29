@@ -2,10 +2,10 @@ export const COMPANY = {
   legalName: "MK Capital Markets Technologies Ltd",
   short: "MK Capital Markets Technologies",
   hq: {
-    address: { 
-      en: "Level 24, Emirates Financial Towers, DIFC, Dubai, UAE", 
-      fr: "Niveau 24, Emirates Financial Towers, DIFC, Dubaï, Émirats Arabes Unis" 
-    },
+    address: {
+  en: "DIFC, Dubai, United Arab Emirates",
+  fr: "DIFC, Dubaï, Émirats Arabes Unis"
+},
     phone: "+33 6 18 35 02 52",
     email: "florent.makanda@mk-capital.com",
     ir: "investors@mkcmt.io",
