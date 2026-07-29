@@ -1,0 +1,52 @@
+{
+  "summary": "Frontend i18n regression: 24 FR pages + language toggle + investor unlock + insights filter + search + article detail exhaustively tested against /app/frontend/src/i18n/locales/fr.json. Result: bilingual coverage is EFFECTIVELY COMPLETE for all first-party page content. Every hero, section heading, body paragraph, form label/placeholder/select-option, CTA, tab label, footer link, cookie banner, and error message renders in French on /fr/* routes. Language toggle btn-lang-toggle swaps URL prefix AND translates content live without full reload. Investor code MKCMT2026 unlocks the FR data room (200 OK from /api/investors/access) with 6 documents whose titles are all French. Contact form labels/placeholders (Nom complet, Email professionnel, Organisation, Téléphone, Société, Secteur, Type d'institution, Pays, Modules d'intérêt, Message optionnel) all localized. Insights category filter buttons render TOUTES / MARCHÉS DE CAPITAUX / TECHNOLOGIE / AFRIQUE / DUBAÏ / PRODUIT / SOCIÉTÉ. Article page delivers fully translated title, excerpt, byline (Par ...), and body via backend ?lang=fr. Only residual English fragments are (1) third-party Google Maps iframe controls, (2) three article-tag pills coming from backend seed data, and (3) brand token 'DUBAI' in the small logo tagline. All are noted below as MINOR.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "/fr/contact — Emirates Financial Towers · DIFC map",
+        "issues": [
+          "Google Maps embed iframe uses hard-coded English locale (…!1sen!2sae!…). On FR pages the map still shows English UI: 'Open in Maps', 'Keyboard shortcuts', 'Map data ©2026 Google', 'Terms', 'Report a map error'. Fix: swap the last-but-one segment based on current lang, e.g. `!1s${lang}!2sae!` or use `hl=${lang}` query."
+        ]
+      },
+      {
+        "screen": "/fr/insights/{slug} — article tag pills at bottom",
+        "issues": [
+          "Article.tags in backend/seed data are single-language English arrays (e.g. EXCHANGES, INFRASTRUCTURE, LIQUIDITY). They render un-translated on the FR article page. Either localise the tags via a {en,fr} object served by /api/articles/{slug}?lang=fr or add a translation map in the frontend."
+        ]
+      },
+      {
+        "screen": "Site-wide — header/footer logo tagline",
+        "issues": [
+          "The bronze micro-caps tagline under the M logo reads 'TECHNOLOGIES · DUBAI' in both languages. Per strict PRD wording ('EVERY string') this should render 'TECHNOLOGIES · DUBAÏ' on FR pages. Kept as a brand token today. Low priority — treat as brand mark."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/test_reports/pytest/pytest_results.xml (from iteration_1, backend)"
+  ],
+  "action_items": [
+    "MEDIUM: Localise the Google Maps embed URL (change !1sen!2sae! to reflect current language) on the Contact/HQ block so map chrome switches with the site language.",
+    "LOW: Serve article.tags as bilingual objects from /api/articles or map them client-side (add a `tags.exchanges` = { en: 'Exchanges', fr: 'Bourses' } dictionary) so the three tag pills flip on /fr.",
+    "LOW (optional): Update the small logo tagline 'TECHNOLOGIES · DUBAI' → 'TECHNOLOGIES · DUBAÏ' when lang === 'fr', or accept as brand token.",
+    "LOW (nice-to-have): In i18n/context.jsx, when the user is on a URL WITHOUT the /fr prefix, don't let a stale localStorage value force French rendering — either strip the prefix from URL to always match state, or invert precedence to URL > localStorage. Currently mixing them can create routes whose URL disagrees with rendered language after a manual URL edit."
+  ],
+  "critical_code_review_comments": [
+    "i18n architecture (JSON dictionaries + t() + L() picker) is clean and scales; keys named by domain (contact.form.*, investors.section.*) — good practice.",
+    "en.json and fr.json are identically 437 lines — key parity looks intact.",
+    "Insights filter buttons use data-testid 'cat-<English category slug>' (cat-Capital Markets, cat-Africa…) — testids remain English even in FR, which is CORRECT (testids are contracts, not UX). Documented for next testing agent.",
+    "Article page tags come from backend model as a flat list of English strings — needs a bilingual data-shape or client-side lookup to satisfy full-content translation.",
+    "Google Maps iframe language is hard-coded — the only clear i18n gap left on Contact."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "100% (from iteration_1)", "frontend": "24/24 pages FR-clean; 100% of tested interactive flows" },
+  "test_credentials": "Investor demo code MKCMT2026 verified on /fr/investors — POST /api/investors/access returned 200, data room unlocks with 6 French-titled documents (Pitch Deck · Série B, Mémorandum d'Information, Projections Financières 2026-2030, Table de Capitalisation, Roadmap Produit · Détaillée, Appels de référence · calendrier).",
+  "seed_data_creation": "One investor session created via UI: TEST Investor FR / test.investor.fr@example.com / TEST Org FR. Also one under TEST FR / t@x.com / T Org.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Language coverage on /fr routes is essentially complete. Confirmed testid map: btn-lang-toggle (header), tab-{general|demo|investor|careers|partnership|support} (contact), input-inv-{fullname|email|org|code}, select-inv-{type|ticket}, btn-inv-submit, investor-doc-inv.gated.doc1..6, insights-categories with children data-testid='cat-{English category name}' (labels are translated via t() but testid slugs stay English), input-insights-search, insights-featured, article-card-{slug} (slug remains English even under /fr — canonical), input-newsletter-email, btn-newsletter-submit, btn-cookie-accept, btn-cookie-reject. Only residual English text on FR pages is inside the embedded Google Maps iframe (third-party) and the three article tag pills at bottom of article body (backend seed data).",
+  "rca_of_the_issue": "During iteration_2 the prior testing agent flagged that only the header/nav switched languages while page bodies stayed English. Root cause was a shallow i18n dictionary + several pages consuming raw literal strings. Main agent then (a) migrated to JSON locale files, (b) added ~75 keys, (c) refactored the 8 remaining pages (Investors, Technology, Insights, Article, Contact, Legal, Search, NotFound) to consume t()/L(). This iteration confirms the fix landed cleanly: no first-party string leaks on any FR route. Remaining fragments are third-party (Google Maps chrome) or backend seed data (article.tags) — different failure modes requiring targeted fixes, listed in action_items."
+}

@@ -1,0 +1,36 @@
+{
+  "summary": "Comprehensive backend API testing for MK Capital Markets Technologies (CCMI) corporate site. 24/24 pytest tests passed covering root, site stats, articles (list/filter/search/detail/404), global search (with min-length guard), contact forms (all 6 types + invalid), newsletter (valid, upsert, invalid email), investor access (demo codes MKCMT2026 & INVESTOR-DEMO grant tokens; missing code returns pending), and NDA. All endpoints reachable via REACT_APP_BACKEND_URL /api prefix.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py uses deprecated FastAPI @app.on_event('shutdown'); consider migrating to lifespan handlers (non-blocking, cosmetic).",
+    "ARTICLES / SEARCHABLE are in-memory seed data; documented as mocked CMS per PRD — fine for MVP but flag if persistence is expected later.",
+    "CORS allow_origins pulled from env with default '*' — acceptable for staging; tighten for prod.",
+    "Investor access token is stored but there is no TTL / expiry logic; /investors/verify accepts any stored token indefinitely."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_backend.py"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "not tested (per request)"
+  },
+  "test_credentials": "Investor demo codes verified working: MKCMT2026, INVESTOR-DEMO (both return status=granted with token). DUBAI not explicitly tested but same code path.",
+  "seed_data_creation": "Test rows created via API (TEST_ prefixed) in: contact_submissions (8 rows), newsletter_subs (2 rows), investor_sessions (2 rows), investor_requests (1 row), nda_requests (1 row). No cleanup performed — safe to leave for future regression runs.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend fully green. Pytest file at /app/backend/tests/test_backend.py is the regression suite — run with: pytest /app/backend/tests/test_backend.py -v --junitxml=/app/test_reports/pytest/pytest_results.xml. When frontend testing is requested, verify integration with these endpoints from https://mk-capital-markets.preview.emergentagent.com. Demo access codes MKCMT2026 / INVESTOR-DEMO / DUBAI.",
+  "rca_of_the_issue": "N/A — no failures observed."
+}
