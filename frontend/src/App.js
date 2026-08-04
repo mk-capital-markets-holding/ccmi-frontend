@@ -1,25 +1,26 @@
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@/App.css";
 import { I18nProvider } from "@/i18n/context";
 import Layout from "@/components/layout/Layout";
 
-const Home = lazy(() => import("@/pages/Home"));
-const About = lazy(() => import("@/pages/About"));
-const Founder = lazy(() => import("@/pages/Founder"));
-const SolutionsHub = lazy(() => import("@/pages/SolutionsHub"));
-const ModulePage = lazy(() => import("@/pages/ModulePage"));
-const Roadmap = lazy(() => import("@/pages/Roadmap"));
-const IndustriesHub = lazy(() => import("@/pages/IndustriesHub"));
-const IndustryPage = lazy(() => import("@/pages/IndustryPage"));
-const Investors = lazy(() => import("@/pages/Investors"));
-const Technology = lazy(() => import("@/pages/Technology"));
-const Insights = lazy(() => import("@/pages/Insights"));
-const Article = lazy(() => import("@/pages/Article"));
-const Contact = lazy(() => import("@/pages/Contact"));
-const Legal = lazy(() => import("@/pages/Legal"));
-const SearchPage = lazy(() => import("@/pages/Search"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
+// Imports directs sans doublons
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Founder from "@/pages/Founder";
+import SolutionsHub from "@/pages/SolutionsHub";
+import ModulePage from "@/pages/ModulePage";
+import Roadmap from "@/pages/Roadmap";
+import IndustriesHub from "@/pages/IndustriesHub";
+import IndustryPage from "@/pages/IndustryPage";
+import Investors from "@/pages/Investors";
+import Technology from "@/pages/Technology";
+import Insights from "@/pages/Insights";
+import Article from "@/pages/Article";
+import Contact from "@/pages/Contact";
+import Legal from "@/pages/Legal";
+import SearchPage from "@/pages/Search";
+import NotFound from "@/pages/NotFound";
 
 function RouteTree() {
   return (
@@ -46,24 +47,14 @@ function RouteTree() {
   );
 }
 
-function Loader() {
-  return (
-    <div className="min-h-[60vh] flex items-center justify-center">
-      <div className="overline text-mk-bronze">Loading…</div>
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <I18nProvider>
       <BrowserRouter>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/fr/*" element={<RouteTree />} />
-            <Route path="/*" element={<RouteTree />} />
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route path="/fr/*" element={<RouteTree />} />
+          <Route path="/*" element={<RouteTree />} />
+        </Routes>
       </BrowserRouter>
     </I18nProvider>
   );

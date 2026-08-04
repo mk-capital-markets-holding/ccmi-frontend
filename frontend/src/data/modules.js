@@ -1,196 +1,358 @@
-// CCMI Modules — bilingual content. Use L(field, lang) helper.
-import {
-  Users, Shield, Megaphone, LineChart, Building2, Rocket,
-  BookOpen, MessageSquare, Store, KeyRound,
+import { 
+  Users, 
+  FileCheck, 
+  TrendingUp, 
+  Calculator, 
+  UserCheck, 
+  Globe,
+  ShieldCheck,
+  Workflow,
+  FileText,
+  PieChart,
+  Cpu,
+  Bell,
+  History
 } from "lucide-react";
 
 export const MODULES = [
   {
-    slug: "investor-onboarding",
+    slug: "investor-lifecycle",
+    num: "01",
     icon: Users,
-    name: { en: "Investor Onboarding & KYC", fr: "Investor Onboarding & KYC" },
+    screenshot: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    name: {
+      en: "Investor Lifecycle & Compliance",
+      fr: "Investor Lifecycle & Conformité"
+    },
     tagline: {
-      en: "Automated investor onboarding, digital registry, and risk scoring.",
-      fr: "Embarquement automatisé, registre numérique et scoring de risque.",
+      en: "Digitize the complete investor lifecycle with automated KYC/AML.",
+      fr: "Digitaliser l'ensemble du cycle de vie des investisseurs."
     },
     description: {
-      en: "Streamline the investor journey with digital registration, automated KYC/KYB checks, and continuous risk assessment within a secure document repository.",
-      fr: "Digitalisez le parcours investisseur grâce à l'enregistrement numérique, des vérifications KYC/KYB automatisées et une évaluation continue des risques dans un coffre-fort documentaire.",
+      en: "Centralizes onboarding, regulatory compliance, and investor data management in a secure digital environment aligned with FATF, ESAAMLG, and GIABA requirements.",
+      fr: "Le point d'entrée de toute relation investisseur sur la plateforme CCMI. Il centralise l'onboarding, la conformité réglementaire (FATF, ESAAMLG, GIABA) et la gestion des données investisseurs."
     },
     features: [
-      { title: { en: "Digital registry", fr: "Registre numérique" }, detail: { en: "Centralized investor profile and holdings management.", fr: "Gestion centralisée du profil et des positions des investisseurs." } },
-      { title: { en: "Automated KYC & KYB", fr: "Vérification KYC & KYB" }, detail: { en: "Automated identity and entity verification processes.", fr: "Processus automatisés de vérification d'identité et de personnes morales." } },
-      { title: { en: "Risk assessment engine", fr: "Moteur de scoring de risque" }, detail: { en: "Dynamic risk scoring and compliance profiling.", fr: "Scoring de risque dynamique et profilage de conformité." } },
-      { title: { en: "Secure document vault", fr: "Coffre-fort documentaire" }, detail: { en: "Encrypted repository for ID and legal documentation.", fr: "Espace sécurisé et crypté pour pièces d'identité et documents juridiques." } },
-      { title: { en: "CEMAC Regulatory compliance", fr: "Conformité CEMAC" }, detail: { en: "Built to align with COSUMAF guidelines and regional norms.", fr: "Conçu selon les directives de la COSUMAF et normes régionales." } },
-      { title: { en: "Audit-ready logs", fr: "Piste d'audit complète" }, detail: { en: "Immutable verification logs for regulatory compliance.", fr: "Traces d'audit immuables pour les contrôles réglementaires." } },
+      { title: { en: "Digital Onboarding", fr: "Onboarding Digital" }, detail: { en: "KYC & KYB verification flows", fr: "Parcours de vérification KYC & KYB" }, en: "Digital Onboarding (KYC / KYB)", fr: "Onboarding Digital (KYC / KYB)" },
+      { title: { en: "AML Screening", fr: "Screening AML" }, detail: { en: "Real-time AML workflow & screening", fr: "Workflow AML & screening en temps réel" }, en: "Real-time AML Workflow & Screening", fr: "Workflow AML & Screening en temps réel" },
+      { title: { en: "Beneficial Owners", fr: "Bénéficiaires Effectifs" }, detail: { en: "Document & Beneficial owner management", fr: "Gestion documentaire & bénéficiaires effectifs" }, en: "Document & Beneficial Owner Management", fr: "Gestion documentaire & Bénéficiaires effectifs" },
+      { title: { en: "Investor CRM", fr: "Base CRM Investisseurs" }, detail: { en: "Investor classification & investor CRM", fr: "Classification & base CRM investisseurs" }, en: "Investor Classification & Investor CRM", fr: "Classification & Base CRM Investisseurs" },
+      { title: { en: "Compliance Validation", fr: "Validation Conformité" }, detail: { en: "Custom questionnaires & compliance validation", fr: "Questionnaires personnalisés & validation conformité" }, en: "Custom Questionnaires & Compliance Validation", fr: "Questionnaires personnalisés & Validation conformité" },
+      { title: { en: "Audit Trail", fr: "Audit Trail & Reporting" }, detail: { en: "Complete audit trail & regulatory reporting", fr: "Historique complet, audit trail & reporting réglementaire" }, en: "Complete Audit Trail & Regulatory Reporting", fr: "Historique complet, Audit Trail & Reporting réglementaire" }
     ],
     benefits: [
-      { kpi: "-85%", label: { en: "onboarding delay", fr: "délai d'embarquement" } },
-      { kpi: "100%", label: { en: "KYC/KYB digitalized", fr: "KYC/KYB digitalisés" } },
-      { kpi: "T+0", label: { en: "account activation", fr: "activation de compte" } },
+      { kpi: "100%", label: { en: "compliant onboarding", fr: "onboarding conforme" } },
+      { kpi: "FATF", label: { en: "aligned standards", fr: "normes alignées" } },
+      { kpi: "T+0", label: { en: "audit readiness", fr: "disponibilité d'audit" } }
     ],
     architecture: [
-      { en: "FastAPI / Python backend", fr: "Backend FastAPI / Python" },
-      { en: "Microservices architecture", fr: "Architecture microservices" },
-      { en: "Encrypted document storage", fr: "Stockage documentaire chiffré" },
-      { en: "Cloud-native SaaS deployment", fr: "Déploiement Cloud-native SaaS" },
+      { en: "Automated KYC/AML Engine", fr: "Moteur KYC/AML automatisé" },
+      { en: "Encrypted Document Repository", fr: "Coffre-fort documentaire chiffré" },
+      { en: "Regulatory Reporting Pipeline", fr: "Pipeline de reporting réglementaire" }
     ],
-    screenshot: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    targetClients: [
+      { en: "Brokerage Firms (Sociétés de Bourse)", fr: "Sociétés de Bourse" },
+      { en: "Commercial & Investment Banks", fr: "Banques" },
+      { en: "Asset Managers", fr: "Gestionnaires d'Actifs" },
+      { en: "Corporates & Family Offices", fr: "Entreprises & Family Offices" }
+    ],
+    valueCreated: {
+      en: "Replaces fragmented spreadsheet silos with a unified, audited, and compliant investor database. Drastically reduces onboarding time and eliminates data entry errors.",
+      fr: "Unifie les silos Excel et dossiers papier dans une base unique, centralisée et auditée. Réduit immédiatement les délais d'onboarding et élimine les risques réglementaires."
+    }
   },
   {
     slug: "securities-registry",
-    icon: Shield,
-    name: { en: "Corporate Governance & Registry", fr: "Gouvernance & Registre de Titres" },
-    tagline: { en: "Shareholder registry, Cap Table, and e-Voting on a single platform.", fr: "Registre d'actionnaires, Cap Table et vote électronique centralisés." },
+    num: "02",
+    icon: FileCheck,
+    screenshot: "https://images.pexels.com/photos/22065462/pexels-photo-22065462.jpeg",
+    name: {
+      en: "Digital Securities Registry & Governance",
+      fr: "Registre Numérique & Gouvernance"
+    },
+    tagline: {
+      en: "Fully dematerialize shares, bonds, and corporate governance.",
+      fr: "Dématérialiser totalement les titres et la gouvernance."
+    },
     description: {
-      en: "Maintain dynamic share registers, automate corporate actions, manage Cap Tables in real time, and hold secure general assemblies with integrated e-Voting.",
-      fr: "Tenez à jour des registres d'actionnaires dynamiques, automatisez les opérations sur titres, gérez les Cap Tables et organisez des AG avec vote électronique.",
+      en: "Serves as the legal and financial source of truth for shareholding structure, cap tables, bond registries, e-voting, and corporate actions.",
+      fr: "Le cœur opérationnel constituant la source de vérité juridique et financière pour l'ensemble des droits attachés aux titres : Cap Table dynamique, dividendes, votes et transferts."
     },
     features: [
-      { title: { en: "Dynamic Cap Table", fr: "Cap Table dynamique" }, detail: { en: "Real-time ownership tracking and dilution management.", fr: "Suivi en temps réel de l'actionnariat et gestion des dilutions." } },
-      { title: { en: "e-Voting platform", fr: "Vote électronique" }, detail: { en: "Cryptographically verifiable votes for general meetings.", fr: "Votes sécurisés et vérifiables pour les assemblées générales." } },
-      { title: { en: "Corporate actions", fr: "Opérations sur titres" }, detail: { en: "Automated distribution of dividends, splits, and capital changes.", fr: "Distribution automatisée des dividendes, splits et augmentations." } },
-      { title: { en: "Assembly management", fr: "Gestion des assemblées" }, detail: { en: "Minutes generation and board pack distribution.", fr: "Génération des PV et distribution des dossiers de conseil." } },
-      { title: { en: "Regulator reporting", fr: "Reporting régulateur" }, detail: { en: "Standardized disclosure exports for oversight bodies.", fr: "Exports de divulgation standardisés pour autorités de contrôle." } },
-      { title: { en: "Access control (RBAC)", fr: "Contrôle d'accès RBAC" }, detail: { en: "Role-based permissions for management, board, and shareholders.", fr: "Permissions basées sur les rôles (direction, conseil, actionnaires)." } },
+      { title: { en: "Dynamic Cap Table", fr: "Cap Table Dynamique" }, detail: { en: "Dynamic Cap Table & Share Classes", fr: "Cap Table dynamique & classes d'actions" }, en: "Dynamic Cap Table & Share Classes", fr: "Cap Table dynamique & Classes d'actions" },
+      { title: { en: "Bond Registry", fr: "Registre Obligataire" }, detail: { en: "Bond registry & digitized certificates (QR Code)", fr: "Registre obligataire & certificats numériques (QR Code)" }, en: "Bond Registry & Digitized Certificates (QR Code)", fr: "Registre obligataire & Certificats numériques (QR Code)" },
+      { title: { en: "Corporate Actions", fr: "Opérations sur Titres" }, detail: { en: "Transfers, dividends & coupons history", fr: "Historique des mouvements, transferts, dividendes & coupons" }, en: "Corporate Actions (Transfers, Dividends & Coupons)", fr: "Historique des mouvements, Transferts, Dividendes & Coupons" },
+      { title: { en: "Digital Board", fr: "Conseil & E-Voting" }, detail: { en: "Digital board & e-voting for General Meetings", fr: "Conseil d'administration & vote électronique aux AG" }, en: "Digital Board & E-Voting for General Meetings", fr: "Conseil d'Administration & Vote électronique aux AG" },
+      { title: { en: "Legal Documents", fr: "GED Juridique" }, detail: { en: "Resolutions, minutes & legal document management", fr: "Résolutions, procès-verbaux & GED juridique" }, en: "Resolutions, Minutes & Legal Document Management", fr: "Résolutions, Procès-verbaux & GED juridique" },
+      { title: { en: "Audit Trail", fr: "Audit Trail Immuable" }, detail: { en: "Immutable system audit trail", fr: "Historique complet & audit trail immuable" }, en: "Immutable System Audit Trail", fr: "Historique complet & Audit Trail immuable" }
     ],
     benefits: [
-      { kpi: "-70%", label: { en: "AGM preparation time", fr: "temps de préparation AG" } },
-      { kpi: "100%", label: { en: "traceable voting", fr: "traçabilité des votes" } },
+      { kpi: "100%", label: { en: "dematerialized registers", fr: "registres dématérialisés" } },
       { kpi: "Real-time", label: { en: "Cap Table updates", fr: "mise à jour Cap Table" } },
+      { kpi: "QR Code", label: { en: "instant verification", fr: "vérification instantanée" } }
     ],
     architecture: [
-      { en: "Event-driven ledger architecture", fr: "Architecture événementielle" },
-      { en: "Role-Based Access Control (RBAC)", fr: "Gestion RBAC stricte" },
-      { en: "Automated report engine", fr: "Moteur de rapports automatisés" },
-      { en: "Secure API Gateway", fr: "API Gateway sécurisée" },
+      { en: "Event-driven Share Ledger", fr: "Registre de titres événementiel" },
+      { en: "E-Voting Security Protocol", fr: "Protocole de vote électronique sécurisé" },
+      { en: "Immutable Audit Log Engine", fr: "Moteur d'audit log immuable" }
     ],
-    screenshot: "https://images.pexels.com/photos/22065462/pexels-photo-22065462.jpeg",
+    targetClients: [
+      { en: "Corporates (SMEs, Holdings, Enterprises)", fr: "PME, Holdings et Grandes Entreprises" },
+      { en: "Brokerage Firms & Custodians", fr: "Sociétés de Bourse & Intermédiaires" },
+      { en: "Transfer Agents", fr: "Transfer Agents (Teneurs de registre)" },
+      { en: "Family Businesses & Institutional Structures", fr: "Structures Familiales ou Institutionnelles" }
+    ],
+    valueCreated: {
+      en: "Transforms static paper or Excel share registers into a live, real-time infrastructure, eliminating legal disputes and enabling frictionless access to capital markets.",
+      fr: "Élimine les risques de perte de données et contestations juridiques sur Excel. Le registre devient une infrastructure vivante mise à jour en temps réel à chaque corporate action."
+    }
   },
   {
-    slug: "campaign-workspace",
-    icon: Megaphone,
-    name: { en: "Campaign Workspace", fr: "Workspace de Campagnes" },
-    tagline: { en: "Centralized workspace to structure and execute fundraising campaigns.", fr: "Espace de travail centralisé pour orchestrer les levées de fonds." },
+    slug: "capital-raising",
+    num: "03",
+    icon: TrendingUp,
+    screenshot: "https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg",
+    name: {
+      en: "Capital Raising Platform",
+      fr: "Plateforme de Levée de Fonds"
+    },
+    tagline: {
+      en: "Structure, execute, and monitor fundraising operations digitally.",
+      fr: "Préparer et gérer une opération de levée de fonds."
+    },
     description: {
-      en: "Manage fundraising campaigns from end-to-end: business plan repository, secure virtual Data Room access, and investor due diligence workflow.",
-      fr: "Orchestrez vos campagnes de levée de fonds : dépôt de Business Plans, Data Room virtuelle sécurisée et suivi des diligences investisseurs.",
+      en: "A collaborative 4-phase environment for private placements, capital increases, bond issuances, and IPO preparations.",
+      fr: "Offre un environnement structuré et numérique pour gérer chaque étape d'une opération de financement (placement privé, augmentation de capital, émission obligataire, IPO)."
     },
     features: [
-      { title: { en: "Campaign builder", fr: "Créateur de campagnes" }, detail: { en: "Structured tools for rights issues, offerings, and private placements.", fr: "Outils de structuration d'émissions et placements privés." } },
-      { title: { en: "Business plan repository", fr: "Dépôt de Business Plans" }, detail: { en: "Centralized document sharing with prospective investors.", fr: "Partage centralisé des éléments financiers et stratégiques." } },
-      { title: { en: "Virtual Data Room (VDR)", fr: "Data Room virtuelle" }, detail: { en: "Secure document room with granular access permissions.", fr: "Salle des marchés documentaire avec accès très granulaires." } },
-      { title: { en: "Due Diligence tracker", fr: "Suivi Due Diligence" }, detail: { en: "Track investor interactions, Q&A, and document views.", fr: "Suivi des consultations, questions/réponses et engagements." } },
-      { title: { en: "Multi-currency support", fr: "Gestion multi-devises" }, detail: { en: "Native support for XAF, EUR, USD and regional currencies.", fr: "Prise en charge native du XAF, EUR, USD et devises régionales." } },
-      { title: { en: "Advisor coordination", fr: "Coordination des conseils" }, detail: { en: "Shared workspace for legal, financial, and listing advisors.", fr: "Espace collaboratif pour conseils juridiques et financiers." } },
+      { title: { en: "Preparation Phase", fr: "Phase 1 – Préparation" }, detail: { en: "Business Plan, Pitch Deck & Secure VDR", fr: "Business Plan, Pitch Deck & Data Room Sécurisée" }, en: "Phase 1 - Preparation: Business Plan, Pitch Deck & Secure VDR", fr: "Phase 1 – Préparation : Business Plan, Pitch Deck & Data Room Sécurisée" },
+      { title: { en: "Offer Management", fr: "Phase 2 – Offer Management" }, detail: { en: "Multi-asset operation setup & roadshow", fr: "Paramétrage d'opération & marketing roadshow" }, en: "Phase 2 - Offer Management: Multi-asset Operation Setup & Roadshow", fr: "Phase 2 – Offer Management : Paramétrage d'opération & Marketing Roadshow" },
+      { title: { en: "Investor Engagement", fr: "Phase 3 – Investor Engagement" }, detail: { en: "Prospect list & expressions of interest", fr: "Ciblage, LOI & suivi des manifestations" }, en: "Phase 3 - Investor Engagement: Prospect List & Expressions of Interest", fr: "Phase 3 – Investor Engagement : Ciblage, LOI & Suivi des manifestations" },
+      { title: { en: "Digital Subscription", fr: "Phase 4 – Digital Subscription" }, detail: { en: "E-sign, payment, allocation & certificates", fr: "Souscription en ligne, allocation & certificats" }, en: "Phase 4 - Digital Subscription: E-sign, Payment, Allocation & Certificates", fr: "Phase 4 – Digital Subscription : Souscription en ligne, Allocation & Certificats" }
     ],
     benefits: [
-      { kpi: "-60%", label: { en: "deal closing time", fr: "délai de clôture des levées" } },
-      { kpi: "100%", label: { en: "VDR document security", fr: "sécurité des documents VDR" } },
-      { kpi: "360°", label: { en: "investor interaction visibility", fr: "visibilité sur les investisseurs" } },
+      { kpi: "4-Phase", label: { en: "structured deal flow", fr: "déroulement structuré" } },
+      { kpi: "-60%", label: { en: "execution duration", fr: "durée d'exécution" } },
+      { kpi: "100%", label: { en: "digital subscriptions", fr: "souscriptions en ligne" } }
     ],
     architecture: [
-      { en: "Secure file encryption (AES-256)", fr: "Chiffrement des fichiers (AES-256)" },
-      { en: "Granular VDR permissions engine", fr: "Moteur d'accès VDR granulaires" },
-      { en: "Real-time analytics engine", fr: "Moteur d'analyse en temps réel" },
+      { en: "Virtual Data Room (VDR) Engine", fr: "Moteur de Data Room Virtuelle (VDR)" },
+      { en: "E-Signature Integration", fr: "Intégration de la signature électronique" },
+      { en: "Multi-Asset Operations Hub", fr: "Hub d'opérations multi-actifs" }
     ],
-    screenshot: "https://images.pexels.com/photos/9301316/pexels-photo-9301316.jpeg",
+    targetClients: [
+      { en: "Growth SMEs & Enterprise Issuers", fr: "PME en croissance & Émetteurs Corporate" },
+      { en: "Brokerage Firms (Primary Market)", fr: "Sociétés de Bourse (Marché primaire)" },
+      { en: "Investment Banks & Corporate Advisors", fr: "Banques d'Affaires & Conseils financiers" },
+      { en: "Private Equity Funds & Sovereigns", fr: "Fonds de Private Equity & Émetteurs Étatiques" }
+    ],
+    valueCreated: {
+      en: "Reduces fundraising execution cycles and costs significantly while paving the way for direct digital distribution to local and diaspora investors.",
+      fr: "Réduit drastiquement le temps et le coût de préparation d'une levée. Centralise les due diligences et transforme la souscription en un canal de distribution numérique."
+    }
   },
   {
     slug: "financial-engineering",
-    icon: LineChart,
-    name: { en: "Financial Engineering", fr: "Ingénierie Financière" },
-    tagline: { en: "DCF modeling, corporate valuation, and dilution simulation tools.", fr: "Modélisation DCF, valorisation d'entreprise et simulation de dilution." },
+    num: "04",
+    icon: Calculator,
+    screenshot: "https://images.pexels.com/photos/9965285/pexels-photo-9965285.jpeg",
+    name: {
+      en: "Financial Engineering & Advisory",
+      fr: "Ingénierie Financière & Conseil"
+    },
+    tagline: {
+      en: "Advanced corporate valuation, capital structuring, and IPO readiness.",
+      fr: "Permettre aux entreprises et conseils de structurer leurs opérations."
+    },
     description: {
-      en: "Advanced toolkit for financial analysts and corporate advisors: automated DCF models, valuation algorithms, and dynamic capital structure simulations.",
-      fr: "Boîte d'outils avancée pour analystes et conseils financiers : modèles DCF automatisés, valorisation et simulation des structures de capital.",
+      en: "Professional financial modeling tools (DCF, multiples, WACC, debt/equity structuring, bond parameters) pre-calibrated for African emerging markets.",
+      fr: "Une suite d'outils professionnels — valorisation, structuration du capital, modélisation obligataire/actions et diagnostic IPO — avec templates calibrés pour l'Afrique."
     },
     features: [
-      { title: { en: "DCF modeling engine", fr: "Modélisation DCF" }, detail: { en: "Discounted Cash Flow modeling calibrated for emerging markets.", fr: "Modèles d'actualisation des flux adaptés aux marchés émergents." } },
-      { title: { en: "Valuation workbench", fr: "Moteur de valorisation" }, detail: { en: "Multi-method valuation frameworks (Multiples, DCF, NAV).", fr: "Méthodes multiples de valorisation (Multiples, DCF, ANC)." } },
-      { title: { en: "Dilution simulator", fr: "Simulateur de dilution" }, detail: { en: "Simulate post-money equity structures across funding rounds.", fr: "Simulations post-money et évolutions du capital selon les tours." } },
-      { title: { en: "Financial structuring", fr: "Structuration d'instruments" }, detail: { en: "Configure equity, debt, and hybrid securities.", fr: "Modélisation de titres de capital, dette et instruments hybrides." } },
-      { title: { en: "Scenario stress testing", fr: "Stress-testing de scénarios" }, detail: { en: "Sensitivity analyses on key valuation variables.", fr: "Analyses de sensibilité sur les variables clés de valorisation." } },
-      { title: { en: "Institutional export", fr: "Exports institutionnels" }, detail: { en: "One-click generation of financial memos and models.", fr: "Génération en un clic de mémorandums et modèles financiers." } },
+      { title: { en: "Valuation Module", fr: "Module Valorisation" }, detail: { en: "DCF, market multiples & sensitivity analysis", fr: "DCF, multiples de marché, scénarios" }, en: "Valuation Module (DCF, Market Multiples, Sensitivity Analysis)", fr: "Module Valorisation (DCF, Multiples de marché, Scénarios)" },
+      { title: { en: "Capital Structuring", fr: "Structuration Capital" }, detail: { en: "Senior/Subordinated debt, convertible notes, WACC", fr: "Dette, fonds propres, hybrides, WACC" }, en: "Capital Structuring (Senior/Subordinated Debt, Convertible Notes, WACC)", fr: "Structuration du Capital (Dette, Fonds Propres, Hybrides, WACC)" },
+      { title: { en: "Bond Structuring", fr: "Bond Structuring" }, detail: { en: "Corporate, green, infrastructure & cash flow schedules", fr: "Corporate, green, infra & calendrier d'échéances" }, en: "Bond Structuring (Corporate, Green, Infrastructure & Cash Flow schedules)", fr: "Bond Structuring (Corporate, Green, Infra & Calendrier d'échéances)" },
+      { title: { en: "Equity Structuring", fr: "Equity Structuring" }, detail: { en: "Real-time dilution simulator on Cap Table", fr: "Simulateur de dilution Cap Table en temps réel" }, en: "Equity Structuring & Real-time Dilution Simulator", fr: "Equity Structuring & Simulateur de dilution Cap Table en temps réel" },
+      { title: { en: "Corporate Finance", fr: "Corporate Finance" }, detail: { en: "5-year business plan, investment memo & financial model", fr: "Plan d'affaires 5 ans, investment memo & KPIs" }, en: "Corporate Finance (5-year Business Plan, Investment Memo, Financial Model)", fr: "Corporate Finance (Plan d'affaires 5 ans, Investment Memo & KPIs)" },
+      { title: { en: "IPO Readiness", fr: "Diagnostic IPO" }, detail: { en: "IPO score, governance audit & gap analysis", fr: "Score de maturité, audit gouvernance & plan d'action" }, en: "IPO Readiness Assessment (IPO Score, Governance Audit & Gap Analysis)", fr: "IPO Readiness (Score de maturité, Audit gouvernance & Plan d'action)" }
     ],
     benefits: [
-      { kpi: "<30min", label: { en: "full DCF model creation", fr: "création d'un modèle DCF" } },
-      { kpi: "Multi-method", label: { en: "valuation capabilities", fr: "capacités de valorisation" } },
-      { kpi: "100%", label: { en: "auditability of assumptions", fr: "traçabilité des hypothèses" } },
+      { kpi: "DCF", label: { en: "pre-calibrated models", fr: "modèles pré-calibrés" } },
+      { kpi: "100%", label: { en: "auditable calculations", fr: "calculs auditables" } },
+      { kpi: "WACC", label: { en: "automated dynamic WACC", fr: "WACC dynamique automatisé" } }
     ],
     architecture: [
-      { en: "Python quantitative engine", fr: "Noyau quantitatif Python" },
-      { en: "FastAPI high-speed processing", fr: "Calculs haute performance FastAPI" },
-      { en: "Scenario modeling matrix", fr: "Matrice de simulation de scénarios" },
+      { en: "Quantitative Financial Analytics Engine", fr: "Moteur d'analyse financière quantitative" },
+      { en: "Dynamic Cash Flow Modeler", fr: "Modélisateur dynamique de flux de trésorerie" },
+      { en: "Emerging Markets Benchmark Database", fr: "Base de données de référence marchés émergents" }
     ],
-    screenshot: "https://images.pexels.com/photos/9965285/pexels-photo-9965285.jpeg",
+    targetClients: [
+      { en: "Brokerage Firms & Advisory Teams", fr: "Sociétés de Bourse & Conseils M&A" },
+      { en: "Investment Banking Divisions", fr: "Départements Banque d'Affaires" },
+      { en: "Corporate Finance Advisory Firms", fr: "Cabinets de Conseil Financier" },
+      { en: "Corporate Issuers & Municipalities", fr: "Émetteurs Corporate, États & Collectivités" }
+    ],
+    valueCreated: {
+      en: "Replaces error-prone standalone Excel sheets with a collaborative, versioned, and audit-ready financial engineering workspace.",
+      fr: "Passe des fichiers Excel isolés à une plateforme collaborative et auditable. Les modèles financiers (valorisations, cash flows) sont interconnectés aux autres modules."
+    }
   },
   {
     slug: "investor-portal",
-    icon: Building2,
-    name: { en: "Investor Portal", fr: "Portail Investisseur" },
-    tagline: { en: "Dedicated portal for portfolio tracking, certificates, and dividends.", fr: "Portail dédié au suivi de portefeuille, certificats et dividendes." },
+    num: "05",
+    icon: UserCheck,
+    screenshot: "https://images.pexels.com/photos/14365249/pexels-photo-14365249.jpeg",
+    name: {
+      en: "Investor Portal & Digital Ownership",
+      fr: "Portail Investisseur & Titres Numériques"
+    },
+    tagline: {
+      en: "Secure, mobile-first ownership dashboard for retail, diaspora & institutional investors.",
+      fr: "Offrir aux investisseurs un portail sécurisé et mobile-first."
+    },
     description: {
-      en: "Empower institutional and retail investors with a unified dashboard for tracking security positions, digital stock certificates, and dividend payout history.",
-      fr: "Offrez aux investisseurs institutionnels et privés une vue unifiée de leurs portefeuilles, certificats digitaux d'actions et historique des dividendes.",
+      en: "Empowers shareholders and bondholders with 24/7 access to consolidated portfolios, verified digital certificates, dividend tracking, and online voting.",
+      fr: "Offre à chaque investisseur (particulier, institutionnel, diaspora) une interface personnalisée 24/7 pour piloter ses participations, dividendes et droits de vote."
     },
     features: [
-      { title: { en: "Portfolio dashboard", fr: "Tableau de bord portefeuille" }, detail: { en: "Consolidated view of asset holdings, performance, and updates.", fr: "Vue consolidée des avoirs, performances et actualités des sociétés." } },
-      { title: { en: "Digital share certificates", fr: "Certificats digitaux" }, detail: { en: "Cryptographically verifiable share ownership certificates.", fr: "Certificats de propriété d'actions numérisés et vérifiables." } },
-      { title: { en: "Dividend tracking", fr: "Historique des dividendes" }, detail: { en: "Transparent history of dividend declarations and payouts.", fr: "Historique transparent des distributions et versements de dividendes." } },
-      { title: { en: "Document repository", fr: "Coffre-fort personnel" }, detail: { en: "Direct access to tax statements, notices, and voting cards.", fr: "Accès direct aux relevés, avis de convocation et coupons de vote." } },
-      { title: { en: "Secure authentication", fr: "Authentification renforcée" }, detail: { en: "Multi-factor authentication (MFA) and secure sessions.", fr: "Authentification multifacteur (MFA) et sessions sécurisées." } },
-      { title: { en: "White-label customization", fr: "Marque blanche" }, detail: { en: "Customizable visual branding for issuers and brokerages.", fr: "Branding personnalisable pour les émetteurs et intermédiaires." } },
+      { title: { en: "Consolidated Portfolio", fr: "Portefeuille Consolidé" }, detail: { en: "Consolidated portfolio view & detailed holdings", fr: "Vue portefeuille consolidé & participations détaillées" }, en: "Consolidated Portfolio View & Detailed Holdings", fr: "Vue Portefeuille consolidé & Participations détaillées" },
+      { title: { en: "Digital Certificates", fr: "Certificats Numériques" }, detail: { en: "Digitized ownership certificates with instant verification", fr: "Certificats numériques d'actionnaire vérifiables" }, en: "Digitized Ownership Certificates with Instant Verification", fr: "Certificats numériques d'actionnaire vérifiables" },
+      { title: { en: "Dividends & Coupons", fr: "Dividendes & Coupons" }, detail: { en: "Dividends, coupons & operation history downloads", fr: "Suivi des dividendes, coupons & historique des flux" }, en: "Dividends, Coupons & Operation History Downloads", fr: "Suivi des Dividendes, Coupons & Historique des flux" },
+      { title: { en: "Online E-Voting", fr: "Votes en Ligne" }, detail: { en: "Online e-voting & remote general meeting participation", fr: "Votes en ligne & participation aux assemblées générales" }, en: "Online E-Voting & Remote General Meeting Participation", fr: "Votes en ligne & Participation aux Assemblées Générales" },
+      { title: { en: "Push Notifications", fr: "Notifications Temps Réel" }, detail: { en: "Real-time push notifications & integrated support", fr: "Notifications en temps réel & support intégré" }, en: "Real-time Push Notifications & Integrated Support", fr: "Notifications en temps réel & Support intégré" }
     ],
     benefits: [
-      { kpi: "24/7", label: { en: "investor self-service access", fr: "accès autonome investisseurs" } },
-      { kpi: "100%", label: { en: "digital certificates", fr: "certificats numérisés" } },
-      { kpi: "<2s", label: { en: "dashboard load time", fr: "temps d'affichage du portail" } },
+      { kpi: "24/7", label: { en: "investor self-service access", fr: "accès autonome 24/7" } },
+      { kpi: "100%", label: { en: "digital ownership certificates", fr: "certificats numériques" } },
+      { kpi: "Mobile", label: { en: "first responsive design", fr: "design mobile-first" } }
     ],
     architecture: [
-      { en: "React / Next.js frontend", fr: "Frontend React / Next.js" },
-      { en: "Secure REST / GraphQL APIs", fr: "APIs REST / GraphQL sécurisées" },
-      { en: "Automated PDF statement engine", fr: "Moteur de génération PDF" },
+      { en: "React / Next.js Responsive Client Portal", fr: "Portail client React / Next.js responsive" },
+      { en: "Secure Token-based Portfolio API", fr: "API de portefeuille sécurisée par jeton" },
+      { en: "PDF / QR Code Generation Microservice", fr: "Microservice de génération PDF / QR Code" }
     ],
-    screenshot: "https://images.pexels.com/photos/14365249/pexels-photo-14365249.jpeg",
+    targetClients: [
+      { en: "Retail & Individual Investors", fr: "Investisseurs Particuliers" },
+      { en: "African Diaspora Investors", fr: "Membres de la Diaspora Africaine" },
+      { en: "Institutional Investors & Pension Funds", fr: "Investisseurs Institutionnels & Fonds" }
+    ],
+    valueCreated: {
+      en: "Drastically elevates issuer credibility by giving investors transparent, uninterrupted access to their financial assets without administrative overhead.",
+      fr: "Renforce la confiance des actionnaires, facilite la tenue des AG et réduit drastiquement les coûts administratifs (courriers, certificats papier, appels)."
+    }
   },
   {
-    slug: "ipo-hub-lite",
-    icon: Rocket,
-    name: { en: "IPO Hub Lite", fr: "IPO Hub Lite" },
-    tagline: { en: "IPO readiness diagnostic, advisor coordination, and compliance tracking.", fr: "Diagnostic IPO Readiness, coordination des conseils et suivi de la gouvernance." },
+    slug: "global-markets",
+    num: "06",
+    icon: Globe,
+    screenshot: "https://images.pexels.com/photos/1381722/pexels-photo-1381722.jpeg",
+    name: {
+      en: "Global Markets & Portfolio Connectivity",
+      fr: "Marchés Internationaux & Connectivité"
+    },
+    tagline: {
+      en: "Bridge domestic African holdings with global financial markets.",
+      fr: "Permettre aux institutions africaines d'accéder aux marchés internationaux."
+    },
     description: {
-      en: "Structured workspace for companies preparing to list on CEMAC and African markets: IPO readiness assessments, advisor workflows, and regulatory compliance preparation.",
-      fr: "Espace structuré pour entreprises visant la cote en Afrique / CEMAC : évaluation IPO Readiness, coordination des conseils et préparation de la conformité.",
+      en: "Consolidates cross-border multi-currency and multi-broker portfolios (including Interactive Brokers integration) into a single institutional interface.",
+      fr: "Construit le pont entre CCMI et les marchés financiers internationaux pour offrir une vue consolidée des portefeuilles multi-géographies, multi-devises et multi-brokers."
     },
     features: [
-      { title: { en: "IPO Readiness diagnostic", fr: "Diagnostic IPO Readiness" }, detail: { en: "Automated assessment against market listing requirements.", fr: "Évaluation automatisée au regard des exigences de cotation." } },
-      { title: { en: "Advisor coordination workspace", fr: "Coordination des conseils" }, detail: { en: "Centralized hub for listing sponsors, legal advisors, and auditors.", fr: "Hub central pour Listing Sponsors, avocats et commissaires aux comptes." } },
-      { title: { en: "Governance audit trail", fr: "Suivi de gouvernance" }, detail: { en: "Track readiness across board composition, controls, and disclosures.", fr: "Suivi de la conformité du conseil, des contrôles et divulgations." } },
-      { title: { en: "Prospectus preparation", fr: "Préparation du prospectus" }, detail: { en: "Collaborative drafting and version control for regulatory filings.", fr: "Rédaction collaborative et suivi de version du document d'information." } },
-      { title: { en: "COSUMAF / BVMAC alignment", fr: "Alignement COSUMAF / BVMAC" }, detail: { en: "Checklists mapped to CEMAC financial market rules.", fr: "Checklists alignées sur les règles du marché financier CEMAC." } },
-      { title: { en: "Post-listing transition", fr: "Transition post-cotation" }, detail: { en: "Seamless transfer of IPO data to ongoing corporate registry.", fr: "Transfert des données vers le registre d'actionnaires après la cote." } },
+      { title: { en: "Multi-Broker Connectivity", fr: "Connexion Multi-Brokers" }, detail: { en: "Multi-broker connectivity & account synchronization", fr: "Connexion & synchronisation multi-brokers" }, en: "Multi-Broker Connectivity & Account Synchronization", fr: "Connexion & Synchronisation Multi-Brokers" },
+      { title: { en: "Interactive Brokers", fr: "Intégration Interactive Brokers" }, detail: { en: "Interactive Brokers native integration (US/EU markets)", fr: "Intégration Interactive Brokers (marchés US et Européens)" }, en: "Interactive Brokers Native Integration (US/EU Markets)", fr: "Intégration Interactive Brokers (Marchés US et Européens)" },
+      { title: { en: "Consolidated Portfolio", fr: "Portefeuille Consolidé" }, detail: { en: "Consolidated portfolio tracking & real-time asset allocation", fr: "Portefeuille consolidé & répartition des actifs en temps réel" }, en: "Consolidated Portfolio Tracking & Real-Time Asset Allocation", fr: "Portefeuille Consolidé & Répartition des actifs en temps réel" },
+      { title: { en: "Multi-Currency", fr: "Gestion Multi-Devises" }, detail: { en: "Multi-currency performance (USD, EUR, XOF, XAF, NGN)", fr: "Gestion & reporting multi-devises (USD, EUR, XOF, XAF...)" }, en: "Multi-Currency Performance (USD, EUR, XOF, XAF, NGN)", fr: "Gestion & Reporting Multi-Devises (USD, EUR, XOF, XAF...)" },
+      { title: { en: "Risk Dashboard", fr: "Tableau de Bord de Risque" }, detail: { en: "Institutional risk dashboard & real-time market data", fr: "Tableau de bord de risque & market data en temps réel" }, en: "Institutional Risk Dashboard & Real-Time Market Data", fr: "Tableau de bord de Risque & Market Data en temps réel" }
     ],
     benefits: [
-      { kpi: "-50%", label: { en: "IPO preparation timeline", fr: "délai de préparation IPO" } },
-      { kpi: "100%", label: { en: "governance checklist coverage", fr: "couverture des règles de gouvernance" } },
-      { kpi: "CEMAC", label: { en: "market readiness focus", fr: "alignement marché régional" } },
+      { kpi: "Multi", label: { en: "broker integration", fr: "intégration multi-courtiers" } },
+      { kpi: "Global", label: { en: "US, EU & African markets", fr: "marchés US, EU & Afrique" } },
+      { kpi: "FX", label: { en: "real-time currency conversion", fr: "conversion devises temps réel" } }
     ],
     architecture: [
-      { en: "Compliance assessment engine", fr: "Moteur d'évaluation de conformité" },
-      { en: "Document version control system", fr: "Système de versioning documentaire" },
-      { en: "Advisor collaboration gateway", fr: "Passerelle de collaboration conseils" },
+      { en: "Broker API Bridge & FIX Protocol", fr: "Passerelle API Broker & Protocole FIX" },
+      { en: "Multi-currency FX Revaluation Engine", fr: "Moteur de réévaluation de change multi-devises" },
+      { en: "Institutional Portfolio Aggregator", fr: "Agrégateur de portefeuille institutionnel" }
     ],
-    screenshot: "https://images.pexels.com/photos/1381722/pexels-photo-1381722.jpeg",
+    targetClients: [
+      { en: "Asset Managers (Domestic & Cross-Border)", fr: "Gestionnaires d'Actifs" },
+      { en: "Private Banking & Wealth Management Divisions", fr: "Gestion de Patrimoine & Trésorerie Bancaire" },
+      { en: "Pan-African Investment & PE Funds", fr: "Fonds d'Investissement Panafricains" },
+      { en: "Diaspora Family Offices & Institutional LPs", fr: "Family Offices & Institutionnels" }
+    ],
+    valueCreated: {
+      en: "Eliminates the friction between local and international asset management, offering unified reporting, risk oversight, and global asset exposure.",
+      fr: "Permet aux institutions africaines d'avoir une vision unifiée de leurs portefeuilles locaux et internationaux sur une plateforme unique."
+    }
+  }
+];
+
+// Socle Technologique Commun (CCMI Core Platform)
+export const CORE_PLATFORM_SERVICES = [
+  {
+    icon: ShieldCheck,
+    title: { en: "Identity & Access (IAM / RBAC)", fr: "Gestion des Identités (IAM / RBAC)" },
+    desc: { en: "SSO, Multi-Factor Authentication, Role-Based Access Control and OpenID Connect.", fr: "SSO, Authentification MFA, Contrôle d'accès RBAC et OAuth2/OpenID Connect." }
   },
+  {
+    icon: Workflow,
+    title: { en: "Workflow & Approval Engine", fr: "Moteur de Workflow & Validations" },
+    desc: { en: "Multi-level validation circuits, automated notifications, and escalation rules.", fr: "Circuits de validation configurables, approbations multi-niveaux et relances." }
+  },
+  {
+    icon: ShieldCheck,
+    title: { en: "Embedded Compliance Engine", fr: "Moteur de Conformité Embarqué" },
+    desc: { en: "Automated KYC, real-time AML screening, and continuous regulatory audit.", fr: "KYC automatisé, filtrage AML en temps réel et audit réglementaire continu." }
+  },
+  {
+    icon: FileText,
+    title: { en: "Document Engine & E-Sign", fr: "Moteur Documentaire & Signature" },
+    desc: { en: "Integrated document management, OCR extraction, qualified e-signature, and archiving.", fr: "GED intégrée, extraction OCR, signature électronique qualifiée et versioning." }
+  },
+  {
+    icon: PieChart,
+    title: { en: "Reporting & BI Engine", fr: "Moteur de Reporting & Power BI" },
+    desc: { en: "Real-time interactive dashboards, Excel/PDF exports, and native Power BI link.", fr: "Dashboards temps réel, exports PDF/Excel et intégration native Power BI." }
+  },
+  {
+    icon: Cpu,
+    title: { en: "API Gateway & SDK", fr: "API Gateway & Open Architecture" },
+    desc: { en: "API-First design, REST APIs, Webhooks, and developer SDK for core banking connections.", fr: "Conception API-First, REST APIs, Webhooks et SDK pour intégration Core Banking/CRM." }
+  },
+  {
+    icon: Bell,
+    title: { en: "Notification Service", fr: "Service Multi-Canal de Notifications" },
+    desc: { en: "Transactional Email, SMS alerts, Mobile Push, and In-App notification center.", fr: "Emails transactionnels, SMS critiques, Push Mobile et notifications In-App." }
+  },
+  {
+    icon: History,
+    title: { en: "Audit & Traceability Engine", fr: "Moteur d'Audit & Journalisation" },
+    desc: { en: "Cryptographically signed immutable audit logs and regulator-ready reports.", fr: "Historique immuable signé cryptographiquement et exports d'audit réglementaires." }
+  }
 ];
 
 export const FUTURE_MODULES = [
-  { slug: "docs-academy", icon: BookOpen, name: { en: "Documentation & Academy", fr: "Documentation & Academy" }, tagline: { en: "Learn CCMI. Deploy CCMI.", fr: "Apprenez CCMI. Déployez CCMI." }, description: { en: "Interactive learning paths for developers, operators and regulators. Certifications and sandboxes built into the product.", fr: "Parcours d'apprentissage interactifs pour développeurs, opérateurs et régulateurs. Certifications et bacs à sable intégrés." } },
-  { slug: "community-support", icon: MessageSquare, name: { en: "Community & Support Center", fr: "Communauté & Centre de Support" }, tagline: { en: "A shared knowledge base for the CCMI ecosystem.", fr: "Une base de connaissances partagée pour l'écosystème CCMI." }, description: { en: "Ticketing, SLAs, community forums and expert marketplace for client operation teams.", fr: "Ticketing, SLA, forums communautaires et marketplace d'experts pour les équipes opérationnelles clients." } },
-  { slug: "marketplace-api", icon: Store, name: { en: "Marketplace & API Docs", fr: "Marketplace & Docs API" }, tagline: { en: "A marketplace of ecosystem extensions.", fr: "Une marketplace d'extensions écosystème." }, description: { en: "Third-party modules, connectors, and data feeds. Public REST/FastAPI reference and OAuth2 sandbox.", fr: "Modules tiers, connecteurs, flux de données. Référence publique REST/FastAPI et bac à sable OAuth2." } },
-  { slug: "client-investor-portals", icon: KeyRound, name: { en: "Client & Investor Portals", fr: "Portails Client & Investisseur" }, tagline: { en: "Segmented experiences for clients and their investors.", fr: "Expériences segmentées pour clients et leurs investisseurs." }, description: { en: "Multi-tier authenticated portals with fine-grained data-room permissions and regulator-ready audit trails.", fr: "Portails authentifiés multi-niveaux avec permissions granulaires de data-room et pistes d'audit." } },
+  {
+    slug: "secondary-market",
+    icon: TrendingUp,
+    name: { en: "Secondary Market & Liquidity Hub", fr: "Marché Secondaire & Liquidité" },
+    tagline: { en: "P2P Trading & Liquidity Matching", fr: "Négociation P2P & Liquidité" },
+    description: { 
+      en: "Order matching engine and OTC liquidity mechanisms for unlisted private company shares and bonds.",
+      fr: "Moteur d'appariement d'ordres et mécanismes de liquidité gré à gré pour titres non cotés."
+    }
+  },
+  {
+    slug: "tokenization-blockchain",
+    icon: Globe,
+    name: { en: "Digital Assets & Tokenization", fr: "Tokenisation & Actifs Numériques" },
+    tagline: { en: "DLT & Smart Contract Settlement", fr: "DLT & Smart Contracts" },
+    description: { 
+      en: "Optional blockchain-based asset tokenization layer for instant delivery-versus-payment (DvP) settlement.",
+      fr: "Couche optionnelle de tokenisation sur registre distribué pour un règlement-livraison instantané."
+    }
+  }
 ];
 
 export const getModule = (slug) => MODULES.find(m => m.slug === slug);
