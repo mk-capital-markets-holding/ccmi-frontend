@@ -1,99 +1,147 @@
 import React from "react";
-import { ArrowUpRight, Linkedin } from "lucide-react";
 import SEO from "@/components/common/SEO";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import { FOUNDER } from "@/data/founder";
 import { useI18n } from "@/i18n/context";
 import { L } from "@/i18n/pick";
+import { GraduationCap, Award, Monitor } from "lucide-react";
 
-export default function Founder() {
-  const { t, lang } = useI18n();
+export default function FounderPage() {
+  const { lang, t } = useI18n();
+
   return (
     <>
-      <SEO title={`${t("nav.founder")} — ${FOUNDER.name}`} description={lang === "fr" ? "Florent Makanda, Fondateur & CEO de MK Capital Markets Holdings." : "Florent Makanda, Founder & CEO of MK Capital Markets Holdings."} path="/founder" />
+      <SEO
+        title={`${FOUNDER.name} — ${FOUNDER.title}`}
+        description={`${FOUNDER.name}, ${FOUNDER.title} chez ${FOUNDER.entity}. Plus de 17 ans d'expérience en marchés de capitaux et banques d'investissement.`}
+        path="/founder"
+      />
 
-      <section className="bg-mk-ink text-white pt-20 pb-24 mk-grain">
+      <section className="bg-mk-paper py-16">
         <div className="container-mk">
-          <Breadcrumbs items={[{ label: t("bc.founder") }]} />
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-5">
-              <div className="aspect-[3/4] bg-mk-ink2 overflow-hidden">
-                <img src={FOUNDER.portrait} alt={FOUNDER.name} className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div className="lg:col-span-7">
-              <div className="overline mb-4">{t("founder.overline")}</div>
-              <h1 className="font-serif text-5xl md:text-7xl leading-none">{FOUNDER.name}</h1>
-              <div className="mt-4 text-mk-bronze2 uppercase tracking-widest text-sm">{L(FOUNDER.role, lang)} · {L(FOUNDER.location, lang)}</div>
-              <a href={FOUNDER.linkedin} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 text-white hover:text-mk-bronze mk-link" data-testid="founder-linkedin"><Linkedin className="w-4 h-4" strokeWidth={1.5} /> {t("founder.linkedin")}</a>
-            </div>
-          </div>
-        </div>
-      </section>
+          <Breadcrumbs items={[{ label: t("nav.founder") || "Fondateur" }]} />
 
-      <section className="bg-mk-paper py-24">
-        <div className="container-mk grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-8">
-            <div className="overline mb-3">{t("founder.bio.overline")}</div>
-            <div className="space-y-6 text-lg leading-relaxed text-mk-text max-w-3xl">
-              {FOUNDER.bio.map((p, i) => <p key={i}>{L(p, lang)}</p>)}
-            </div>
-            <blockquote className="mt-12 font-serif text-3xl leading-tight text-mk-ink border-l-2 border-mk-bronze pl-6 max-w-3xl">"{L(FOUNDER.quotes[1], lang)}"</blockquote>
-          </div>
-          <div className="lg:col-span-4">
-            <div className="border-l border-mk-line/15 pl-8 space-y-8">
-              <div>
-                <div className="overline mb-3">{t("founder.awards.overline")}</div>
-                <ul className="space-y-3 text-sm">{FOUNDER.awards.map((a, i) => <li key={i} className="text-mk-text2">— {L(a, lang)}</li>)}</ul>
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Colonne Gauche : Carte d'identité Sombre */}
+            <div className="lg:col-span-4 bg-[#2C323B] text-white p-8 rounded-sm shadow-sm">
+              <h1 className="text-2xl font-bold font-serif">{FOUNDER.name}</h1>
+              <p className="text-sm font-semibold text-white/90 mt-2">{FOUNDER.title}</p>
+              <p className="text-xs text-white/70 mt-1">{FOUNDER.entity}</p>
+              <p className="text-xs text-white/50">{FOUNDER.location}</p>
+
+              <div className="my-6 border-t border-white/20" />
+
+              <div className="inline-block bg-white/10 text-white/70 text-[10px] uppercase font-mono tracking-wider px-2 py-1 mb-6 rounded-xs">
+                {FOUNDER.experienceYears}
               </div>
+
+              <ul className="space-y-3 text-xs text-white/80">
+                {FOUNDER.expertise.map((exp, idx) => (
+                  <li key={idx} className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-mk-bronze rounded-full" />
+                    <span>{L(exp, lang)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Colonne Droite : Parcours Pro, Académique & Certifications */}
+            <div className="lg:col-span-8 space-y-10 pl-0 lg:pl-4">
+              
+              {/* Professional Experience */}
               <div>
-                <div className="overline mb-3">{t("founder.upcoming.overline")}</div>
-                <ul className="divide-y divide-mk-line/15">
-                  {FOUNDER.upcoming.map((u) => (
-                    <li key={u.event} className="py-3">
-                      <div className="font-serif text-lg">{u.event}</div>
-                      <div className="text-xs font-mono text-mk-text2">{L(u.city, lang)} · {u.date}</div>
-                    </li>
+                <h2 className="text-xl font-bold font-serif text-mk-ink mb-6">Professional Experience</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {FOUNDER.professionalExperience.map((company, idx) => (
+                    <div 
+                      key={idx} 
+                      className="bg-white border border-mk-line/30 border-l-4 border-l-[#2C323B] p-5 font-semibold text-mk-ink text-sm shadow-xs flex items-center"
+                    >
+                      {company}
+                    </div>
                   ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-mk-paper2 py-24" data-testid="founder-career">
-        <div className="container-mk">
-          <div className="overline mb-3">{t("founder.career.overline")}</div>
-          <h2 className="font-serif text-4xl md:text-5xl mb-12">{t("founder.career.title")}</h2>
-          <ol className="divide-y divide-mk-line/15 border-y border-mk-line/15 max-w-4xl">
-            {FOUNDER.career.map((c, i) => (
-              <li key={i} className="py-6 grid grid-cols-12 gap-4">
-                <div className="col-span-12 md:col-span-3 font-mono text-mk-bronze2 text-sm">{c.period}</div>
-                <div className="col-span-12 md:col-span-6"><div className="font-serif text-lg">{L(c.org, lang)}</div></div>
-                <div className="col-span-12 md:col-span-3 text-mk-text2 text-sm md:text-right">{L(c.role, lang)}</div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="bg-mk-paper py-24">
-        <div className="container-mk">
-          <div className="overline mb-3">{t("founder.media.overline")}</div>
-          <h2 className="font-serif text-4xl md:text-5xl mb-12">{t("founder.media.title")}</h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-mk-line/15 border border-mk-line/15">
-            {FOUNDER.media.map((m, i) => (
-              <li key={i} className="bg-mk-paper p-8 flex items-start justify-between gap-8 hover:bg-white transition-colors">
-                <div>
-                  <div className="font-mono text-xs text-mk-bronze2 uppercase tracking-widest">{m.outlet}</div>
-                  <div className="font-serif text-xl mt-2 leading-snug">{L(m.title, lang)}</div>
-                  <div className="text-xs font-mono text-mk-text2 mt-2">{m.date}</div>
                 </div>
-                <ArrowUpRight className="w-5 h-5 text-mk-text2 shrink-0 mt-1" strokeWidth={1.5} />
-              </li>
-            ))}
-          </ul>
+              </div>
+
+              <div className="border-t border-mk-line/20" />
+
+              {/* Academic Background */}
+              <div>
+                <h2 className="text-xl font-bold font-serif text-mk-ink mb-6">Academic Background</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {FOUNDER.academicBackground.map((edu, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`bg-[#EAECEF] p-5 rounded-xs ${idx === 2 ? "sm:col-span-2" : ""}`}
+                    >
+                      <div className="flex items-start gap-2 text-mk-ink font-bold text-sm">
+                        <GraduationCap className="w-5 h-5 shrink-0 mt-0.5" />
+                        <span>{edu.degree}</span>
+                      </div>
+                      <p className="text-xs text-mk-text2 mt-3 font-medium">
+                        {edu.institution} — <span className="text-mk-text2/70">{edu.country}</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-mk-line/20" />
+
+              {/* Professional Certifications */}
+              <div>
+                <h2 className="text-xl font-bold font-serif text-mk-ink mb-6">Professional Certifications</h2>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  {/* PMP */}
+                  <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                    <div className="w-full flex justify-center pt-3 pb-1">
+                      <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                        <Award className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="p-5 text-center pt-2">
+                      <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[0].title}</h3>
+                      <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[0].subtitle}</p>
+                      <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[0].issuer}</p>
+                    </div>
+                  </div>
+
+                  {/* Enterprise Architecture */}
+                  <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                    <div className="w-full flex justify-center pt-3 pb-1">
+                      <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                        <Award className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="p-5 text-center pt-2">
+                      <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[1].title}</h3>
+                      <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[1].subtitle}</p>
+                      <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[1].issuer}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Financial Engineering C++ */}
+                <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                  <div className="w-full flex justify-center pt-3 pb-1">
+                    <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                      <Monitor className="w-5 h-5" />
+                    </div>
+                  </div>
+                  <div className="p-5 text-center pt-2">
+                    <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[2].title}</h3>
+                    <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[2].subtitle}</p>
+                    <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[2].issuer}</p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </section>
     </>

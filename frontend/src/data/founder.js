@@ -1,60 +1,92 @@
+// CCMI Founder & Market Presence Data — Exact Corporate Profile
+
 export const FOUNDER = {
-  name: "Florent Makanda",
-  role: { 
-    en: "Founder & Chief Executive Officer", 
-    fr: "Fondateur & Directeur Général" 
-  },
-  portrait: "https://images.pexels.com/photos/30688593/pexels-photo-30688593.jpeg",
-  linkedin: "https://linkedin.com/in/",
-  location: { 
-    en: "Dubai, UAE", 
-    fr: "Dubaï, Émirats Arabes Unis" 
-  },
-  bio: [
-    { 
-      en: "Florent Makanda is the Founder and CEO of MK Capital Markets Technologies Ltd.", 
-      fr: "Florent Makanda est le fondateur et directeur général de MK Capital Markets Technologies Ltd." 
+  name: "Florent Makanda, PMP®",
+  title: "Founder & CEO",
+  entity: "MK Capital Markets Technologies & Holding L.L.C-FZ",
+  location: "Dubai • UAE",
+  experienceYears: "17+ YEARS OF EXPERIENCE",
+  portrait: "/images/florent-makanda.jpg", // À adapter selon ton asset
+  
+  expertise: [
+    { en: "Capital Markets", fr: "Marchés de Capitaux" },
+    { en: "Investment Banking", fr: "Banque d'Investissement" },
+    { en: "Electronic Trading", fr: "Trading Électronique" },
+    { en: "Financial Market Infrastructure", fr: "Infrastructures de Marchés Financiers" },
+    { en: "Digital Transformation", fr: "Transformation Digitale" }
+  ],
+
+  professionalExperience: [
+    "Euronext Technologies",
+    "BNP Paribas CIB",
+    "Crédit Agricole CIB",
+    "Société Générale CIB",
+    "BNP Paribas Asset Management",
+    "Natixis",
+    "Banca IMI"
+  ],
+
+  academicBackground: [
+    {
+      degree: "MSc Applied Mathematics in Finance",
+      institution: "CY Tech",
+      country: "France"
     },
-    { 
-      en: "He founded MK Capital Markets Technologies with a clear mission: to modernise capital-markets infrastructure across Africa and the Gulf from DIFC.", 
-      fr: "Il a fondé MK Capital Markets Technologies avec une mission claire : moderniser l'infrastructure des marchés de capitaux en Afrique et dans le Golfe depuis le DIFC." 
+    {
+      degree: "MSc Financial Markets",
+      institution: "Università Cattolica del Sacro Cuore",
+      country: "Milan, Italy"
+    },
+    {
+      degree: "Master Banking & Finance",
+      institution: "Université Paris 1 Panthéon-Sorbonne",
+      country: "France"
     }
   ],
+
+  certifications: [
+    {
+      title: "PMP®",
+      subtitle: "Project Management Professional",
+      issuer: "Project Management Institute"
+    },
+    {
+      title: "Enterprise Architecture",
+      subtitle: "Certified Practitioner",
+      issuer: "CentraleSupélec"
+    },
+    {
+      title: "Financial Engineering using C++",
+      subtitle: "Advanced Certification",
+      issuer: "City, University of London"
+    }
+  ],
+
   quotes: [
-    { 
-      en: "The next decade of capital-markets innovation will be driven by technology tailored to emerging market needs.", 
-      fr: "La prochaine décennie d'innovation sur les marchés de capitaux sera portée par une technologie adaptée aux besoins des marchés émergents." 
-    },
-    { 
-      en: "Dubai is the ideal corridor: strategic location, regulatory clarity, and proximity to the markets we serve.", 
-      fr: "Dubaï est le corridor idéal : positionnement stratégique, cadre réglementaire clair et proximité avec les marchés que nous servons." 
+    {
+      fr: "Concevoir le système d'exploitation moderne des infrastructures de marchés de capitaux en Afrique.",
+      en: "Engineering the modern operating system for capital market infrastructures in Africa."
     }
-  ],
-  career: [
-    { 
-      period: "2026 — present", 
-      periodFr: "2026 — présent", 
-      org: "MK Capital Markets Technologies", 
-      role: { en: "Founder & CEO", fr: "Fondateur & CEO" } 
-    }
-  ],
-  media: [],
-  awards: [],
-  upcoming: []
+  ]
 };
 
 export const AFRICA_MARKETS = [
-  // --- Zone CEMAC (Priorité Principale) ---
-  { name: { en: "Cameroon", fr: "Cameroun" }, ticker: "BVMAC / Douala", status: "engaged", tier: "primary" },
-  { name: { en: "Gabon", fr: "Gabon" }, ticker: "BVMAC / Libreville", status: "engaged", tier: "primary" },
-  { name: { en: "Congo", fr: "Congo" }, ticker: "BVMAC / Brazzaville", status: "engaged", tier: "primary" },
-  { name: { en: "Chad", fr: "Tchad" }, ticker: "BVMAC / N'Djamena", status: "engaged", tier: "primary" },
-  { name: { en: "Equatorial Guinea", fr: "Guinée Équatoriale" }, ticker: "BVMAC / Malabo", status: "engaged", tier: "primary" },
-  { name: { en: "Central African Republic", fr: "République Centrafricaine" }, ticker: "BVMAC / Bangui", status: "engaged", tier: "primary" },
-
-  // --- Autres Marchés Africains (Secondaires) ---
-  { name: { en: "Côte d'Ivoire", fr: "Côte d'Ivoire" }, ticker: "BRVM Abidjan", status: "engaged", tier: "secondary" },
-  { name: { en: "Morocco", fr: "Maroc" }, ticker: "CSE Casablanca", status: "engaged", tier: "secondary" },
-  { name: { en: "Nigeria", fr: "Nigéria" }, ticker: "NGX Lagos", status: "engaged", tier: "secondary" },
-  { name: { en: "Kenya", fr: "Kenya" }, ticker: "NSE Nairobi", status: "engaged", tier: "secondary" }
+  {
+    name: { en: "CEMAC Region (BVMAC)", fr: "Zone CEMAC (BVMAC)" },
+    ticker: "COSUMAF",
+    status: "live",
+    tier: "primary"
+  },
+  {
+    name: { en: "WAEMU Region (BRVM)", fr: "Zone UEMOA (BRVM)" },
+    ticker: "AMF-UMOA",
+    status: "deployment",
+    tier: "primary"
+  },
+  {
+    name: { en: "Dubai (Holding HQ)", fr: "Dubaï (Siège Holding)" },
+    ticker: "Meydan FZ",
+    status: "live",
+    tier: "primary"
+  }
 ];

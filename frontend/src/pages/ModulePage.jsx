@@ -23,8 +23,7 @@ export default function ModulePage() {
       <section className="bg-mk-ink text-white pt-16 pb-24 mk-grain">
         <div className="container-mk">
           <Breadcrumbs items={[{ label: t("bc.solutions"), to: "/solutions" }, { label: modName }]} />
-          <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-7">
+              <div className={`grid grid-cols-1 md:grid-cols-${mod.architecture.length} gap-px bg-white/10 border border-white/10`}>              <div className="lg:col-span-7">
               <div className="overline mb-4">{t("mod.overline")}</div>
               <div className="flex items-center gap-4 mb-6">
                 <mod.icon className="w-10 h-10 text-mk-bronze" strokeWidth={1.5} />

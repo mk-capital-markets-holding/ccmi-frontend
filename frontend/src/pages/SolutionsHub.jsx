@@ -10,9 +10,11 @@ import { L } from "@/i18n/pick";
 export default function SolutionsHub() {
   const { t, lang } = useI18n();
   const p = (path) => localizedPath(path, lang);
+
   return (
     <>
       <SEO title={t("nav.solutions")} description={t("sol.lede")} path="/solutions" />
+      
       <section className="bg-mk-ink text-white pt-20 pb-24 mk-grain">
         <div className="container-mk">
           <Breadcrumbs items={[{ label: t("bc.solutions") }]} />
