@@ -1,7 +1,10 @@
+HEAD
 
+
+ fix/traductions
 # ccmi-frontend
-Interface utilisateur web, composants, pages, services
 
+ HEAD
 <div align="center">
 
 # 🚀 CCMI Frontend
@@ -50,5 +53,9 @@ Cette application constitue la plateforme front-end interactive du groupe **MK C
 git clone [https://github.com/mk-capital-markets-holding/ccmi-frontend.git](https://github.com/mk-capital-markets-holding/ccmi-frontend.git)
 cd ccmi-frontend
 Proprietary and confidential.
+
+Interface utilisateur web, composants, pages, services.
+
+Proprietary and confidential.  
+fix/traductions
 Copyright (c) 2026 MK Capital Markets Holding Ltd. All rights reserved.
->>>>>>> origin/main

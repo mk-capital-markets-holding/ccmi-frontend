@@ -40,9 +40,9 @@ export const MODULES = [
     screenshot: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
   },
   {
-    slug: "corporate-governance",
+    slug: "securities-registry",
     icon: Shield,
-    name: { en: "Corporate Governance", fr: "Gouvernance d'Entreprise" },
+    name: { en: "Securities Registry", fr: "Registre des Titres" },
     tagline: { en: "Voting, disclosures and board workflows on one ledger.", fr: "Votes, divulgations et workflows conseil sur un registre unique." },
     description: {
       en: "General assemblies conducted online with cryptographically-verifiable votes. Board pack distribution with digital rights management. Regulator-ready disclosures.",
