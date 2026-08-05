@@ -1,42 +1,46 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import fr from "./locales/fr.json";
-import en from "./locales/en.json";
-
-const translations = { fr, en };
+import React, { createContext, useContext, useState } from "react";
+import frTranslations from "./locales/fr.json";
+import enTranslations from "./locales/en.json";
+import { L } from "./pick";
 
 const I18nContext = createContext(null);
 
+const TRANSLATIONS = {
+  fr: frTranslations || {},
+  en: enTranslations || {},
+};
+
 export function I18nProvider({ children }) {
-  // Détection initiale via window.location (ne plante pas si hors du Router)
-  const [lang, setLangState] = useState(() => {
-    if (typeof window !== "undefined") {
-      const pathLang = window.location.pathname.split("/")[1];
-      if (pathLang === "en" || pathLang === "fr") return pathLang;
-      return localStorage.getItem("mk-lang") || "fr";
-    }
-    return "fr";
-  });
+  const [lang, setLang] = useState("fr");
 
-  const setLang = (newLang) => {
-    setLangState(newLang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("mk-lang", newLang);
-      document.documentElement.lang = newLang;
+  const t = (key) => {
+    if (!key || typeof key !== "string") return "";
+
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS.fr || {};
+    const keys = key.split(".");
+    let current = dict;
+
+    for (const k of keys) {
+      if (current && typeof current === "object" && k in current) {
+        current = current[k];
+      } else {
+        current = null;
+        break;
+      }
     }
+
+    // Si le résultat est un objet au lieu d'un texte, on le cast ou on renvoie vide
+    if (typeof current === "object" && current !== null) {
+      const extracted = L(current, lang);
+      return typeof extracted === "string" ? extracted : "";
+    }
+
+    if (typeof current === "string" || typeof current === "number") {
+      return String(current);
+    }
+
+    return "";
   };
-
-  const t = useCallback(
-    (key) => {
-      if (translations[lang] && translations[lang][key] !== undefined) {
-        return translations[lang][key];
-      }
-      if (translations.fr && translations.fr[key] !== undefined) {
-        return translations.fr[key];
-      }
-      return key;
-    },
-    [lang]
-  );
 
   return (
     <I18nContext.Provider value={{ lang, setLang, t }}>
@@ -47,16 +51,17 @@ export function I18nProvider({ children }) {
 
 export function useI18n() {
   const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error("useI18n doit être utilisé dans I18nProvider");
+  if (!ctx) {
+    throw new Error("useI18n doit être utilisé dans I18nProvider");
+  }
   return ctx;
 }
 
 export function localizedPath(path, lang) {
-  const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  if (cleanPath.startsWith("/fr/") || cleanPath.startsWith("/en/")) {
-    const parts = cleanPath.split("/");
-    parts[1] = lang;
-    return parts.join("/");
+  if (!path) return `/${lang}`;
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  if (clean.startsWith("/fr/") || clean.startsWith("/en/")) {
+    return clean.replace(/^\/(fr|en)/, `/${lang}`);
   }
-  return `/${lang}${cleanPath === "/" ? "" : cleanPath}`;
+  return `/${lang}${clean === "/" ? "" : clean}`;
 }
