@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Search as SearchIcon, X, ArrowUpRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useI18n, localizedPath } from "@/i18n/context";
+import { L } from "@/i18n/pick";
 import axios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -78,8 +79,8 @@ export default function SearchModal({ open, onClose }) {
                     <li key={it.path}>
                       <button onClick={() => goto(it.path)} className="w-full text-left px-6 py-3 hover:bg-mk-paper2 flex items-start justify-between gap-6 group" data-testid={`search-result-${it.path}`}>
                         <div>
-                          <div className="font-serif text-lg">{it.title}</div>
-                          <div className="text-sm text-mk-text2 mt-0.5">{it.excerpt}</div>
+                          <div className="font-serif text-lg">{L(it.title, lang)}</div>
+                          <div className="text-sm text-mk-text2 mt-0.5">{L(it.excerpt, lang)}</div>
                         </div>
                         <ArrowUpRight className="w-4 h-4 text-mk-text2 group-hover:text-mk-bronze mt-1.5" strokeWidth={1.5} />
                       </button>

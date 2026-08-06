@@ -14,6 +14,16 @@ import {
   History
 } from "lucide-react";
 
+/**
+ * Helper de traduction pour éviter les erreurs de rendu React (Error #31).
+ * Sécurise l'extraction du texte selon la langue ('fr' par défaut).
+ */
+export const t = (field, lang = 'fr') => {
+  if (!field) return '';
+  if (typeof field === 'string') return field;
+  return field[lang] || field['fr'] || field['en'] || '';
+};
+
 export const MODULES = [
   {
     slug: "investor-lifecycle",
