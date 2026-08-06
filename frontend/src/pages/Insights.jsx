@@ -6,6 +6,7 @@ import axios from "axios";
 import SEO from "@/components/common/SEO";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import { useI18n, localizedPath } from "@/i18n/context";
+import { L } from "@/i18n/pick";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -79,32 +80,46 @@ export default function Insights() {
         <div className="container-mk">
           {isLoading && <div className="text-mk-text2">{t("ins.loading")}</div>}
           {!isLoading && items.length === 0 && <div className="text-mk-text2" data-testid="insights-no-results">{t("ins.no_results")}</div>}
-          {featured && (
-            <Link to={p(`/insights/${featured.slug}`)} className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20 group" data-testid="insights-featured">
-              <div className="aspect-[4/3] overflow-hidden bg-mk-ink">
-                <img src={featured.cover} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="overline mb-3 text-mk-bronze2">{featured.category} · {featured.read_minutes} {t("ins.min_read")} · {featured.published_at}</div>
-                <h2 className="font-serif text-4xl md:text-5xl leading-tight group-hover:text-mk-bronze2 transition-colors">{featured.title}</h2>
-                <p className="mt-6 text-mk-text2 text-lg leading-relaxed max-w-lg">{featured.excerpt}</p>
-                <div className="mt-6 text-sm">— {featured.author}</div>
-              </div>
-            </Link>
-          )}
+          {featured && (() => {
+            const featuredSlug = typeof featured.slug === "string" || typeof featured.slug === "number"
+              ? String(featured.slug)
+              : typeof featured.id === "string" || typeof featured.id === "number"
+                ? String(featured.id)
+                : "featured-article";
+            return (
+              <Link to={p(`/insights/${featuredSlug}`)} className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20 group" data-testid="insights-featured">
+                <div className="aspect-[4/3] overflow-hidden bg-mk-ink">
+                  <img src={featured.cover} alt={L(featured.title, lang)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <div className="overline mb-3 text-mk-bronze2">{L(featured.category?.name || featured.category, lang)} · {featured.read_minutes} {t("ins.min_read")} · {featured.published_at}</div>
+                  <h2 className="font-serif text-4xl md:text-5xl leading-tight group-hover:text-mk-bronze2 transition-colors">{L(featured.title, lang)}</h2>
+                  <p className="mt-6 text-mk-text2 text-lg leading-relaxed max-w-lg">{L(featured.excerpt, lang)}</p>
+                  <div className="mt-6 text-sm">— {L(featured.author, lang)}</div>
+                </div>
+              </Link>
+            );
+          })()}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-            {rest.map(a => (
-              <Link key={a.slug} to={p(`/insights/${a.slug}`)} className="group" data-testid={`article-card-${a.slug}`}>
-                <div className="aspect-[16/10] overflow-hidden bg-mk-ink mb-5">
-                  <img src={a.cover} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-                </div>
-                <div className="overline text-mk-bronze2 mb-2">{a.category} · {a.read_minutes} {t("ins.min_read")}</div>
-                <h3 className="font-serif text-2xl leading-tight group-hover:text-mk-bronze2 transition-colors">{a.title}</h3>
-                <p className="text-sm text-mk-text2 mt-3 leading-relaxed">{a.excerpt}</p>
-                <div className="mt-3 text-xs font-mono text-mk-text2">{a.published_at} · {a.author}</div>
-              </Link>
-            ))}
+            {rest.map((a, index) => {
+              const articleSlug = typeof a.slug === "string" || typeof a.slug === "number"
+                ? String(a.slug)
+                : typeof a.id === "string" || typeof a.id === "number"
+                  ? String(a.id)
+                  : `article-${index}`;
+              return (
+                <Link key={`${articleSlug}-${index}`} to={p(`/insights/${articleSlug}`)} className="group" data-testid={`article-card-${articleSlug}`}>
+                  <div className="aspect-[16/10] overflow-hidden bg-mk-ink mb-5">
+                    <img src={a.cover} alt={L(a.title, lang)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                  </div>
+                  <div className="overline text-mk-bronze2 mb-2">{L(a.category?.name || a.category, lang)} · {a.read_minutes} {t("ins.min_read")}</div>
+                  <h3 className="font-serif text-2xl leading-tight group-hover:text-mk-bronze2 transition-colors">{L(a.title, lang)}</h3>
+                  <p className="text-sm text-mk-text2 mt-3 leading-relaxed">{L(a.excerpt, lang)}</p>
+                  <div className="mt-3 text-xs font-mono text-mk-text2">{a.published_at} · {L(a.author, lang)}</div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

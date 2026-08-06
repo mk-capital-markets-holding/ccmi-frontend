@@ -63,13 +63,13 @@ const Hero = () => {
 };
 
 const ValueProp = () => {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { data } = useQuery({ queryKey: ["stats"], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/site/stats`)).data });
   const items = [
-    { k: `USD ${data?.aum_supported_usd_bn ?? 42}B`, v: t("home.value.aum") },
-    { k: `${data?.exchanges_deployed ?? 6}`, v: t("home.value.exchanges") },
-    { k: `${((data?.investors_managed ?? 1240000) / 1_000_000).toFixed(2)}M`, v: t("home.value.investors") },
-    { k: `${data?.countries ?? 14}`, v: t("home.value.countries") },
+    { id: "aum", k: `USD ${data?.aum_supported_usd_bn ?? 42}B`, v: L(t("home.value.aum"), lang) },
+    { id: "exchanges", k: `${data?.exchanges_deployed ?? 6}`, v: L(t("home.value.exchanges"), lang) },
+    { id: "investors", k: `${((data?.investors_managed ?? 1240000) / 1_000_000).toFixed(2)}M`, v: L(t("home.value.investors"), lang) },
+    { id: "countries", k: `${data?.countries ?? 14}`, v: L(t("home.value.countries"), lang) },
   ];
   return (
     <section className="bg-mk-paper border-y border-mk-line/10" data-testid="value-prop">
@@ -80,7 +80,7 @@ const ValueProp = () => {
         </div>
         <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-0 border-l border-mk-line/10">
           {items.map((it) => (
-            <div key={it.v} className="border-r border-b border-mk-line/10 p-6 md:p-8 last:border-r-0">
+            <div key={it.id} className="border-r border-b border-mk-line/10 p-6 md:p-8 last:border-r-0">
               <div className="font-serif text-4xl md:text-5xl text-mk-ink">{it.k}</div>
               <div className="text-xs uppercase tracking-widest text-mk-text2 mt-3">{it.v}</div>
             </div>
@@ -119,7 +119,7 @@ const ModulesGrid = () => {
                 <span className="text-xs font-mono text-mk-text2/60">0{i + 1}</span>
               </div>
               <h3 className="font-serif text-2xl leading-tight mb-3">{L(m.name, lang)}</h3>
-              <p className="text-sm text-mk-text2 mb-6 leading-relaxed">{L(m.tagline, lang)}</p>
+              <p className="text-sm text-mk-text2 mb-6 leading-relaxed">{L(m.tagline || m.description, lang)}</p>
               <div className="inline-flex items-center gap-2 text-sm text-mk-ink group-hover:text-mk-bronze transition-colors">
                 {t("cta.learn")} <ArrowUpRight className="w-4 h-4" strokeWidth={1.5} />
               </div>
@@ -191,6 +191,18 @@ const InsightsPreview = () => {
   const p = (path) => localizedPath(path, lang);
   const { data } = useQuery({ queryKey: ["home-articles", lang], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/articles?limit=3&lang=${lang}`)).data });
   const items = data?.items || [];
+
+  // Helper interne pour extraire proprement la catégorie sous forme de texte
+  const getCategoryLabel = (cat) => {
+    if (!cat) return "";
+    if (typeof cat === "string") return cat;
+    if (typeof cat === "object") {
+      if (cat.name) return L(cat.name, lang);
+      return L(cat, lang);
+    }
+    return "";
+  };
+
   return (
     <section className="bg-mk-paper py-24 md:py-32" data-testid="insights-preview">
       <div className="container-mk">
@@ -202,16 +214,28 @@ const InsightsPreview = () => {
           <Link to={p("/insights")} className="hidden md:inline-flex items-center gap-2 text-sm text-mk-ink hover:text-mk-bronze mk-link">{t("cta.all_insights")} <ArrowUpRight className="w-4 h-4" /></Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {items.map((a) => (
-            <Link key={a.slug} to={p(`/insights/${a.slug}`)} className="group" data-testid={`insight-card-${a.slug}`}>
-              <div className="aspect-[16/10] overflow-hidden bg-mk-ink mb-5">
-                <img src={a.cover} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-              </div>
-              <div className="overline mb-2 text-mk-bronze2">{a.category} · {a.read_minutes} {t("ins.min_read")}</div>
-              <h3 className="font-serif text-2xl leading-tight group-hover:text-mk-bronze2 transition-colors">{a.title}</h3>
-              <p className="text-sm text-mk-text2 mt-3 leading-relaxed">{a.excerpt}</p>
-            </Link>
-          ))}
+          {items.map((a, index) => {
+            const articleSlug = typeof a.slug === "string" || typeof a.slug === "number"
+              ? String(a.slug)
+              : typeof a.id === "string" || typeof a.id === "number"
+                ? String(a.id)
+                : `article-${index}`;
+            
+            const categoryLabel = getCategoryLabel(a.category);
+
+            return (
+              <Link key={`${articleSlug}-${index}`} to={p(`/insights/${articleSlug}`)} className="group" data-testid={`insight-card-${articleSlug}`}>
+                <div className="aspect-[16/10] overflow-hidden bg-mk-ink mb-5">
+                  <img src={a.cover} alt={L(a.title, lang)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                </div>
+                <div className="overline mb-2 text-mk-bronze2">
+                  {categoryLabel} {categoryLabel ? "·" : ""} {a.read_minutes} {t("ins.min_read")}
+                </div>
+                <h3 className="font-serif text-2xl leading-tight group-hover:text-mk-bronze2 transition-colors">{L(a.title, lang)}</h3>
+                <p className="text-sm text-mk-text2 mt-3 leading-relaxed">{L(a.excerpt, lang)}</p>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

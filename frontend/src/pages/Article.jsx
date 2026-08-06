@@ -6,6 +6,7 @@ import { Linkedin, Twitter, Link as LinkIcon } from "lucide-react";
 import SEO from "@/components/common/SEO";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import { useI18n, localizedPath } from "@/i18n/context";
+import { L } from "@/i18n/pick";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -29,23 +30,23 @@ export default function Article() {
 
   const url = typeof window !== "undefined" ? window.location.href : "";
   const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-  const shareX = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(url)}`;
+  const shareX = `https://twitter.com/intent/tweet?text=${encodeURIComponent(L(article.title, lang))}&url=${encodeURIComponent(url)}`;
 
   return (
     <>
-      <SEO title={article.title} description={article.excerpt} path={`/insights/${article.slug}`} image={article.cover} />
+      <SEO title={L(article.title, lang)} description={L(article.excerpt, lang)} path={`/insights/${article.slug}`} image={article.cover} />
       <div className="mk-progress-bar" style={{ width: `${progress}%` }} />
 
       <article>
         <section className="bg-mk-paper pt-16 pb-10">
           <div className="container-mk max-w-4xl">
-            <Breadcrumbs items={[{ label: t("bc.insights"), to: "/insights" }, { label: article.category }]} />
+            <Breadcrumbs items={[{ label: t("bc.insights"), to: "/insights" }, { label: L(article.category?.name || article.category, lang) }]} />
             <div className="mt-8">
-              <div className="overline mb-3 text-mk-bronze2">{article.category} · {article.read_minutes} {t("ins.min_read")} · {article.published_at}</div>
-              <h1 className="font-serif text-4xl md:text-6xl leading-[1.05]">{article.title}</h1>
-              <p className="mt-6 text-xl text-mk-text2 leading-relaxed max-w-3xl">{article.excerpt}</p>
+              <div className="overline mb-3 text-mk-bronze2">{L(article.category?.name || article.category, lang)} · {article.read_minutes} {t("ins.min_read")} · {article.published_at}</div>
+              <h1 className="font-serif text-4xl md:text-6xl leading-[1.05]">{L(article.title, lang)}</h1>
+              <p className="mt-6 text-xl text-mk-text2 leading-relaxed max-w-3xl">{L(article.excerpt, lang)}</p>
               <div className="mt-8 flex items-center justify-between border-y border-mk-line/15 py-4">
-                <div className="text-sm">{t("article.by")} <span className="font-medium">{article.author}</span></div>
+                <div className="text-sm">{t("article.by")} <span className="font-medium">{L(article.author, lang)}</span></div>
                 <div className="flex items-center gap-3 text-mk-text2">
                   <a href={shareLinkedIn} target="_blank" rel="noopener noreferrer" aria-label={t("article.share.linkedin")} className="hover:text-mk-bronze"><Linkedin className="w-4 h-4" strokeWidth={1.5} /></a>
                   <a href={shareX} target="_blank" rel="noopener noreferrer" aria-label={t("article.share.x")} className="hover:text-mk-bronze"><Twitter className="w-4 h-4" strokeWidth={1.5} /></a>
@@ -58,14 +59,14 @@ export default function Article() {
 
         <div className="container-mk max-w-4xl">
           <div className="aspect-[16/9] bg-mk-ink overflow-hidden">
-            <img src={article.cover} alt={article.title} className="w-full h-full object-cover" />
+            <img src={article.cover} alt={L(article.title, lang)} className="w-full h-full object-cover" />
           </div>
         </div>
 
         <section className="bg-mk-paper py-16">
           <div className="container-mk max-w-3xl">
             <div className="space-y-6 text-lg leading-relaxed text-mk-text">
-              {article.body.map((par, i) => <p key={i}>{par}</p>)}
+              {article.body.map((par, i) => <p key={i}>{L(par, lang)}</p>)}
             </div>
             <div className="mt-16 pt-8 border-t border-mk-line/15 flex flex-wrap gap-2">
               {(article.tags || []).map(tag => {
