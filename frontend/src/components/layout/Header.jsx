@@ -5,6 +5,7 @@ import { useI18n, localizedPath } from "@/i18n/context";
 import { L } from "@/i18n/pick";
 import { MODULES } from "@/data/modules";
 import { INDUSTRIES } from "@/data/industries";
+import LanguageToggle from "@/components/common/LanguageToggle";
 
 const MAIN_LINKS = [
   { to: "/about", key: "nav.about" },

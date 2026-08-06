@@ -178,11 +178,7 @@ export const INDUSTRIES = [
       { en: "Aggregated regulator-grade reports across holdings.", fr: "Reports agrégés conformes régulateurs sur l'ensemble des positions." },
       { en: "Direct issuer engagement via campaign workspace.", fr: "Engagement direct avec les émetteurs via l'atelier de campagnes." },
     ],
-    benefits: [
-      { kpi: "1.2M", label: { en: "investors served", fr: "investisseurs servis" } },
-      { kpi: "T+0", label: { en: "instructions", fr: "instructions" } },
-      { kpi: "eIDAS", label: { en: "signatures", fr: "signatures" } },
-    ],
+    
     relevantModules: ["investor-portal", "campaign-workspace"],
     caseStudy: { client: { en: "GCC sovereign vehicle", fr: "Véhicule souverain du CCG" }, outcome: { en: "Consolidated 14 counterparties into a single portal with T+0 instruction execution.", fr: "Consolidation de 14 contreparties en un portail unique avec exécution T+0." } },
   },

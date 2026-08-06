@@ -58,7 +58,10 @@ export default function FounderPage() {
                       key={idx} 
                       className="bg-white border border-mk-line/30 border-l-4 border-l-[#2C323B] p-5 font-semibold text-mk-ink text-sm shadow-xs flex items-center"
                     >
-                      {company}
+                      {/* FIX ERREUR #31 : Sécurisation si `company` est un objet */}
+                      {typeof company === "object" 
+                        ? L(company.name || company.title || company, lang) 
+                        : company}
                     </div>
                   ))}
                 </div>
@@ -77,10 +80,10 @@ export default function FounderPage() {
                     >
                       <div className="flex items-start gap-2 text-mk-ink font-bold text-sm">
                         <GraduationCap className="w-5 h-5 shrink-0 mt-0.5" />
-                        <span>{edu.degree}</span>
+                        <span>{L(edu.degree, lang)}</span>
                       </div>
                       <p className="text-xs text-mk-text2 mt-3 font-medium">
-                        {edu.institution} — <span className="text-mk-text2/70">{edu.country}</span>
+                        {L(edu.institution, lang)} — <span className="text-mk-text2/70">{L(edu.country, lang)}</span>
                       </p>
                     </div>
                   ))}
@@ -95,47 +98,53 @@ export default function FounderPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   {/* PMP */}
-                  <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
-                    <div className="w-full flex justify-center pt-3 pb-1">
-                      <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
-                        <Award className="w-5 h-5" />
+                  {FOUNDER.certifications[0] && (
+                    <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                      <div className="w-full flex justify-center pt-3 pb-1">
+                        <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                          <Award className="w-5 h-5" />
+                        </div>
+                      </div>
+                      <div className="p-5 text-center pt-2">
+                        <h3 className="font-bold text-mk-ink text-base">🏅 {L(FOUNDER.certifications[0].title, lang)}</h3>
+                        <p className="text-xs text-mk-text2 font-semibold mt-1">{L(FOUNDER.certifications[0].subtitle, lang)}</p>
+                        <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{L(FOUNDER.certifications[0].issuer, lang)}</p>
                       </div>
                     </div>
-                    <div className="p-5 text-center pt-2">
-                      <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[0].title}</h3>
-                      <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[0].subtitle}</p>
-                      <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[0].issuer}</p>
-                    </div>
-                  </div>
+                  )}
 
                   {/* Enterprise Architecture */}
-                  <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
-                    <div className="w-full flex justify-center pt-3 pb-1">
-                      <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
-                        <Award className="w-5 h-5" />
+                  {FOUNDER.certifications[1] && (
+                    <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                      <div className="w-full flex justify-center pt-3 pb-1">
+                        <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                          <Award className="w-5 h-5" />
+                        </div>
+                      </div>
+                      <div className="p-5 text-center pt-2">
+                        <h3 className="font-bold text-mk-ink text-base">🏅 {L(FOUNDER.certifications[1].title, lang)}</h3>
+                        <p className="text-xs text-mk-text2 font-semibold mt-1">{L(FOUNDER.certifications[1].subtitle, lang)}</p>
+                        <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{L(FOUNDER.certifications[1].issuer, lang)}</p>
                       </div>
                     </div>
-                    <div className="p-5 text-center pt-2">
-                      <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[1].title}</h3>
-                      <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[1].subtitle}</p>
-                      <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[1].issuer}</p>
-                    </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Financial Engineering C++ */}
-                <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
-                  <div className="w-full flex justify-center pt-3 pb-1">
-                    <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
-                      <Monitor className="w-5 h-5" />
+                {FOUNDER.certifications[2] && (
+                  <div className="bg-white border border-mk-line/30 rounded-xs overflow-hidden shadow-xs relative">
+                    <div className="w-full flex justify-center pt-3 pb-1">
+                      <div className="w-9 h-9 bg-[#2C323B] rounded-full flex items-center justify-center text-white">
+                        <Monitor className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="p-5 text-center pt-2">
+                      <h3 className="font-bold text-mk-ink text-base">🏅 {L(FOUNDER.certifications[2].title, lang)}</h3>
+                      <p className="text-xs text-mk-text2 font-semibold mt-1">{L(FOUNDER.certifications[2].subtitle, lang)}</p>
+                      <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{L(FOUNDER.certifications[2].issuer, lang)}</p>
                     </div>
                   </div>
-                  <div className="p-5 text-center pt-2">
-                    <h3 className="font-bold text-mk-ink text-base">🏅 {FOUNDER.certifications[2].title}</h3>
-                    <p className="text-xs text-mk-text2 font-semibold mt-1">{FOUNDER.certifications[2].subtitle}</p>
-                    <p className="text-[11px] text-mk-text2/70 font-medium mt-1">{FOUNDER.certifications[2].issuer}</p>
-                  </div>
-                </div>
+                )}
 
               </div>
 

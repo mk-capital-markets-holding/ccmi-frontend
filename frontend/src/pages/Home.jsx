@@ -52,9 +52,9 @@ const Hero = () => {
         <div className="lg:col-span-4 hidden lg:block">
           <div className="border-l border-mk-bronze/50 pl-6 space-y-6 text-sm text-white/80 font-mono">
             <div><div className="overline text-white/40">{t("hero.hq")}</div><div className="mt-1">DIFC · Dubai</div></div>
-            <div><div className="overline text-white/40">{t("hero.platform")}</div><div className="mt-1">CCMI v4.2</div></div>
-            <div><div className="overline text-white/40">{t("hero.uptime_sla")}</div><div className="mt-1">{COMPANY.stats.uptime}</div></div>
-            <div><div className="overline text-white/40">{t("hero.exchanges_live")}</div><div className="mt-1">{COMPANY.stats.exchanges}</div></div>
+            <div><div className="overline text-white/40">{t("hero.platform")}</div><div className="mt-1">CCMI Enterprise</div></div>
+            <div><div className="overline text-white/40">{lang === "fr" ? "CADRE RÉGLEMENTAIRE" : "REGULATORY FRAMEWORK"}</div><div className="mt-1">COSUMAF / OHADA</div></div>
+            <div><div className="overline text-white/40">{lang === "fr" ? "ARCHITECTURE CLOUD" : "CLOUD ARCHITECTURE"}</div><div className="mt-1">Microsoft Azure</div></div>
           </div>
         </div>
       </div>
@@ -64,12 +64,11 @@ const Hero = () => {
 
 const ValueProp = () => {
   const { t, lang } = useI18n();
-  const { data } = useQuery({ queryKey: ["stats"], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/site/stats`)).data });
   const items = [
-    { id: "aum", k: `USD ${data?.aum_supported_usd_bn ?? 42}B`, v: L(t("home.value.aum"), lang) },
-    { id: "exchanges", k: `${data?.exchanges_deployed ?? 6}`, v: L(t("home.value.exchanges"), lang) },
-    { id: "investors", k: `${((data?.investors_managed ?? 1240000) / 1_000_000).toFixed(2)}M`, v: L(t("home.value.investors"), lang) },
-    { id: "countries", k: `${data?.countries ?? 14}`, v: L(t("home.value.countries"), lang) },
+    { id: "difc", k: "DIFC", v: lang === "fr" ? "Hub & Juridiction" : "Jurisdiction & Hub" },
+    { id: "cosumaf", k: "COSUMAF", v: lang === "fr" ? "Standards Réglementaires" : "Regulatory Framework" },
+    { id: "azure", k: "Azure", v: lang === "fr" ? "Infrastructure Enterprise" : "Enterprise Infrastructure" },
+    { id: "sla", k: "99.97%", v: lang === "fr" ? "Cible Disponibilité SLA" : "Target Uptime SLA" },
   ];
   return (
     <section className="bg-mk-paper border-y border-mk-line/10" data-testid="value-prop">
@@ -81,7 +80,7 @@ const ValueProp = () => {
         <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-0 border-l border-mk-line/10">
           {items.map((it) => (
             <div key={it.id} className="border-r border-b border-mk-line/10 p-6 md:p-8 last:border-r-0">
-              <div className="font-serif text-4xl md:text-5xl text-mk-ink">{it.k}</div>
+              <div className="font-serif text-3xl md:text-4xl text-mk-ink font-bold">{it.k}</div>
               <div className="text-xs uppercase tracking-widest text-mk-text2 mt-3">{it.v}</div>
             </div>
           ))}
@@ -165,21 +164,30 @@ const Testimonials = () => {
   const { t, lang } = useI18n();
   return (
     <section className="bg-mk-paper2 py-24 md:py-32" data-testid="testimonials-section">
-      <div className="container-mk grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container-mk grid grid-cols-1 lg:grid-cols-2 gap-8">
         {TESTIMONIALS.map((tm, i) => (
           <figure key={i} className="bg-white border border-mk-line/10 p-8 md:p-10 flex flex-col justify-between">
             <blockquote className="font-serif text-xl md:text-2xl leading-snug text-mk-ink">"{L(tm.quote, lang)}"</blockquote>
             <figcaption className="mt-8 pt-6 border-t border-mk-line/10">
               <div className="text-sm font-medium">{L(tm.author, lang)}</div>
-              <div className="text-xs text-mk-text2 uppercase tracking-wider mt-1">{L(tm.org, lang)}</div>
+              <div className="text-xs text-mk-text2 uppercase tracking-wider mt-1">{L(tm.role, lang)}</div>
             </figcaption>
           </figure>
         ))}
       </div>
       <div className="container-mk mt-16 overflow-hidden">
-        <div className="overline text-mk-text2 text-center mb-6">{t("home.partners.overline")}</div>
+        <div className="overline text-mk-text2 text-center mb-6">
+          {t("home.partners.overline")}
+        </div>
         <div className="flex flex-wrap gap-x-12 gap-y-6 justify-center items-center">
-          {PARTNERS.map((pn) => (<div key={pn} className="mk-logo font-serif text-lg text-mk-text2 tracking-wide">{pn}</div>))}
+          {PARTNERS.map((pn, idx) => (
+            <div
+              key={typeof pn === "object" ? pn.name || idx : idx}
+              className="mk-logo font-serif text-lg text-mk-text2 tracking-wide"
+            >
+              {typeof pn === "object" ? pn.name : pn}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -192,7 +200,6 @@ const InsightsPreview = () => {
   const { data } = useQuery({ queryKey: ["home-articles", lang], queryFn: async () => (await axios.get(`${BACKEND_URL}/api/articles?limit=3&lang=${lang}`)).data });
   const items = data?.items || [];
 
-  // Helper interne pour extraire proprement la catégorie sous forme de texte
   const getCategoryLabel = (cat) => {
     if (!cat) return "";
     if (typeof cat === "string") return cat;
@@ -256,8 +263,8 @@ const ConversionCTA = () => {
         </div>
         <div className="border-l border-mk-bronze/30 pl-8 lg:pl-12">
           <div className="grid grid-cols-2 gap-4 mb-8">
-            <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink px-5 py-4 hover:bg-mk-bronze2 transition-colors text-center" data-testid="btn-cta-demo">{t("cta.demo")}</Link>
-            <Link to={p("/investors")} className="border border-white/40 text-white px-5 py-4 hover:bg-white hover:text-mk-ink transition-colors text-center">{t("nav.investors")}</Link>
+            <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink px-5 py-4 hover:bg-mk-bronze2 transition-colors text-center font-medium" data-testid="btn-cta-demo">{t("cta.demo")}</Link>
+            <Link to={p("/investors")} className="border border-white/40 text-white px-5 py-4 hover:bg-white hover:text-mk-ink transition-colors text-center font-medium">{t("nav.investors")}</Link>
           </div>
           <ul className="space-y-3 text-sm text-white/70">
             <li className="flex gap-3"><Shield className="w-4 h-4 text-mk-bronze mt-0.5" strokeWidth={1.5} />{t("home.cta.bullet_1")}</li>
@@ -277,7 +284,7 @@ export default function Home() {
     <>
       <SEO
         title={lang === "fr" ? "Infrastructure institutionnelle pour les marchés de capitaux" : "Institutional capital-markets infrastructure"}
-        description={lang === "fr" ? "MK Capital Markets Technologies — plateforme CCMI. Conçue à Dubaï, déployée sur six bourses, adoptée par les régulateurs et investisseurs institutionnels." : "MK Capital Markets Technologies — CCMI platform. Dubai-engineered, deployed across six exchanges, trusted by regulators and institutional investors."}
+        description={lang === "fr" ? "MK Capital Markets Technologies — plateforme CCMI. Conçue à Dubaï, conçue pour les régulateurs et investisseurs institutionnels de la zone CEMAC." : "MK Capital Markets Technologies — CCMI platform. Dubai-engineered, designed for regulators and institutional investors in the CEMAC region."}
         path="/"
       />
       <Hero />

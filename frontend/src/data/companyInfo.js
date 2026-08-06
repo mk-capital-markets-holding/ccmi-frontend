@@ -167,8 +167,32 @@ export const TESTIMONIALS = [
 ];
 
 export const PARTNERS = [
-  { name: "COSUMAF", category: "Regulatory Alignment" },
-  { name: "BVMAC", category: "Stock Exchange" },
-  { name: "BRVM", category: "Regional Exchange" },
-  { name: "Meydan FZ", category: "Innovation Hub" },
+  {
+    name: "COSUMAF",
+    category: {
+      en: "Regulatory Alignment",
+      fr: "Conformité Réglementaire",
+    },
+  },
+  {
+    name: "BVMAC",
+    category: {
+      en: "Stock Exchange",
+      fr: "Bourse Régionale",
+    },
+  },
+  {
+    name: "BRVM",
+    category: {
+      en: "Regional Exchange",
+      fr: "Bourse Régionale",
+    },
+  },
+  {
+    name: "Meydan FZ",
+    category: {
+      en: "Innovation Hub",
+      fr: "Hub d'Innovation",
+    },
+  },
 ];

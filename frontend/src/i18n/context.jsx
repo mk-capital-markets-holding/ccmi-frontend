@@ -7,15 +7,22 @@ const translations = { fr, en };
 const I18nContext = createContext(null);
 
 export function I18nProvider({ children }) {
-  // Détection initiale via window.location (ne plante pas si hors du Router)
+  // 1. Détection initiale : priorité à l'URL, puis au localStorage, puis ANGLAIS par défaut
   const [lang, setLangState] = useState(() => {
     if (typeof window !== "undefined") {
       const pathLang = window.location.pathname.split("/")[1];
       if (pathLang === "en" || pathLang === "fr") return pathLang;
-      return localStorage.getItem("mk-lang") || "fr";
+      return localStorage.getItem("mk-lang") || "en"; // ✅ 'en' au lieu de 'fr'
     }
-    return "fr";
+    return "en"; // ✅ 'en' au lieu de 'fr'
   });
+
+  // Synchronise la balise <html lang="..."> au montage et au changement
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.documentElement.lang = lang;
+    }
+  }, [lang]);
 
   const setLang = (newLang) => {
     setLangState(newLang);
@@ -25,13 +32,16 @@ export function I18nProvider({ children }) {
     }
   };
 
+  // 2. Traduction t() : cherche dans la langue active, puis fallback sur l'ANGLAIS
   const t = useCallback(
     (key) => {
+      // Si la clé existe dans la langue demandée
       if (translations[lang] && translations[lang][key] !== undefined) {
         return translations[lang][key];
       }
-      if (translations.fr && translations.fr[key] !== undefined) {
-        return translations.fr[key];
+      // ✅ Fallback sur l'anglais si la clé manque dans la langue actuelle
+      if (translations.en && translations.en[key] !== undefined) {
+        return translations.en[key];
       }
       return key;
     },
