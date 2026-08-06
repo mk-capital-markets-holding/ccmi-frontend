@@ -1,3 +1,10 @@
+import React from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { useI18n } from "../i18n"; // vérifie le chemin si besoin
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "";
+
 const ValueProp = () => {
   const { t, lang } = useI18n();
   const { data } = useQuery({ 
@@ -11,15 +18,26 @@ const ValueProp = () => {
     } 
   });
 
-  // Helper de rendu sécurisé pour éviter l'écran blanc
+  // Helper de rendu ultra-sécurisé : extrait les textes même si c'est un objet { name, category }
   const safeRender = (val) => {
     if (!val) return "";
     if (typeof val === "string" || typeof val === "number") return val;
-    if (typeof L === "function") {
-      const res = L(val, lang);
-      return typeof res === "object" ? (res[lang] || res.fr || res.en || "") : res;
+    
+    let target = val;
+    if (typeof target === "object" && target !== null) {
+      target = target[lang] || target.fr || target.en || target;
     }
-    return typeof val === "object" ? (val[lang] || val.fr || val.en || "") : String(val);
+    
+    if (typeof target === "string" || typeof target === "number") return target;
+    
+    // Si target est un objet du type { name, category }
+    if (typeof target === "object" && target !== null) {
+      if (target.name) return safeRender(target.name);
+      if (target.title) return safeRender(target.title);
+      if (target.label) return safeRender(target.label);
+    }
+    
+    return "";
   };
 
   const items = [
@@ -48,3 +66,13 @@ const ValueProp = () => {
     </section>
   );
 };
+
+const Home = () => {
+  return (
+    <main>
+      <ValueProp />
+    </main>
+  );
+};
+
+export default Home;
