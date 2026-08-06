@@ -42,7 +42,6 @@ export default function Header({ onSearchOpen }) {
     const nextLang = lang === "fr" ? "en" : "fr";
     setLang(nextLang);
 
-    // Extraction du chemin pur (sans le /fr ou /en initial) pour réorienter l'URL
     const currentPath = loc.pathname;
     const cleanPath = currentPath.replace(/^\/(fr|en)(\/|$)/, "/");
     const targetPath = localizedPath(cleanPath === "" ? "/" : cleanPath, nextLang);
@@ -99,7 +98,7 @@ export default function Header({ onSearchOpen }) {
                               {L(m.name, lang)}
                             </div>
                             <div className="text-xs text-white/50 mt-0.5">
-                              {L(m.tagline || m.lede, lang)}
+                              {L(m.tagline || m.lede || "", lang)}
                             </div>
                           </div>
                         </div>

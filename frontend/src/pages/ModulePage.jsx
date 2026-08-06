@@ -1,124 +1,255 @@
-import React from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
-import { ArrowUpRight, CheckCircle2, Play } from "lucide-react";
-import SEO from "@/components/common/SEO";
-import Breadcrumbs from "@/components/common/Breadcrumbs";
-import { getModule, MODULES } from "@/data/modules";
-import { useI18n, localizedPath } from "@/i18n/context";
-import { L } from "@/i18n/pick";
+import React from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { MODULES, getModule } from '../data/modules';
+import { ArrowLeft, ArrowRight, CheckCircle2, Users, TrendingUp } from 'lucide-react';
 
-export default function ModulePage() {
+export default function ModulePage({ lang = 'fr' }) {
   const { slug } = useParams();
-  const { lang, t } = useI18n();
-  const p = (path) => localizedPath(path, lang);
-  const mod = getModule(slug);
-  if (!mod) return <Navigate to={p("/solutions")} replace />;
-  const others = MODULES.filter(m => m.slug !== slug).slice(0, 3);
-  const modName = L(mod.name, lang);
+  
+  // Récupération sécurisée du module actif ou de secours
+  const activeModule = (typeof getModule === 'function' ? getModule(slug) : null) || 
+                       (Array.isArray(MODULES) && MODULES.length > 0 ? MODULES[0] : null);
+
+  const isFr = lang === 'fr';
+
+  // Si aucun module n'est trouvé
+  if (!activeModule) {
+    return (
+      <div className="bg-[#0b132b] text-white min-h-screen flex items-center justify-center p-6">
+        <div className="text-center">
+          <h1 className="text-2xl font-serif mb-4">Module introuvable</h1>
+          <Link to="/solutions" className="text-amber-500 hover:underline">
+            &larr; Retour aux solutions
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Helper de sécurité pour extraire les textes multilingues sans planter
+  const safeText = (field) => {
+    if (!field) return '';
+    if (typeof field === 'string') return field;
+    return field[lang] || field['fr'] || field['en'] || '';
+  };
+
+  const otherModules = Array.isArray(MODULES) 
+    ? MODULES.filter((m) => m && m.slug !== activeModule.slug)
+    : [];
 
   return (
-    <>
-      <SEO title={`${modName} — CCMI`} description={L(mod.tagline, lang)} path={`/solutions/${mod.slug}`} image={mod.screenshot} />
+    <div className="bg-[#0b132b] text-white min-h-screen font-sans">
+      
+      {/* SECTION DU HAUT : Fond Bleu Nuit Institutionnel */}
+      <div className="pt-28 pb-16 px-6 sm:px-12 max-w-7xl mx-auto">
+        
+        {/* Breadcrumb */}
+        <div className="flex items-center space-x-2 text-xs font-mono tracking-widest text-amber-500/80 uppercase mb-8">
+          <Link to="/solutions" className="hover:text-amber-400 flex items-center gap-1">
+            <ArrowLeft className="w-3 h-3" /> SOLUTIONS
+          </Link>
+          <span>&gt;</span>
+          <span className="text-slate-400">{safeText(activeModule.name)}</span>
+        </div>
 
-      <section className="bg-mk-ink text-white pt-16 pb-24 mk-grain">
-        <div className="container-mk">
-          <Breadcrumbs items={[{ label: t("bc.solutions"), to: "/solutions" }, { label: modName }]} />
-              <div className={`grid grid-cols-1 md:grid-cols-${mod.architecture.length} gap-px bg-white/10 border border-white/10`}>              <div className="lg:col-span-7">
-              <div className="overline mb-4">{t("mod.overline")}</div>
-              <div className="flex items-center gap-4 mb-6">
-                <mod.icon className="w-10 h-10 text-mk-bronze" strokeWidth={1.5} />
-                <h1 className="font-serif text-5xl md:text-6xl leading-none">{modName}</h1>
+        {/* Titre & Description */}
+        <div className="max-w-4xl mb-10">
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-500/90 block mb-3">
+            MODULE CCMI {activeModule.num || "01"}
+          </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif tracking-tight text-white mb-6 leading-tight">
+            {safeText(activeModule.name)}
+          </h1>
+          {activeModule.tagline && (
+            <p className="text-xl sm:text-2xl font-serif italic text-slate-300 mb-6 font-light">
+              {safeText(activeModule.tagline)}
+            </p>
+          )}
+          {activeModule.description && (
+            <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-3xl">
+              {safeText(activeModule.description)}
+            </p>
+          )}
+        </div>
+
+        {/* Boutons d'action */}
+        <div className="flex flex-wrap items-center gap-4 mb-14">
+          <Link
+            to="/contact"
+            className="px-6 py-3.5 bg-[#d4af37] hover:bg-[#c5a028] text-slate-950 font-medium text-sm transition-all shadow-md"
+          >
+            {isFr ? "Demander une démo" : "Request a Demo"}
+          </Link>
+          <a
+            href="#features"
+            className="px-6 py-3.5 border border-slate-700 hover:border-slate-500 text-slate-200 font-medium text-sm transition-all"
+          >
+            {isFr ? "Voir la présentation produit" : "View product overview"}
+          </a>
+        </div>
+
+        {/* APERÇU DE L'INTERFACE SAAS */}
+        {activeModule.screenshot && (
+          <div className="mb-14 border border-slate-800 rounded-lg overflow-hidden bg-[#0d1836] shadow-2xl">
+            <div className="bg-[#080d1e] px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
               </div>
-              <p className="text-2xl text-white/85 font-serif italic max-w-2xl">{L(mod.tagline, lang)}</p>
-              <p className="text-white/60 mt-6 max-w-2xl leading-relaxed">{L(mod.description, lang)}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink px-6 py-3 hover:bg-mk-bronze2 transition-colors" data-testid={`btn-mod-demo-${mod.slug}`}>{t("cta.demo")}</Link>
-                <button className="border border-white/40 px-6 py-3 hover:bg-white hover:text-mk-ink transition-colors inline-flex items-center gap-2"><Play className="w-4 h-4" strokeWidth={1.5} /> {t("cta.watch_tour")}</button>
-              </div>
+              <span className="text-[11px] font-mono text-slate-500 tracking-wider">
+                ccmi.mk-capitalmarkets.com/{activeModule.slug}
+              </span>
+              <div className="w-12"></div>
             </div>
-            <div className="lg:col-span-5">
-              <div className="aspect-[4/3] bg-mk-ink2 overflow-hidden border border-mk-bronze/30">
-                <img src={mod.screenshot} alt={`${modName} screenshot`} className="w-full h-full object-cover" />
-              </div>
+            <div className="max-h-[500px] overflow-hidden bg-[#0a1128] flex items-center justify-center">
+              <img
+                src={activeModule.screenshot}
+                alt={safeText(activeModule.name)}
+                className="w-full h-full object-cover object-top opacity-95 hover:opacity-100 transition-opacity"
+              />
             </div>
           </div>
-        </div>
-      </section>
+        )}
 
-      <section className="bg-mk-paper border-b border-mk-line/10">
-        <div className="container-mk py-16 grid grid-cols-1 md:grid-cols-3 gap-0">
-          {mod.benefits.map((b, i) => (
-            <div key={i} className={`p-8 ${i > 0 ? "md:border-l border-mk-line/15" : ""}`}>
-              <div className="font-serif text-5xl md:text-6xl text-mk-ink">{b.kpi}</div>
-              <div className="mt-3 overline text-mk-text2">{L(b.label, lang)}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-mk-paper py-24" data-testid="module-features">
-        <div className="container-mk">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-14">
-            <div className="md:col-span-5"><div className="overline mb-3">{t("mod.features.overline")}</div><h2 className="font-serif text-4xl md:text-5xl">{t("mod.features.title_prefix")} {modName}.</h2></div>
-            <div className="md:col-span-7 md:pt-6"><p className="text-mk-text2">{t("mod.features.lede")}</p></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-mk-line/15 border border-mk-line/15">
-            {mod.features.map((f, i) => (
-              <div key={i} className="bg-mk-paper p-8">
-                <CheckCircle2 className="w-5 h-5 text-mk-bronze mb-4" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl">{L(f.title, lang)}</h3>
-                <p className="text-mk-text2 text-sm mt-3 leading-relaxed">{L(f.detail, lang)}</p>
+        {/* Grille d'architecture (L1, L2, L3, L4...) */}
+        {Array.isArray(activeModule.architecture) && activeModule.architecture.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-slate-800 bg-[#0d1836]">
+            {activeModule.architecture.map((item, index) => (
+              <div
+                key={index}
+                className="p-6 border-b sm:border-b-0 border-r border-slate-800 last:border-r-0 flex flex-col justify-between min-h-[130px]"
+              >
+                <span className="text-xs font-mono text-amber-500/80 mb-3 block">
+                  L{index + 1}
+                </span>
+                <p className="font-serif text-lg text-slate-200 leading-snug">
+                  {safeText(item)}
+                </p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        )}
+      </div>
 
-      <section className="bg-mk-ink text-white py-24 mk-grain">
-        <div className="container-mk">
-          <div className="overline mb-3">{t("mod.arch.overline")}</div>
-          <h2 className="font-serif text-4xl md:text-5xl max-w-2xl leading-tight mb-12">{t("mod.arch.title")}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-px bg-white/10 border border-white/10">
-            {mod.architecture.map((a, i) => (
-              <div key={i} className="bg-mk-ink p-8">
-                <div className="font-mono text-mk-bronze text-xs">L{i + 1}</div>
-                <div className="font-serif text-lg mt-3">{L(a, lang)}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SECTION DU BAS : Fond Beige / Crème Institutionnel */}
+      <div className="bg-[#f4f1ea] text-slate-900 py-20 px-6 sm:px-12 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Valeur Créée & Clients Cibles */}
+          {(activeModule.valueCreated || (Array.isArray(activeModule.targetClients) && activeModule.targetClients.length > 0)) && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+              
+              {/* Carte Valeur Créée */}
+              {activeModule.valueCreated && (
+                <div className="p-8 bg-[#e9e5dc] border border-slate-300 rounded-sm">
+                  <div className="flex items-center gap-3 mb-4 text-amber-800">
+                    <TrendingUp className="w-5 h-5" />
+                    <span className="text-xs font-mono uppercase tracking-widest font-semibold">
+                      {isFr ? "Valeur Créée" : "Value Created"}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-2xl text-slate-900 mb-4">
+                    {safeText(activeModule.valueCreated?.title) || (isFr ? "Impact Opérationnel" : "Operational Impact")}
+                  </h3>
+                  <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
+                    {safeText(activeModule.valueCreated?.description) || safeText(activeModule.valueCreated)}
+                  </p>
+                </div>
+              )}
 
-      <section className="bg-mk-paper2 py-24">
-        <div className="container-mk">
-          <div className="overline mb-3">{t("mod.related.overline")}</div>
-          <h2 className="font-serif text-3xl md:text-4xl mb-10">{t("mod.related.title_prefix")} {modName} {t("mod.related.title_suffix")}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-mk-line/15 border border-mk-line/15">
-            {others.map((o) => (
-              <Link key={o.slug} to={p(`/solutions/${o.slug}`)} className="bg-mk-paper2 p-8 hover:bg-white transition-colors group">
-                <o.icon className="w-6 h-6 text-mk-bronze mb-4" strokeWidth={1.5} />
-                <div className="font-serif text-xl">{L(o.name, lang)}</div>
-                <div className="text-sm text-mk-text2 mt-2">{L(o.tagline, lang)}</div>
-                <div className="mt-4 text-xs uppercase tracking-widest text-mk-bronze2 group-hover:translate-x-1 transition-transform">{t("sol.explore")}</div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-mk-paper py-24">
-        <div className="container-mk max-w-4xl">
-          <div className="border border-mk-line/20 p-10">
-            <div className="overline mb-3">{t("mod.cta.overline")}</div>
-            <h2 className="font-serif text-3xl md:text-4xl leading-tight">{t("mod.cta.title_prefix")} {modName} {t("mod.cta.title_suffix")}</h2>
-            <p className="text-mk-text2 mt-4">{t("mod.cta.lede")}</p>
-            <div className="mt-6 flex gap-3">
-              <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink px-5 py-3 hover:bg-mk-bronze2 transition-colors">{t("cta.demo")}</Link>
-              <Link to={p("/technology")} className="border border-mk-ink px-5 py-3 hover:bg-mk-ink hover:text-white transition-colors">{t("mod.cta.arch")}</Link>
+              {/* Carte Clients Cibles */}
+              {Array.isArray(activeModule.targetClients) && activeModule.targetClients.length > 0 && (
+                <div className="p-8 bg-[#e9e5dc] border border-slate-300 rounded-sm">
+                  <div className="flex items-center gap-3 mb-4 text-amber-800">
+                    <Users className="w-5 h-5" />
+                    <span className="text-xs font-mono uppercase tracking-widest font-semibold">
+                      {isFr ? "Clients Cibles" : "Target Clients"}
+                    </span>
+                  </div>
+                  <ul className="space-y-3 mt-4">
+                    {activeModule.targetClients.map((client, cIdx) => (
+                      <li key={cIdx} className="flex items-start gap-3 text-slate-800 text-sm sm:text-base">
+                        <CheckCircle2 className="w-4 h-4 text-amber-800 mt-1 shrink-0" />
+                        <span>{safeText(client)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-          </div>
+          )}
+
+          {/* Section Spécifications & Fonctionnalités */}
+          {Array.isArray(activeModule.features) && activeModule.features.length > 0 && (
+            <div id="features" className="mb-20">
+              <span className="text-xs font-mono uppercase tracking-widest text-amber-700 block mb-3">
+                {isFr ? "Spécifications" : "Specifications"}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-slate-900 mb-10">
+                {isFr ? "Fonctionnalités intégrées du module" : "Module core features"}
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 border-t border-b border-slate-300 py-8">
+                {activeModule.features.map((feat, idx) => (
+                  <div key={idx} className="flex items-start space-x-4 py-2">
+                    <span className="text-amber-700 font-serif text-sm font-semibold mt-1">
+                      —
+                    </span>
+                    <div>
+                      <h3 className="font-serif text-lg text-slate-900 font-medium">
+                        {safeText(feat?.title) || safeText(feat)}
+                      </h3>
+                      {feat?.detail && (
+                        <p className="text-slate-600 text-sm mt-1 leading-relaxed">
+                          {safeText(feat.detail)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Section Modules complémentaires */}
+          {otherModules.length > 0 && (
+            <div>
+              <span className="text-xs font-mono uppercase tracking-widest text-amber-700 block mb-3">
+                {isFr ? "MODULES COMPLÉMENTAIRES" : "COMPLEMENTARY MODULES"}
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-slate-900 mb-12">
+                {isFr ? `Déployer ${safeText(activeModule.name)} aux côtés de :` : `Deploy ${safeText(activeModule.name)} alongside:`}
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {otherModules.slice(0, 3).map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={`/solutions/${item.slug}`}
+                    className="block p-8 bg-[#e9e5dc] hover:bg-[#e2ddd3] border border-slate-300 transition-all group"
+                  >
+                    <span className="text-xs font-mono text-amber-800 block mb-3">
+                      MODULE {item.num || `0${idx + 1}`}
+                    </span>
+                    <h3 className="font-serif text-xl text-slate-900 mb-3 group-hover:text-amber-900 transition-colors">
+                      {safeText(item.name)}
+                    </h3>
+                    <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed mb-6">
+                      {safeText(item.description)}
+                    </p>
+                    <div className="flex items-center text-xs font-mono text-amber-800 uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                      {isFr ? "Découvrir" : "Explore"} <ArrowRight className="w-3 h-3 ml-2" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
-      </section>
-    </>
+      </div>
+
+    </div>
   );
 }
