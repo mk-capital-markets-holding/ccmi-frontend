@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ArrowRight, Play, Building2, Globe, Landmark, Shield } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Play, Building2, Shield } from "lucide-react";
 import { useI18n, localizedPath } from "@/i18n/context";
 import { L } from "@/i18n/pick";
 import SEO from "@/components/common/SEO";
 import { MODULES } from "@/data/modules";
 import { INDUSTRIES } from "@/data/industries";
-import { TESTIMONIALS, COMPANY, PARTNERS } from "@/data/companyInfo";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+const PARTNERS = ["MK Capital Markets"];
 
 const Hero = () => {
   const { t, lang } = useI18n();
@@ -20,70 +21,42 @@ const Hero = () => {
       <div className="absolute -top-40 -right-40 w-[720px] h-[720px] rounded-full mk-hero-glow" style={{ background: "radial-gradient(circle, rgba(201,169,97,0.28) 0%, rgba(10,22,40,0) 60%)" }} />
       <div className="absolute inset-0 opacity-25" style={{ background: "url('https://images.pexels.com/photos/1381722/pexels-photo-1381722.jpeg') center/cover", filter: "grayscale(0.6) contrast(1.1)" }} />
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,22,40,0.4) 0%, rgba(10,22,40,0.85) 60%, rgba(10,22,40,1) 100%)" }} />
-      <div className="absolute top-0 left-0 right-0 bg-black/40 border-b border-white/10 overflow-hidden">
-        <div className="flex whitespace-nowrap mk-ticker py-2 text-xs font-mono text-white/60">
-          {Array.from({ length: 2 }).flatMap((_, k) => [
-            t("hero.ticker_1"), t("hero.ticker_2"), t("hero.ticker_3"),
-            t("hero.ticker_4"), t("hero.ticker_5"), t("hero.ticker_6"),
-          ].map((s, i) => <span key={`${k}-${i}`} className="px-8">{s}<span className="text-mk-bronze ml-8">◆</span></span>))}
-        </div>
-      </div>
 
       <div className="container-mk relative py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
         <div className="lg:col-span-8">
-          <div className="overline mb-8" data-testid="hero-kicker">{t("hero.kicker")}</div>
+          {/* SURTITRE */}
+          <div className="overline mb-8" data-testid="hero-kicker">
+            DUBAÏ — AFRIQUE — MARCHÉS DE CAPITAUX
+          </div>
+
+          {/* TITRE PRINCIPAL */}
           <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white max-w-5xl" data-testid="hero-title">
-            {t("hero.title")}
+            Modernisez vos infrastructures de marché avec CCMI.
           </h1>
-          <p className="mt-8 text-lg text-white/70 max-w-2xl leading-relaxed" data-testid="hero-lede">{t("hero.lede")}</p>
+
+          {/* SOUS-TEXTE */}
+          <p className="mt-8 text-lg text-white/70 max-w-2xl leading-relaxed" data-testid="hero-lede">
+            CCMI propulse la digitalisation des marchés financiers en Afrique et dans le Golfe. Une plateforme SaaS modulaire conçue à Dubaï pour interconnecter émetteurs, intermédiaires, investisseurs et régulateurs.
+          </p>
+
           <div className="mt-10 flex flex-wrap gap-3">
             <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink font-medium px-6 py-3.5 hover:bg-mk-bronze2 transition-colors inline-flex items-center gap-2" data-testid="btn-hero-demo">
-              {t("cta.demo")} <ArrowRight className="w-4 h-4" strokeWidth={2} />
+              Réserver une démo <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
             <Link to={p("/contact")} className="border border-white/40 text-white px-6 py-3.5 hover:bg-white hover:text-mk-ink transition-colors inline-flex items-center gap-2" data-testid="btn-hero-contact">
-              {t("cta.contact")}
+              Parler à un expert
             </Link>
             <button className="text-white/70 px-2 py-3.5 hover:text-mk-bronze transition-colors inline-flex items-center gap-2 text-sm" data-testid="btn-hero-play">
               <span className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center"><Play className="w-3.5 h-3.5" /></span>
-              {t("cta.watch_demo")}
+              Voir la plateforme en action (2 min)
             </button>
           </div>
         </div>
         <div className="lg:col-span-4 hidden lg:block">
           <div className="border-l border-mk-bronze/50 pl-6 space-y-6 text-sm text-white/80 font-mono">
-            <div><div className="overline text-white/40">{t("hero.hq")}</div><div className="mt-1">DIFC · Dubai</div></div>
+            <div><div className="overline text-white/40">{t("hero.hq")}</div><div className="mt-1">Dubaï</div></div>
             <div><div className="overline text-white/40">{t("hero.platform")}</div><div className="mt-1">CCMI Enterprise</div></div>
-            <div><div className="overline text-white/40">{lang === "fr" ? "CADRE RÉGLEMENTAIRE" : "REGULATORY FRAMEWORK"}</div><div className="mt-1">COSUMAF / OHADA</div></div>
-            <div><div className="overline text-white/40">{lang === "fr" ? "ARCHITECTURE CLOUD" : "CLOUD ARCHITECTURE"}</div><div className="mt-1">Microsoft Azure</div></div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ValueProp = () => {
-  const { t, lang } = useI18n();
-  const items = [
-    { id: "difc", k: "DIFC", v: lang === "fr" ? "Hub & Juridiction" : "Jurisdiction & Hub" },
-    { id: "cosumaf", k: "COSUMAF", v: lang === "fr" ? "Standards Réglementaires" : "Regulatory Framework" },
-    { id: "azure", k: "Azure", v: lang === "fr" ? "Infrastructure Enterprise" : "Enterprise Infrastructure" },
-    { id: "sla", k: "99.97%", v: lang === "fr" ? "Cible Disponibilité SLA" : "Target Uptime SLA" },
-  ];
-  return (
-    <section className="bg-mk-paper border-y border-mk-line/10" data-testid="value-prop">
-      <div className="container-mk py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-4">
-          <div className="overline mb-4">{t("home.value.overline")}</div>
-          <h2 className="font-serif text-4xl md:text-5xl leading-tight">{t("home.value.title")}</h2>
-        </div>
-        <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-0 border-l border-mk-line/10">
-          {items.map((it) => (
-            <div key={it.id} className="border-r border-b border-mk-line/10 p-6 md:p-8 last:border-r-0">
-              <div className="font-serif text-3xl md:text-4xl text-mk-ink font-bold">{it.k}</div>
-              <div className="text-xs uppercase tracking-widest text-mk-text2 mt-3">{it.v}</div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -160,32 +133,18 @@ const IndustriesStrip = () => {
   );
 };
 
-const Testimonials = () => {
-  const { t, lang } = useI18n();
+const PartnersStrip = () => {
+  const { t } = useI18n();
   return (
-    <section className="bg-mk-paper2 py-24 md:py-32" data-testid="testimonials-section">
-      <div className="container-mk grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {TESTIMONIALS.map((tm, i) => (
-          <figure key={i} className="bg-white border border-mk-line/10 p-8 md:p-10 flex flex-col justify-between">
-            <blockquote className="font-serif text-xl md:text-2xl leading-snug text-mk-ink">"{L(tm.quote, lang)}"</blockquote>
-            <figcaption className="mt-8 pt-6 border-t border-mk-line/10">
-              <div className="text-sm font-medium">{L(tm.author, lang)}</div>
-              <div className="text-xs text-mk-text2 uppercase tracking-wider mt-1">{L(tm.role, lang)}</div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      <div className="container-mk mt-16 overflow-hidden">
+    <section className="bg-mk-paper2 py-16" data-testid="partners-section">
+      <div className="container-mk overflow-hidden">
         <div className="overline text-mk-text2 text-center mb-6">
           {t("home.partners.overline")}
         </div>
-        <div className="flex flex-wrap gap-x-12 gap-y-6 justify-center items-center">
+        <div className="flex justify-center items-center">
           {PARTNERS.map((pn, idx) => (
-            <div
-              key={typeof pn === "object" ? pn.name || idx : idx}
-              className="mk-logo font-serif text-lg text-mk-text2 tracking-wide"
-            >
-              {typeof pn === "object" ? pn.name : pn}
+            <div key={idx} className="mk-logo font-serif text-lg text-mk-text2 tracking-wide">
+              {pn}
             </div>
           ))}
         </div>
@@ -258,8 +217,14 @@ const ConversionCTA = () => {
       <div className="container-mk relative py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <div className="overline mb-4">{t("home.cta.overline")}</div>
-          <h2 className="font-serif text-4xl md:text-5xl leading-tight max-w-lg">{t("home.cta.title")}</h2>
-          <p className="mt-6 text-white/70 max-w-md">{t("home.cta.lede")}</p>
+          <h2 className="font-serif text-4xl md:text-5xl leading-tight max-w-lg">
+            {lang === "fr" ? "Rencontrez l'équipe. Découvrez CCMI." : "Meet the team. Discover CCMI."}
+          </h2>
+          <p className="mt-6 text-white/70 max-w-md">
+            {lang === "fr" 
+              ? "Réservez une session de 45 minutes avec nos architectes de plateforme. Nous vous présenterons une démonstration et une évaluation concrète des capacités de CCMI pour votre institution."
+              : "Book a 45-minute session with our platform architects. We will present a demonstration and a concrete evaluation of CCMI capabilities for your institution."}
+          </p>
         </div>
         <div className="border-l border-mk-bronze/30 pl-8 lg:pl-12">
           <div className="grid grid-cols-2 gap-4 mb-8">
@@ -267,10 +232,14 @@ const ConversionCTA = () => {
             <Link to={p("/investors")} className="border border-white/40 text-white px-5 py-4 hover:bg-white hover:text-mk-ink transition-colors text-center font-medium">{t("nav.investors")}</Link>
           </div>
           <ul className="space-y-3 text-sm text-white/70">
-            <li className="flex gap-3"><Shield className="w-4 h-4 text-mk-bronze mt-0.5" strokeWidth={1.5} />{t("home.cta.bullet_1")}</li>
-            <li className="flex gap-3"><Globe className="w-4 h-4 text-mk-bronze mt-0.5" strokeWidth={1.5} />{t("home.cta.bullet_2")}</li>
-            <li className="flex gap-3"><Landmark className="w-4 h-4 text-mk-bronze mt-0.5" strokeWidth={1.5} />{t("home.cta.bullet_3")}</li>
-            <li className="flex gap-3"><Building2 className="w-4 h-4 text-mk-bronze mt-0.5" strokeWidth={1.5} />{t("home.cta.bullet_4")}</li>
+            <li className="flex gap-3">
+              <Shield className="w-4 h-4 text-mk-bronze mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+              {lang === "fr" ? "Rigueur et conformité réglementaire dès la conception" : "Rigorous regulatory compliance by design"}
+            </li>
+            <li className="flex gap-3">
+              <Building2 className="w-4 h-4 text-mk-bronze mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+              {lang === "fr" ? "Plateforme technologique éditée par MK Capital Markets Technologies" : "Technology platform edited by MK Capital Markets Technologies"}
+            </li>
           </ul>
         </div>
       </div>
@@ -284,14 +253,13 @@ export default function Home() {
     <>
       <SEO
         title={lang === "fr" ? "Infrastructure institutionnelle pour les marchés de capitaux" : "Institutional capital-markets infrastructure"}
-        description={lang === "fr" ? "MK Capital Markets Technologies — plateforme CCMI. Conçue à Dubaï, conçue pour les régulateurs et investisseurs institutionnels de la zone CEMAC." : "MK Capital Markets Technologies — CCMI platform. Dubai-engineered, designed for regulators and institutional investors in the CEMAC region."}
+        description={lang === "fr" ? "MK Capital Markets Technologies — plateforme CCMI." : "MK Capital Markets Technologies — CCMI platform."}
         path="/"
       />
       <Hero />
-      <ValueProp />
       <ModulesGrid />
       <IndustriesStrip />
-      <Testimonials />
+      <PartnersStrip />
       <InsightsPreview />
       <ConversionCTA />
     </>

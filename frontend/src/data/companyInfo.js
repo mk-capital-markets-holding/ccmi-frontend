@@ -82,34 +82,34 @@ export const TIMELINE = [
   {
     year: "2026",
     title: {
-      en: "Incorporation & Pilot Partnership",
-      fr: "Création & Partenariats Pilotes",
+      fr: "Conception & Spécifications Techniques",
+      en: "Design & Technical Specifications",
     },
     body: {
-      en: "Incorporation of MK Capital Markets Technologies & Holding L.L.C-FZ in Dubai, website launch, MVP prototype development, and recruitment of pilot partners in the CEMAC region.",
-      fr: "Création de la Holding à Dubaï, lancement du site web, développement du prototype MVP et recrutement des partenaires pilotes dans la zone CEMAC.",
+      fr: "Spécification fonctionnelle et technique de la plateforme CCMI (FRD Livrables 1 à 5). Développement de la Solution 1 (Party Lifecycle & Compliance) et mise en place du Party Master.",
+      en: "Functional and technical specifications of the CCMI platform (FRD Deliverables 1 to 5). Development of Solution 1 (Party Lifecycle & Compliance) and core Party Master setup.",
     },
   },
   {
     year: "2027",
     title: {
-      en: "Commercial Launch & CEMAC Expansion",
-      fr: "Lancement Commercial & Expansion CEMAC",
+      fr: "Déploiement du Noyau & Intégrations",
+      en: "Core Deployment & Integrations",
     },
     body: {
-      en: "Official platform launch, deployment across brokerage firms and asset managers, and establishment of local African operations via MKCM Consulting.",
-      fr: "Lancement officiel de la plateforme CCMI, déploiement auprès des sociétés de bourse et sociétés de gestion, et ancrage local via MKCM Consulting.",
+      fr: "Déploiement en production du référentiel d'identités (Golden Record), intégration des workflows KYC/KYB dynamique et interconnexion par API / Kafka.",
+      en: "Production deployment of the master identity repository (Golden Record), integration of dynamic KYC/KYB workflows, and API / Kafka interconnectivity.",
     },
   },
   {
     year: "2028+",
     title: {
-      en: "Pan-African Expansion & Global Gateway",
-      fr: "Expansion Pan-Africaine & Passerelle Globale",
+      fr: "Évolution & Interopérabilité",
+      en: "Evolution & Interoperability",
     },
     body: {
-      en: "Scaling across broader African capital markets and integrating international investment gateways.",
-      fr: "Déploiement à l'échelle pan-africaine et intégration de passerelles d'investissement internationales.",
+      fr: "Extension de la plateforme aux modules adjacents, automatisation continue des contrôles de conformité et support d'architectures multi-tenants à grande échelle.",
+      en: "Platform extension to adjacent modules, continuous compliance automation, and support for large-scale multi-tenant architectures.",
     },
   },
 ];
