@@ -51,9 +51,9 @@ export const MODULES = [
       { title: { en: "Audit Trail", fr: "Audit Trail & Reporting" }, detail: { en: "Complete audit trail & regulatory reporting", fr: "Historique complet, audit trail & reporting réglementaire" }, en: "Complete Audit Trail & Regulatory Reporting", fr: "Historique complet, Audit Trail & Reporting réglementaire" }
     ],
     benefits: [
-      { kpi: "100%", label: { en: "compliant onboarding", fr: "onboarding conforme" } },
-      { kpi: "FATF", label: { en: "aligned standards", fr: "normes alignées" } },
-      { kpi: "T+0", label: { en: "audit readiness", fr: "disponibilité d'audit" } }
+      { label: { en: "Conformité Normative", fr: "Conformité Normative" }, desc: { en: "Aligned with FATF, ESAAMLG, and GIABA standards.", fr: "Alignement strict sur les normes GAFI, ESAAMLG et GIABA." } },
+      { label: { en: "Onboarding Dématérialisé", fr: "Onboarding Dématérialisé" }, desc: { en: "100% digital KYC/KYB screening and document collection.", fr: "Parcours KYC/KYB et collecte documentaire 100 % digitaux." } },
+      { label: { en: "Piste d'Audit Immuable", fr: "Piste d'Audit Immuable" }, desc: { en: "Full auditability for internal control and regulators.", fr: "Traçabilité complète pour les contrôles internes et le régulateur." } }
     ],
     architecture: [
       { en: "Automated KYC/AML Engine", fr: "Moteur KYC/AML automatisé" },
@@ -97,9 +97,9 @@ export const MODULES = [
       { title: { en: "Audit Trail", fr: "Audit Trail Immuable" }, detail: { en: "Immutable system audit trail", fr: "Historique complet & audit trail immuable" }, en: "Immutable System Audit Trail", fr: "Historique complet & Audit Trail immuable" }
     ],
     benefits: [
-      { kpi: "100%", label: { en: "dematerialized registers", fr: "registres dématérialisés" } },
-      { kpi: "Real-time", label: { en: "Cap Table updates", fr: "mise à jour Cap Table" } },
-      { kpi: "QR Code", label: { en: "instant verification", fr: "vérification instantanée" } }
+      { label: { en: "Registre Dématérialisé", fr: "Registre Dématérialisé" }, desc: { en: "Legal source of truth for shares and bonds.", fr: "Source de vérité juridique unique pour actions et obligations." } },
+      { label: { en: "Mise à jour en Temps Réel", fr: "Mise à jour en Temps Réel" }, desc: { en: "Instant Cap Table updates following corporate actions.", fr: "Mise à jour instantanée de la Cap Table après chaque opération." } },
+      { label: { en: "Authentification Sécurisée", fr: "Authentification Sécurisée" }, desc: { en: "QR Code verification for digital certificates.", fr: "Vérification par QR Code des certificats et attestation de propriété." } }
     ],
     architecture: [
       { en: "Event-driven Share Ledger", fr: "Registre de titres événementiel" },
@@ -141,9 +141,9 @@ export const MODULES = [
       { title: { en: "Digital Subscription", fr: "Phase 4 – Digital Subscription" }, detail: { en: "E-sign, payment, allocation & certificates", fr: "Souscription en ligne, allocation & certificats" }, en: "Phase 4 - Digital Subscription: E-sign, Payment, Allocation & Certificates", fr: "Phase 4 – Digital Subscription : Souscription en ligne, Allocation & Certificats" }
     ],
     benefits: [
-      { kpi: "4-Phase", label: { en: "structured deal flow", fr: "déroulement structuré" } },
-      { kpi: "-60%", label: { en: "execution duration", fr: "durée d'exécution" } },
-      { kpi: "100%", label: { en: "digital subscriptions", fr: "souscriptions en ligne" } }
+      { label: { en: "Processus en 4 Phases", fr: "Processus en 4 Phases" }, desc: { en: "End-to-end structured deal flow management.", fr: "Gestion structurée et guidée de l'ensemble de l'opération." } },
+      { label: { en: "Exécution Optimisée", fr: "Exécution Optimisée" }, desc: { en: "Centralized due diligence and automated workflows.", fr: "Workflows automatisés et centralisation des due diligences." } },
+      { label: { en: "Souscription 100% Digitale", fr: "Souscription 100% Digitale" }, desc: { en: "Online allocation, electronic signatures, and digital certs.", fr: "Bulletins de souscription et signatures entièrement en ligne." } }
     ],
     architecture: [
       { en: "Virtual Data Room (VDR) Engine", fr: "Moteur de Data Room Virtuelle (VDR)" },
@@ -187,9 +187,9 @@ export const MODULES = [
       { title: { en: "IPO Readiness", fr: "Diagnostic IPO" }, detail: { en: "IPO score, governance audit & gap analysis", fr: "Score de maturité, audit gouvernance & plan d'action" }, en: "IPO Readiness Assessment (IPO Score, Governance Audit & Gap Analysis)", fr: "IPO Readiness (Score de maturité, Audit gouvernance & Plan d'action)" }
     ],
     benefits: [
-      { kpi: "DCF", label: { en: "pre-calibrated models", fr: "modèles pré-calibrés" } },
-      { kpi: "100%", label: { en: "auditable calculations", fr: "calculs auditables" } },
-      { kpi: "WACC", label: { en: "automated dynamic WACC", fr: "WACC dynamique automatisé" } }
+      { label: { en: "Modèles Calibrés", fr: "Modèles Calibrés" }, desc: { en: "DCF, WACC, and multiples tailored for regional markets.", fr: "Modèles de valorisation adaptés au contexte des marchés émergents." } },
+      { label: { en: "Transparence des Calculs", fr: "Transparence des Calculs" }, desc: { en: "Audit-ready financial modeling logic.", fr: "Calculs entièrement traçables pour la validation financière." } },
+      { label: { en: "Simulations Dynamiques", fr: "Simulations Dynamiques" }, desc: { en: "Interactive dilution and debt schedule stress-testing.", fr: "Simulation d'impact en temps réel sur la table de capitalisation." } }
     ],
     architecture: [
       { en: "Quantitative Financial Analytics Engine", fr: "Moteur d'analyse financière quantitative" },
@@ -232,9 +232,9 @@ export const MODULES = [
       { title: { en: "Push Notifications", fr: "Notifications Temps Réel" }, detail: { en: "Real-time push notifications & integrated support", fr: "Notifications en temps réel & support intégré" }, en: "Real-time Push Notifications & Integrated Support", fr: "Notifications en temps réel & Support intégré" }
     ],
     benefits: [
-      { kpi: "24/7", label: { en: "investor self-service access", fr: "accès autonome 24/7" } },
-      { kpi: "100%", label: { en: "digital ownership certificates", fr: "certificats numériques" } },
-      { kpi: "Mobile", label: { en: "first responsive design", fr: "design mobile-first" } }
+      { label: { en: "Accès Autonome 24/7", fr: "Accès Autonome 24/7" }, desc: { en: "Self-service ownership statement consulting.", fr: "Consultation sécurisée des avoirs à tout moment." } },
+      { label: { en: "Attestations Numériques", fr: "Attestations Numériques" }, desc: { en: "Instant generation of verifiable ownership proofs.", fr: "Génération instantanée de certificats de propriété vérifiables." } },
+      { label: { en: "Expérience Mobile-First", fr: "Expérience Mobile-First" }, desc: { en: "Interface optimized for smartphones and tablets.", fr: "Interface fluide et adaptée à tous les écrans." } }
     ],
     architecture: [
       { en: "React / Next.js Responsive Client Portal", fr: "Portail client React / Next.js responsive" },
@@ -276,9 +276,9 @@ export const MODULES = [
       { title: { en: "Risk Dashboard", fr: "Tableau de Bord de Risque" }, detail: { en: "Institutional risk dashboard & real-time market data", fr: "Tableau de bord de risque & market data en temps réel" }, en: "Institutional Risk Dashboard & Real-Time Market Data", fr: "Tableau de bord de Risque & Market Data en temps réel" }
     ],
     benefits: [
-      { kpi: "Multi", label: { en: "broker integration", fr: "intégration multi-courtiers" } },
-      { kpi: "Global", label: { en: "US, EU & African markets", fr: "marchés US, EU & Afrique" } },
-      { kpi: "FX", label: { en: "real-time currency conversion", fr: "conversion devises temps réel" } }
+      { label: { en: "Intégration Multi-Courtiers", fr: "Intégration Multi-Courtiers" }, desc: { en: "Single-window connectivity to international brokers.", fr: "Centralisation des comptes auprès de multiples courtiers." } },
+      { label: { en: "Aperçu Multi-Marchés", fr: "Aperçu Multi-Marchés" }, desc: { en: "Consolidated tracking across US, EU, and African assets.", fr: "Vision consolidée des actifs régionaux et internationaux." } },
+      { label: { en: "Conversion Multi-Devises", fr: "Conversion Multi-Devises" }, desc: { en: "Real-time portfolio revaluation in native currencies.", fr: "Réévaluation automatique en temps réel (USD, EUR, XOF, XAF)." } }
     ],
     architecture: [
       { en: "Broker API Bridge & FIX Protocol", fr: "Passerelle API Broker & Protocole FIX" },

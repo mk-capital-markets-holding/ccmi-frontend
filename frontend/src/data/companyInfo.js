@@ -117,34 +117,44 @@ export const TIMELINE = [
 export const VALUES = [
   {
     title: {
-      en: "Regulatory Compliance & Integrity",
       fr: "Rigueur Réglementaire & Intégrité",
+      en: "Regulatory Rigor & Integrity"
     },
     body: {
-      en: "We design software embedded directly with financial regulatory requirements (COSUMAF, OHADA) ensuring strict auditability and transparency.",
-      fr: "Nous concevons des logiciels intégrant nativement les exigences des régulateurs (COSUMAF, OHADA), garantissant traçabilité et transparence.",
-    },
+      fr: "Nous concevons des logiciels intégrant nativement les exigences des régulateurs et des autorités de marché, garantissant traçabilité et transparence.",
+      en: "We design software natively embedding regulatory requirements and market guidelines, ensuring full traceability and transparency."
+    }
   },
   {
     title: {
-      en: "Institutional Engineering Standard",
       fr: "Excellence d'Ingénierie Institutionnelle",
+      en: "Institutional Engineering Excellence"
     },
     body: {
-      en: "High-performance FastAPI backends, secure role-based access control, and bank-grade data encryption for sensitive financial records.",
-      fr: "Backends FastAPI haute performance, contrôle d'accès strict (RBAC) et chiffrement de niveau bancaire des données financières sensibles.",
-    },
+      fr: "Infrastructures hautement disponibles, contrôles d'accès stricts (RBAC) et chiffrement de niveau bancaire des données financières sensibles.",
+      en: "High-availability infrastructures, strict Role-Based Access Control (RBAC), and bank-grade encryption for sensitive financial data."
+    }
   },
   {
     title: {
-      en: "Financial Inclusion & Modernization",
       fr: "Modernisation & Inclusivité des Marchés",
+      en: "Market Modernization & Inclusivity"
     },
     body: {
-      en: "Democratizing corporate finance tools for mid-market issuers and regional market participants through automated, intuitive workflows.",
-      fr: "Démocratisation de l'ingénierie financière et de la gouvernance pour les PME/ETI et intermédiaires du marché grâce à l'automatisation SaaS.",
-    },
+      fr: "Démocratisation de l'ingénierie financière et de la gouvernance pour les émetteurs et intermédiaires du marché grâce à l'automatisation SaaS.",
+      en: "Democratization of financial engineering and governance for issuers and market intermediaries through SaaS automation."
+    }
   },
+  {
+    title: {
+      fr: "Souveraineté & Résilience des Données",
+      en: "Data Sovereignty & Resilience"
+    },
+    body: {
+      fr: "Protection rigoureuse et hébergement sécurisé garantissant l'indépendance opérationnelle et la continuité de service des acteurs de marché.",
+      en: "Rigorous protection and secure hosting ensuring operational independence and service continuity for market participants."
+    }
+  }
 ];
 
 export const TESTIMONIALS = [

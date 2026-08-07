@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import SEO from "@/components/common/SEO";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
-import { getIndustry, INDUSTRIES } from "@/data/industries";
+import { getIndustry } from "@/data/industries";
 import { MODULES } from "@/data/modules";
 import { useI18n, localizedPath } from "@/i18n/context";
 import { L } from "@/i18n/pick";
@@ -12,7 +12,9 @@ export default function IndustryPage() {
   const { lang, t } = useI18n();
   const p = (path) => localizedPath(path, lang);
   const ind = getIndustry(slug);
+  
   if (!ind) return <Navigate to={p("/industries")} replace />;
+  
   const modules = ind.relevantModules.map(s => MODULES.find(m => m.slug === s)).filter(Boolean);
   const indName = L(ind.name, lang);
 
@@ -20,6 +22,7 @@ export default function IndustryPage() {
     <>
       <SEO title={`${indName} — CCMI`} description={L(ind.lede, lang)} path={`/industries/${ind.slug}`} image={ind.heroImg} />
 
+      {/* Hero Section */}
       <section className="bg-mk-ink text-white pt-16 pb-24 mk-grain relative overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{ background: `url(${ind.heroImg}) center/cover`, filter: "grayscale(0.7)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,22,40,0.7), rgba(10,22,40,0.95))" }} />
@@ -38,6 +41,7 @@ export default function IndustryPage() {
         </div>
       </section>
 
+      {/* Defis et Solutions */}
       <section className="bg-mk-paper py-24">
         <div className="container-mk grid grid-cols-1 lg:grid-cols-2 gap-0 border border-mk-line/15">
           <div className="p-10 md:p-14 border-b lg:border-b-0 lg:border-r border-mk-line/15">
@@ -67,17 +71,23 @@ export default function IndustryPage() {
         </div>
       </section>
 
+      {/* Piliers de valeur (Qualitatif - Sans faux chiffres) */}
       <section className="bg-mk-paper2 py-16">
         <div className="container-mk grid grid-cols-1 md:grid-cols-3 gap-0 border border-mk-line/15">
           {ind.benefits.map((b, i) => (
             <div key={i} className={`p-10 ${i > 0 ? "md:border-l border-mk-line/15" : ""}`}>
-              <div className="font-serif text-5xl md:text-6xl text-mk-ink">{b.kpi}</div>
-              <div className="mt-3 overline text-mk-text2">{L(b.label, lang)}</div>
+              <div className="font-serif text-2xl font-bold text-mk-ink uppercase tracking-wide">
+                {L(b.label, lang)}
+              </div>
+              <div className="mt-3 text-sm text-mk-text2 leading-relaxed">
+                {b.desc ? L(b.desc, lang) : L(b.label, lang)}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* Modules associes */}
       <section className="bg-mk-paper py-24">
         <div className="container-mk">
           <div className="overline mb-3">{t("indp.modules.overline")}</div>
@@ -95,14 +105,23 @@ export default function IndustryPage() {
         </div>
       </section>
 
+      {/* Appel a l'action Institutionnel (Replaces Case Study) */}
       <section className="bg-mk-ink text-white py-24 mk-grain">
         <div className="container-mk max-w-4xl">
-          <div className="overline mb-3">{t("indp.case.overline")}</div>
-          <h2 className="font-serif text-3xl md:text-4xl mb-8">{L(ind.caseStudy.client, lang)}</h2>
-          <blockquote className="font-serif text-2xl md:text-3xl leading-snug text-white/95 border-l-2 border-mk-bronze pl-6">{L(ind.caseStudy.outcome, lang)}</blockquote>
-          <div className="mt-12 flex gap-3">
-            <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink px-5 py-3 hover:bg-mk-bronze2 transition-colors">{t("cta.demo")}</Link>
-            <Link to={p("/industries")} className="border border-white/40 px-5 py-3 hover:bg-white hover:text-mk-ink transition-colors">{t("cta.all_industries")}</Link>
+          <div className="overline mb-3">Déploiement & Projets Pilotes</div>
+          <h2 className="font-serif text-3xl md:text-4xl mb-6">
+            Modernisez vos infrastructures financières dès aujourd'hui
+          </h2>
+          <blockquote className="font-serif text-xl md:text-2xl leading-relaxed text-white/90 border-l-2 border-mk-bronze pl-6">
+            Découvrez comment l'architecture modulaire CCMI s'adapte à vos contraintes réglementaires et opérationnelles.
+          </blockquote>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link to={p("/contact")} className="bg-mk-bronze text-mk-ink font-medium px-6 py-3 hover:bg-mk-bronze2 transition-colors">
+              Demander une démonstration
+            </Link>
+            <Link to={p("/industries")} className="border border-white/40 px-6 py-3 hover:bg-white hover:text-mk-ink transition-colors">
+              {t("cta.all_industries")}
+            </Link>
           </div>
         </div>
       </section>

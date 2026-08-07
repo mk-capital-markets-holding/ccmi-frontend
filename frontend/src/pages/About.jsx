@@ -69,12 +69,13 @@ export default function About() {
           </div>
         </div>
       </section>
-{/* TIMELINE SECTION */}
+
+      {/* TIMELINE SECTION (Format épuré : Années + Grandes lignes uniquement) */}
       <section className="bg-mk-paper2 py-24" data-testid="about-timeline">
         <div className="container-mk">
           <div className="relative">
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-mk-line/20" />
-            <ol className="space-y-10">
+            <ol className="space-y-12">
               {TIMELINE.map((it, i) => (
                 <li
                   key={it.year}
@@ -87,18 +88,15 @@ export default function About() {
                       i % 2 === 0
                         ? "text-right md:pr-16"
                         : "col-start-2 md:pl-16"
-                    } relative pl-10 md:pl-0`}
+                    } relative pl-10 md:pl-0 flex flex-col justify-center`}
                   >
                     <span className="absolute left-2 md:left-1/2 md:-translate-x-1/2 top-2 w-3 h-3 bg-mk-bronze block" />
-                    <div className="font-serif text-4xl text-mk-ink">
+                    <div className="font-serif text-4xl md:text-5xl text-mk-ink font-medium">
                       {it.year}
                     </div>
-                    <div className="mt-1 text-sm font-medium text-mk-bronze2 uppercase tracking-wider">
+                    <div className="mt-2 text-sm font-medium text-mk-bronze2 uppercase tracking-wider">
                       {L(it.title, lang)}
                     </div>
-                    <p className="mt-3 text-mk-text2 max-w-md md:max-w-none md:ml-auto">
-                      {L(it.body, lang)}
-                    </p>
                   </div>
                 </li>
               ))}

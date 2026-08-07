@@ -6,9 +6,10 @@ export const FOUNDER = {
   entity: "MK Capital Markets Technologies & Holding L.L.C-FZ",
   location: "Dubai • UAE",
   experienceYears: "17+ YEARS OF EXPERIENCE",
-  portrait: "/images/florent-makanda.jpg", // À adapter selon ton asset
-  
-  expertise: [
+
+portrait: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
+
+expertise: [
     { en: "Capital Markets", fr: "Marchés de Capitaux" },
     { en: "Investment Banking", fr: "Banque d'Investissement" },
     { en: "Electronic Trading", fr: "Trading Électronique" },

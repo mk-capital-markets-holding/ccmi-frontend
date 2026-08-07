@@ -8,16 +8,6 @@ import { useI18n, localizedPath } from "@/i18n/context";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-// KPI keys — value labels come from translations
-const KPIS = [
-  { k: "USD 42B", vk: "inv.stat.aum" },
-  { k: "6", vk: "inv.stat.exchanges" },
-  { k: "1.24M", vk: "inv.stat.investors" },
-  { k: "99.97%", vk: "inv.stat.uptime" },
-  { k: "USD 18M", vk: "inv.stat.series_a" },
-  { k: "14", vk: "inv.stat.countries" },
-];
-
 const PUBLIC_SECTIONS = [
   { kickerKey: "inv.sec.vision", titleKey: "inv.sec.vision.title", bodyKey: "inv.sec.vision.body" },
   { kickerKey: "inv.sec.market", titleKey: "inv.sec.market.title", bodyKey: "inv.sec.market.body" },
@@ -99,11 +89,7 @@ export default function Investors() {
               <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">{t("inv.lede")}</p>
             </div>
           </div>
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-6 gap-px bg-white/10 border border-white/10">
-            {KPIS.map(x => (
-              <div key={x.vk} className="bg-mk-ink p-6"><div className="font-serif text-2xl md:text-3xl">{x.k}</div><div className="text-xs uppercase tracking-widest text-white/50 mt-2">{t(x.vk)}</div></div>
-            ))}
-          </div>
+          {/* Le bloc de statistiques fictives a été complètement supprimé ici */}
         </div>
       </section>
 
